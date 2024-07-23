@@ -6,7 +6,6 @@ class ContactDataSource(application: Application) {
     companion object{
         @Volatile
         private var INSTANCE: ContactDataSource? = null
-        private lateinit var ContactEntities:ArrayList<ContactEntity>
 
 
         fun getCacheDataSource(application: Application): ContactDataSource {
