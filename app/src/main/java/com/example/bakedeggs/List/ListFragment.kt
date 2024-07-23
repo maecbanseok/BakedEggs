@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactDataSource
 import com.example.bakedeggs.data.ContactRepositoryImpl
@@ -32,6 +34,7 @@ class ListFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +46,13 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val serviceLocator = ServiceLocator.getInstance(requireActivity().application) as ServiceLocator
         val repository = serviceLocator.contactDataSource.ContactEntities
+
+        /*val adapter = ListAdapter(arrayList)
+        val listRecyclerView : RecyclerView = findViewById(R.id.list_recyclerview)
+        listRecyclerView.layoutManager = LinearLayoutManager(this)
+        listRecyclerView.adapter = adapter*/
+
+
     }
 
     companion object {

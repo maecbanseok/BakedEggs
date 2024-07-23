@@ -42,16 +42,6 @@ class MainActivity : AppCompatActivity() {
         }
         val serviceLocator = ServiceLocator.getInstance(application) as ServiceLocator
 
-        val showGridBtn = binding.mainBtnGrid
-        val showListBtn = binding.mainBtnList
-        showListBtn.setOnClickListener {
-            val adapter = ListAdapter(arrayList)
-            val listRecyclerView : RecyclerView = findViewById(R.id.list_recyclerview)
-            listRecyclerView.layoutManager = LinearLayoutManager(this)
-            listRecyclerView.adapter = adapter
-        }
-
-
 
         binding.mainLlGridlist.setOnClickListener{
             binding.mainViewWhitebtn.callOnClick()
