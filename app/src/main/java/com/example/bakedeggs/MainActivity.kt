@@ -1,5 +1,7 @@
 package com.example.bakedeggs
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -37,15 +39,22 @@ class MainActivity : AppCompatActivity() {
         }
         val serviceLocator=ServiceLocator.getInstance(application)
 
+        getPermission()
 
-        binding.mainLlGridlist.setOnClickListener{
-            binding.mainViewWhitebtn.callOnClick()
-            isGrid=!isGrid
-            lifecycleScope.launch {
-                EventBus.produceEvent(isGrid)
+    }
+
+    fun getPermission(){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS, android.Manifest.permission.INTERNET)
+        var flag=false
+        for(i in permissions){
+            if(checkSelfPermission(i)== PackageManager.PERMISSION_DENIED){
+                flag=true
             }
         }
-
+        if(flag) requestPermissions(permissions,0)
+        else initView()
 
     }
 
@@ -70,15 +79,37 @@ class MainActivity : AppCompatActivity() {
                 isContact=!isContact
                 setFragment(isContact)
             }
+
+            mainFbtnAdd.setOnClickListener{
+
+            }
+
+            mainFbtnAddalarm.setOnClickListener {
+
+            }
         }
     }
-        //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){
 
         }else{
 
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode ==0){
+            var flag=true
+            for(i in grantResults){
+                if(i!=PackageManager.PERMISSION_GRANTED) flag=false
+            }
+            if(flag) initView()
         }
     }
 }
