@@ -30,6 +30,7 @@ fun contactList(context: Context):ArrayList<ContactEntity>{
     return list.sortBy{it.name} as ArrayList<ContactEntity>
 }
 
+
 fun convertString(s:String):String{
     val result=StringBuilder()
     for(i in s){
