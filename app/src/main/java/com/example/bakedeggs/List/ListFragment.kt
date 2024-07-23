@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.bakedeggs.R
+import com.example.bakedeggs.data.ContactDataSource
+import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.data.ServiceLocator
 
 private const val ARG_PARAM1 = "param1"

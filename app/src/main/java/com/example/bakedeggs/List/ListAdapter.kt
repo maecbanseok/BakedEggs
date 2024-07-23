@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
-class ListAdapter(val arrayList : ArrayList<ContactEntity>) :
+class ListAdapter() :
     RecyclerView.Adapter<ListAdapter.ListHolder>() {
 
     class ListHolder(val binding: ListRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root)
@@ -16,6 +15,10 @@ class ListAdapter(val arrayList : ArrayList<ContactEntity>) :
         val imgUri = binding.listIvProfile
     }
 
+
+//    class GridHolder(val binding : GridRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root){
+//        val name = binding
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAdapter.ListHolder {
         val binding =

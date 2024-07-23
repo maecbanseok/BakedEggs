@@ -11,6 +11,8 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.bakedeggs.data.EventBus
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.List.ListAdapter
@@ -18,12 +20,16 @@ import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    var isGrid = false
+    var isContact = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +52,49 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
+        binding.mainLlGridlist.setOnClickListener{
+            binding.mainViewWhitebtn.callOnClick()
+            isGrid=!isGrid
+            lifecycleScope.launch {
+                EventBus.produceEvent(isGrid)
+            }
+        }
+
+
+    }
+
+    fun initView(){
+
+        with(binding){
+            mainLlGridlist.setOnClickListener{
+                binding.mainViewWhitebtn.callOnClick()
+                isGrid=!isGrid
+                lifecycleScope.launch {
+                    EventBus.produceEvent(isGrid)
+                }
+            }
+
+            mainBtnContact.setOnClickListener {
+                if(isContact) return@setOnClickListener
+                isContact=!isContact
+                setFragment(isContact)
+            }
+            mainBtnMypage.setOnClickListener {
+                if(!isContact) return@setOnClickListener
+                isContact=!isContact
+                setFragment(isContact)
+            }
+        }
+    }
+        //if -> list or grid에 따라 선택
     //if -> list or grid에 따라 선택
 
+    fun setFragment(isContact: Boolean){
+        if(isContact){
 
+        }else{
+
+        }
     }
 }

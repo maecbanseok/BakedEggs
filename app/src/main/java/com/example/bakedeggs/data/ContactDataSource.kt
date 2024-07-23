@@ -8,7 +8,7 @@ class ContactDataSource(application: Application) {
         private var INSTANCE: ContactDataSource? = null
 
 
-        fun getCacheDataSource(application: Application): ContactDataSource {
+        fun getContactDataSource(application: Application): ContactDataSource {
             return synchronized(this) {
                 val newInstance = INSTANCE ?: ContactDataSource(application)
                 INSTANCE = newInstance

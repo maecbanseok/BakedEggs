@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/list_name_1"
+        android:text=""
         style="@style/listView_myCard_name_16"
         app:layout_constraintStart_toEndOf="@+id/list_iv_profile"
         app:layout_constraintTop_toTopOf="@+id/list_iv_profile" />
