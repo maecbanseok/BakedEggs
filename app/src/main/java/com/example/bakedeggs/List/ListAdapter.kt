@@ -10,6 +10,10 @@ class ListAdapter() :
     RecyclerView.Adapter<ListAdapter.ListHolder>() {
 
     class ListHolder(val binding: ListRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root)
+    {
+        val name = binding.listTvName
+        val imgUri = binding.listIvProfile
+    }
 
 
 //    class GridHolder(val binding : GridRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root){

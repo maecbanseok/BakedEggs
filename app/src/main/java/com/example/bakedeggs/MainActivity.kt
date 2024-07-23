@@ -26,6 +26,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.data.EventBus
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.List.ListAdapter
+import com.example.bakedeggs.data.ContactEntity
+import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.data.callHistory
 import com.example.bakedeggs.databinding.ActivityMainBinding
@@ -73,17 +78,12 @@ class MainActivity : AppCompatActivity() {
                 flag=true
             }
         }
-        if(flag) requestPermissions(permissions,0)
-        else initView()
+
 
     }
 
     fun initView(){
 
-        val a=serviceLocator.contactRepositoryImpl.getCallLogs()
-        for(i in a){
-            println("${i}")
-        }
         with(binding){
             mainLlGridlist.setOnClickListener{
                 binding.mainViewWhitebtn.callOnClick()
@@ -137,6 +137,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+        //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){
