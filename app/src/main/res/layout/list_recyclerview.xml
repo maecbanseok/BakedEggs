@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/list_iv_profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/list_shp"
+        android:clipToOutline="true"
+        android:src="@drawable/list_image_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/list_tv_name"
+        style="@style/listView_name_title_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="text1"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/list_iv_profile"
+        app:layout_constraintStart_toEndOf="@+id/list_iv_profile"
+        app:layout_constraintTop_toTopOf="@+id/list_iv_profile" />
+
+    <ImageView
+        android:id="@+id/list_iv_star"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintBottom_toBottomOf="@+id/list_tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/list_tv_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
