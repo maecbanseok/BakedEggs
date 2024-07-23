@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bakedeggs.databinding.GridRecyclerviewBinding
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
 class ListAdapter() :
@@ -21,6 +20,10 @@ class ListAdapter() :
         val binding =
             ListRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListHolder(binding)
+    }
+
+    override fun getItemCount(): Int {
+        TODO("Not yet implemented")
     }
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {

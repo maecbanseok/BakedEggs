@@ -19,36 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/main_btn_grid"
-                android:layout_width="0dp"
-                android:layout_height="30sp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/main_gridviewbtn"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/main_btn_list"
-                android:layout_width="0dp"
-                android:layout_height="30sp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/main_listviewbtn"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
-
         <androidx.constraintlayout.motion.widget.MotionLayout
             app:layoutDescription="@xml/main_motion"
             android:layout_width="match_parent"
@@ -66,6 +36,41 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
+        <LinearLayout
+            android:id="@+id/main_ll_gridlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/main_btn_grid"
+                android:layout_width="0dp"
+                android:layout_height="30sp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="@string/main_gridviewbtn"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:clickable="false"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/main_btn_list"
+                android:layout_width="0dp"
+                android:layout_height="30sp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/main_listviewbtn"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:clickable="false"/>
+        </LinearLayout>
+
+
+
     </FrameLayout>
 
     <FrameLayout
@@ -77,6 +82,30 @@
         app:layout_constraintTop_toBottomOf="@+id/main_framelayout">
 
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fbtn_add"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            app:shapeAppearance="?attr/cornerFamily"
+            android:backgroundTint="@color/white"
+            app:fabCustomSize="48dp"
+            android:src="@drawable/ic_add" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fbtn_addalarm"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="64dp"
+            android:layout_marginRight="8dp"
+            android:clickable="true"
+            app:shapeAppearance="?attr/cornerFamily"
+            android:backgroundTint="@color/white"
+            app:fabCustomSize="48dp"
+            android:src="@drawable/ic_add_alarm" />
     </FrameLayout>
 
     <LinearLayout
@@ -105,6 +134,7 @@
             android:background="@color/cardBackground"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/main_btn_mypage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
