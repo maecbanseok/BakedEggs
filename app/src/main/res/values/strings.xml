@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">BakedEggs</string>
+    <string name="main_gridviewbtn">GridView</string>
+    <string name="main_listviewbtn">ListView</string>
+    <string name="main_contactbtn">contact</string>
+    <string name="main_mypagebtn">mypage</string>
 
     <!-- MainPage -->
 
