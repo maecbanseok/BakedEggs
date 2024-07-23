@@ -13,6 +13,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.data.EventBus
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.List.ListAdapter
+import com.example.bakedeggs.data.ContactEntity
+import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
@@ -35,7 +40,17 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val serviceLocator=ServiceLocator.getInstance(application)
+        val serviceLocator = ServiceLocator.getInstance(application) as ServiceLocator
+
+        val showGridBtn = binding.mainBtnGrid
+        val showListBtn = binding.mainBtnList
+        showListBtn.setOnClickListener {
+            val adapter = ListAdapter(arrayList)
+            val listRecyclerView : RecyclerView = findViewById(R.id.list_recyclerview)
+            listRecyclerView.layoutManager = LinearLayoutManager(this)
+            listRecyclerView.adapter = adapter
+        }
+
 
 
         binding.mainLlGridlist.setOnClickListener{
@@ -73,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
         //if -> list or grid에 따라 선택
+    //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){
