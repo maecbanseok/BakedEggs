@@ -14,5 +14,5 @@ class ServiceLocator(application: Application) {
         }
     }
 
-    val contactDataSource by lazy { ContactDataSource.getContactDataSource(application) }
+    val contactRepositoryImpl by lazy { ContactRepositoryImpl(ContactDataSource.getContactDataSource(application)) }
 }

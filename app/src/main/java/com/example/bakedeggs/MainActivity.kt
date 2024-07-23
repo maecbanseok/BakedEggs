@@ -27,6 +27,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.data.ServiceLocator
+import com.example.bakedeggs.data.callHistory
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
 import kotlinx.coroutines.launch
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     private val myNotificationID = 1
     private val channelID = "default"
 
+    private lateinit var serviceLocator: ServiceLocator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val serviceLocator=ServiceLocator.getInstance(application)
+        serviceLocator=ServiceLocator.getInstance(application)
 
         getPermission()
         createNotificationChannel()
@@ -62,7 +65,8 @@ class MainActivity : AppCompatActivity() {
     fun getPermission(){
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
         val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
-            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS, android.Manifest.permission.INTERNET)
+            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
+            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
         var flag=false
         for(i in permissions){
             if(checkSelfPermission(i)== PackageManager.PERMISSION_DENIED){
@@ -76,6 +80,10 @@ class MainActivity : AppCompatActivity() {
 
     fun initView(){
 
+        val a=serviceLocator.contactRepositoryImpl.getCallLogs()
+        for(i in a){
+            println("${i}")
+        }
         with(binding){
             mainLlGridlist.setOnClickListener{
                 binding.mainViewWhitebtn.callOnClick()
