@@ -42,7 +42,7 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val serviceLocator = ServiceLocator.getInstance(requireActivity().application) as ServiceLocator
-        val repository = serviceLocator.contactDataSource.ContactEntities
+        val repository = serviceLocator.contactRepositoryImpl.getContactList()
     }
 
     companion object {

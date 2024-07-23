@@ -34,8 +34,6 @@ class ListAdapter() :
         holder.itemView.setOnClickListener{ listClick?.onClick(it, position) }
         holder.itemView.setOnClickListener { listClick?.onPressed(it, position) }
 
-        holder.name.text = arrayList[position].name
-        holder.imgUri.
         //if -> 즐겨찾기인지 아닌지 확인하는 구문
     }
 
