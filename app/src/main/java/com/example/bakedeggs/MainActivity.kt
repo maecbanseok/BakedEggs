@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,8 +29,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val serviceLocator=ServiceLocator.getInstance(application)
+        val serviceLocator = ServiceLocator.getInstance(application)
 
+        //if -> list or grid에 따라 선택
 
 
     }

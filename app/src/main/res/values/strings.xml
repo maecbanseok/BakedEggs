@@ -11,6 +11,9 @@
 
     <!-- ListFragment -->
 
+    <string name="list_card">내 카드</string>
+
+
     <!-- AddFragment -->
 
     <!-- MypageFragment -->
