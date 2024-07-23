@@ -1,11 +1,11 @@
 package com.example.bakedeggs.mypage
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.databinding.MypageItemViewpagerBinding
+import com.example.bakedeggs.mypage.diffutil.MyPageViewPagerDiffUtilCallback
 import com.example.bakedeggs.mypage.viewholders.ViewPagerViewHolder
 
 class MyPageViewPagerAdapter : ListAdapter<MyPageViewPagerUIModel, RecyclerView.ViewHolder>(

@@ -10,6 +10,7 @@ import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.databinding.MypageItemTopBarBinding
+import com.example.bakedeggs.mypage.diffutil.MyPageDiffUtilCallback
 import com.example.bakedeggs.mypage.viewholders.CardViewHolder
 import com.example.bakedeggs.mypage.viewholders.EmptyViewHolder
 import com.example.bakedeggs.mypage.viewholders.HeaderViewHolder

@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
-    var isContact = true
+//    var isGrid = false
+//    var isContact = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

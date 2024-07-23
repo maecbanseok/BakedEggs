@@ -46,7 +46,13 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val adapter = MyPageRecyclerView()
-        adapter.submitList(listOf(MyPageUIModel.TopBarModel()))
+        adapter.submitList(
+            listOf(
+                MyPageUIModel.TopBarModel(),
+                MyPageUIModel.CardModel(),
+                MyPageUIModel.HeaderModel(2, "SNS 계정 추가")
+            )
+        )
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
     }
