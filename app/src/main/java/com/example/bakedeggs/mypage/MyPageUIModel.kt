@@ -2,11 +2,11 @@ package com.example.bakedeggs.mypage
 
 sealed class MyPageUIModel {
     abstract val id: Int?
-    data object TopBarModel: MyPageUIModel() {
-        override val id: Int = 0
-        val iconId: Int? = null
-        val videoId: Int? = null
-    }
+    data class TopBarModel(
+        override val id: Int = 0,
+        val iconId: Int? = null,
+        val videoId: Int? = null,
+    ): MyPageUIModel()
     data class HeaderModel(
         override val id: Int?,
         val title: String?,

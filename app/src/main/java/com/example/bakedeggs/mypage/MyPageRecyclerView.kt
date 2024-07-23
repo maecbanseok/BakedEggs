@@ -26,7 +26,7 @@ class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     MyPageDiffUtilCallback()
 ) {
 
-    val list: List<MyPageUIModel> = currentList.toList()
+    private var list: List<MyPageUIModel> = currentList.toList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageViewHolder {
         val binding: ViewBinding?
@@ -74,7 +74,8 @@ class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val viewType:Int = when(list[position]) {
+        println(list)
+        val viewType:Int = when(currentList[position]) {
             is MyPageUIModel.TopBarModel -> ItemViewType.TOP_BAR.ordinal
             is MyPageUIModel.CardModel -> ItemViewType.CARD.ordinal
             is MyPageUIModel.ListModel -> ItemViewType.LIST.ordinal
