@@ -7,6 +7,7 @@
     <color name="cardBackground">#dedcee</color>
     <color name="function">#6a60a9</color>
     <color name="point">#fbd14b</color>
+    <color name="gray">#989898</color>
 
     <!--MainPage-->
     <color name="buttonBackground">#1F787880</color>

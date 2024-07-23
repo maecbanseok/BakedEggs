@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val serviceLocator=ServiceLocator.getInstance(application)
+
 
         binding.mainLlGridlist.setOnClickListener{
             binding.mainViewWhitebtn.callOnClick()
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initView(){
-        val serviceLocator=ServiceLocator.getInstance(application)
+
         with(binding){
             mainLlGridlist.setOnClickListener{
                 binding.mainViewWhitebtn.callOnClick()
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+        //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){

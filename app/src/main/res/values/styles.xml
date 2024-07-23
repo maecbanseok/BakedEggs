@@ -7,6 +7,22 @@
 
     <!-- ListFragment -->
 
+    <style name="listView_name_title_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+    </style>
+
+    <style name="listView_myCard_name_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+    </style>
+
+    <style name="listView_myCard_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/pretendard_light</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <!-- AddFragment -->
 
     <!-- MypageFragment -->
