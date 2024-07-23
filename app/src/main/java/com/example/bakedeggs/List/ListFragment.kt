@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.bakedeggs.R
+import com.example.bakedeggs.data.ServiceLocator
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -35,6 +36,11 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val serviceLocator = ServiceLocator.getInstance(requireActivity().application) as ServiceLocator
+        val repository = serviceLocator.contactDataSource.ContactEntities
     }
 
     companion object {
