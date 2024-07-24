@@ -4,6 +4,6 @@ import com.example.bakedeggs.databinding.MypageItemListBinding
 
 class ListViewHolder (binding: MypageItemListBinding) : MyPageViewHolder(binding){
     override fun bind() {
-        TODO("Not yet implemented")
+
     }
 }

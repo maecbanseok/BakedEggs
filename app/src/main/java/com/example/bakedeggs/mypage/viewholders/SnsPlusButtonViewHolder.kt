@@ -4,6 +4,6 @@ import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 
 class SnsPlusButtonViewHolder (binding: MypageItemSnsPlusButtonBinding) : MyPageViewHolder(binding){
     override fun bind() {
-        TODO("Not yet implemented")
+
     }
 }

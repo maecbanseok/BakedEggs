@@ -50,7 +50,9 @@ class MyPageFragment : Fragment() {
             listOf(
                 MyPageUIModel.TopBarModel(),
                 MyPageUIModel.CardModel(),
-                MyPageUIModel.HeaderModel(2, "SNS 계정 추가")
+                MyPageUIModel.HeaderModel(2, "SNS 계정 추가"),
+                MyPageUIModel.ListModel(3, 0, "0"),
+                MyPageUIModel.SnsPlusButtonModel
             )
         )
         binding.recycler.adapter = adapter

@@ -20,10 +20,6 @@ class MyPageViewPagerAdapter : ListAdapter<MyPageViewPagerUIModel, RecyclerView.
         if(holder is ViewPagerViewHolder) holder.bind()
     }
 
-    override fun getItemCount(): Int = 2
-
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
+    override fun getItemCount(): Int = 1
 
 }
