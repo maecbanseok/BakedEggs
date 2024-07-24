@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:gravity="center_vertical"
+    android:layout_marginStart="16dp"
     >
 
     <ImageView
         android:id="@+id/mypage_iv_sns_function"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/mypage_icon_minus"
         android:layout_marginEnd="16dp"
         app:tint="@color/function"
@@ -17,8 +18,8 @@
 
     <ImageView
         android:id="@+id/mypage_iv_sns_insta"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/mypage_icon_insta"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
@@ -26,8 +27,8 @@
 
     <ImageView
         android:id="@+id/mypage_iv_sns_github"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/mypage_icon_github"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
@@ -35,8 +36,8 @@
 
     <ImageView
         android:id="@+id/mypage_iv_sns_discord"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/mypage_icon_discord"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
