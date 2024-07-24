@@ -54,18 +54,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPermission(){
-        if(Build.VERSION.SDK_INT < 23) return
-        val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
-            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
-            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
-        var flag=false
-        for(i in permissions){
-            if(checkSelfPermission(i)== PackageManager.PERMISSION_DENIED){
-                flag=true
+        if(Build.VERSION.SDK_INT < 33){
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+            var flag=false
+            for(i in permissions){
+                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                    flag=true
+                }
             }
+            if(flag) requestPermissions(permissions,0)
+            else initView()
+        }else{
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+            var flag=false
+            for(i in permissions){
+                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                    flag=true
+                }
+            }
+            if(flag) requestPermissions(permissions,0)
+            else initView()
         }
-        if(flag) requestPermissions(permissions,0)
-        else initView()
+
 
 
     }
@@ -138,7 +152,8 @@ class MainActivity : AppCompatActivity() {
         if(requestCode ==0){
             var flag=true
             for(i in grantResults){
-                if(i!=PackageManager.PERMISSION_GRANTED) flag=false
+                if(i==PackageManager.PERMISSION_DENIED) flag=false
+
             }
             if(flag) initView()
         }
