@@ -8,44 +8,28 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionScene
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.example.bakedeggs.data.EventBus
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.AddContact.AddDialogFragment
-import com.example.bakedeggs.List.ListAdapter
-import com.example.bakedeggs.data.ContactEntity
-import com.example.bakedeggs.data.ContactRepository
+import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.data.ServiceLocator
-import com.example.bakedeggs.data.callHistory
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
-import kotlinx.coroutines.launch
+import com.example.bakedeggs.mypage.MyPageFragment
 
 class MainActivity : AppCompatActivity() {
-    private val addDialogFragment by lazy { AddDialogFragment() }
 
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -70,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPermission(){
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        if(Build.VERSION.SDK_INT < 23) return
         val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
             android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
             android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
@@ -88,23 +72,18 @@ class MainActivity : AppCompatActivity() {
 
     fun initView(){
 
+        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+
         with(binding){
-            mainLlGridlist.setOnClickListener{
-                binding.mainViewWhitebtn.callOnClick()
-                isGrid=!isGrid
-                lifecycleScope.launch {
-                    EventBus.produceEvent(isGrid)
-                }
-            }
 
             mainBtnContact.setOnClickListener {
-                if(isContact) return@setOnClickListener
-                isContact=!isContact
+                if (isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
             mainBtnMypage.setOnClickListener {
-                if(!isContact) return@setOnClickListener
-                isContact=!isContact
+                if (!isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
 
@@ -141,13 +120,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-        //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){
-
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
         }else{
-
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
         }
     }
 

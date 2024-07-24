@@ -2,6 +2,9 @@ package com.example.bakedeggs.AddContact
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -28,21 +31,19 @@ class AddDialogFragment : DialogFragment() {
     }
 
 
-
-
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        //false로 설정해 주면 화면밖 혹은 뒤로가기 버튼시 다이얼로그라 dismiss 되지 않는다.
 //        isCancelable = true
 //    }
 //
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        _binding = FragmentAddBinding.inflate(inflater,container,false)
-//        return binding.root
-//    }
+    override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentAddBinding.inflate(inflater,container,false)
+        return binding.root
+    }
 //
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
@@ -60,10 +61,10 @@ class AddDialogFragment : DialogFragment() {
 //        binding.addEtEmailWarning
 //    }
 //
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        _binding = null
-//    }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 //    companion object {
 //        @JvmStatic
 //        fun newInstance() = AddDialogFragment()
