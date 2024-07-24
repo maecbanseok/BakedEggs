@@ -52,7 +52,6 @@ class MyPageFragment : Fragment() {
                 MyPageUIModel.SnsPlusButtonModel
             )
         )
-        mainBinding.mainFramelayout.isVisible = false
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
     }

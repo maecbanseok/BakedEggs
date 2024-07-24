@@ -8,70 +8,6 @@
     android:background="@color/background_color"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/main_framelayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/buttonBackground"
-        android:orientation="horizontal"
-        android:padding="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.motion.widget.MotionLayout
-            app:layoutDescription="@xml/main_motion"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <View
-                android:id="@+id/main_view_whitebtn"
-                app:layout_constraintHorizontal_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:background="@drawable/gridlist_shape"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.motion.widget.MotionLayout>
-
-        <LinearLayout
-            android:id="@+id/main_ll_gridlist"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/main_btn_grid"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/main_gridviewbtn"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:clickable="false"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/main_btn_list"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/main_listviewbtn"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:clickable="false"/>
-        </LinearLayout>
-
-
-
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
@@ -80,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_framelayout">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -89,26 +25,26 @@
             android:layout_height="48dp"
             android:layout_gravity="bottom|right"
             android:layout_margin="8dp"
-            android:clickable="true"
-            app:shapeAppearance="?attr/cornerFamily"
             android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:src="@drawable/ic_add"
             app:fabCustomSize="48dp"
-            app:tint="@color/black"
-            android:src="@drawable/ic_add" />
+            app:shapeAppearance="?attr/cornerFamily"
+            app:tint="@color/black" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_fbtn_addalarm"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="64dp"
             android:layout_marginRight="8dp"
-            android:clickable="true"
-            app:shapeAppearance="?attr/cornerFamily"
+            android:layout_marginBottom="64dp"
             android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:src="@drawable/ic_add_alarm"
             app:fabCustomSize="48dp"
-            app:tint="@color/black"
-            android:src="@drawable/ic_add_alarm" />
+            app:shapeAppearance="?attr/cornerFamily"
+            app:tint="@color/black" />
     </FrameLayout>
 
     <LinearLayout

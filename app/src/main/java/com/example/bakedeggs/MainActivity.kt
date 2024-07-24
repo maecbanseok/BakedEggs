@@ -18,7 +18,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.AddContact.AddFragment
 import com.example.bakedeggs.List.ListFragment
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -81,22 +79,15 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
 
         with(binding){
-            mainLlGridlist.setOnClickListener{
-                binding.mainViewWhitebtn.callOnClick()
-                isGrid=!isGrid
-                lifecycleScope.launch {
-                    EventBus.produceEvent(isGrid)
-                }
-            }
 
             mainBtnContact.setOnClickListener {
-                if(isContact) return@setOnClickListener
-                isContact=!isContact
+                if (isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
             mainBtnMypage.setOnClickListener {
-                if(!isContact) return@setOnClickListener
-                isContact=!isContact
+                if (!isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
 
@@ -136,10 +127,8 @@ class MainActivity : AppCompatActivity() {
 
     fun setFragment(isContact: Boolean){
         if(isContact){
-            binding.mainFramelayout.visibility= View.VISIBLE
             supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
         }else{
-            binding.mainFramelayout.visibility=View.GONE
             supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
         }
     }
