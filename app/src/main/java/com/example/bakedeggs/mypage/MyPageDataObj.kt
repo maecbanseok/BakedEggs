@@ -47,7 +47,9 @@ object MyPageDataObj {
         )
     }
 
-    fun addFrom
+    fun addNewProfile() {
+
+    }
 
     fun checkNull(): Boolean = myPageData.checkNull()
 
