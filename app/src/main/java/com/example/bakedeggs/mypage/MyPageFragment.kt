@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bakedeggs.R
+import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -17,6 +19,7 @@ class MyPageFragment : Fragment() {
     private var param2: String? = null
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
+    private val mainBinding by lazy { ActivityMainBinding.inflate(requireActivity().layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +58,7 @@ class MyPageFragment : Fragment() {
                 MyPageUIModel.SnsPlusButtonModel
             )
         )
+        mainBinding.mainFramelayout.isVisible = false
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
     }

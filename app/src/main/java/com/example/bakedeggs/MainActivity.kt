@@ -45,19 +45,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace(R.id.fragment, MyPageFragment.newInstance("", ""))
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-//        serviceLocator=ServiceLocator.getInstance(application)
-//
-//        getPermission()
-//        createNotificationChannel()
+        serviceLocator=ServiceLocator.getInstance(application)
+
+        getPermission()
+        createNotificationChannel()
 
     }
 
