@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +19,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.bakedeggs.AddContact.AddFragment
+import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
@@ -31,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -56,32 +58,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPermission(){
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
-        val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
-            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
-            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
-        var flag=false
-        for(i in permissions){
-            if(checkSelfPermission(i)== PackageManager.PERMISSION_DENIED){
-                flag=true
+        if(Build.VERSION.SDK_INT < 33){
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+            var flag=false
+            for(i in permissions){
+                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                    flag=true
+                }
             }
+            if(flag) requestPermissions(permissions,0)
+            else initView()
+        }else{
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+            var flag=false
+            for(i in permissions){
+                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                    flag=true
+                }
+            }
+            if(flag) requestPermissions(permissions,0)
+            else initView()
         }
-        if(flag) requestPermissions(permissions,0)
-        else initView()
+
 
 
     }
 
-    fun initView() {
+    fun initView(){
 
-        with(binding) {
-            mainLlGridlist.setOnClickListener {
-                binding.mainViewWhitebtn.callOnClick()
-                isGrid = !isGrid
-                lifecycleScope.launch {
-                    EventBus.produceEvent(isGrid)
-                }
-            }
+        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+
+        with(binding){
 
             mainBtnContact.setOnClickListener {
                 if (isContact) return@setOnClickListener
@@ -127,14 +138,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-        //if -> list or grid에 따라 선택
-    //if -> list or grid에 따라 선택
 
-    fun setFragment(isContact: Boolean) {
-        if (isContact) {
-
-        } else {
-
+    fun setFragment(isContact: Boolean){
+        if(isContact){
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+        }else{
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
         }
     }
 
@@ -147,9 +156,11 @@ class MainActivity : AppCompatActivity() {
         if(requestCode ==0){
             var flag=true
             for(i in grantResults){
-                if(i!=PackageManager.PERMISSION_GRANTED) flag=false
+                if(i==PackageManager.PERMISSION_DENIED) flag=false
+
             }
             if(flag) initView()
+            else println(grantResults.contentToString())
         }
     }
 
