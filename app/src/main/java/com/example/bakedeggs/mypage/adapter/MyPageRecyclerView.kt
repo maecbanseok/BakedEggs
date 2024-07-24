@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.databinding.MypageItemTopBarBinding
+import com.example.bakedeggs.mypage.data.MyPageUIModel
 import com.example.bakedeggs.mypage.diffutil.MyPageDiffUtilCallback
 import com.example.bakedeggs.mypage.viewholders.CardViewHolder
 import com.example.bakedeggs.mypage.viewholders.EmptyViewHolder
@@ -86,26 +87,5 @@ class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
         }
         return viewType
     }
-
-//    val snsAccountList: List<ListElement> = listOf()
-//    val favoriteList: List<ListElement> = listOf()
-//    val blackList: List<ListElement> = listOf()
-
-//    fun getSnsListRange(): IntRange {
-//        val start = 3
-//        return getListRange(start, snsAccountList)
-//    }
-//
-//    fun getFavoriteListRange(): IntRange {
-//        val start = getSnsListRange().last + 2
-//        return getListRange(start, favoriteList)
-//    }
-//
-//    fun getBlackListRange(): IntRange {
-//        val start = getFavoriteListRange().last + 2
-//        return getListRange(start, blackList)
-//    }
-//
-//    fun getListRange(start: Int, list: List<ListElement>): IntRange = (start..<list.size + start)
 
 }

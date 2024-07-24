@@ -7,26 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bakedeggs.R
-import com.example.bakedeggs.databinding.ActivityMainBinding
+import com.example.bakedeggs.MainActivity
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
+import com.example.bakedeggs.mypage.adapter.MyPageRecyclerView
+import com.example.bakedeggs.mypage.data.MyPageUIModel
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class MyPageFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
-    private val mainBinding by lazy { ActivityMainBinding.inflate(requireActivity().layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        MyPageDataObj.initData(application = requireActivity().application)
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -38,13 +32,7 @@ class MyPageFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = MyPageFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +46,8 @@ class MyPageFragment : Fragment() {
                 MyPageUIModel.SnsPlusButtonModel
             )
         )
-        mainBinding.mainFramelayout.isVisible = false
+        val mainActivity: MainActivity = activity as MainActivity
+        mainActivity.binding.mainFramelayout.isVisible = false
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
     }
