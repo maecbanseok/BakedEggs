@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bakedeggs.MainActivity
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
-import com.example.bakedeggs.mypage.adapter.MyPageRecyclerView
+import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.MyPageUIModel
 
 
@@ -36,7 +36,8 @@ class MyPageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter = MyPageRecyclerView()
+        val mainActivity: MainActivity = activity as MainActivity
+        val adapter = MyPageRecyclerViewAdapter(mainActivity)
         adapter.submitList(
             listOf(
                 MyPageUIModel.TopBarModel(),
@@ -46,7 +47,6 @@ class MyPageFragment : Fragment() {
                 MyPageUIModel.SnsPlusButtonModel
             )
         )
-        val mainActivity: MainActivity = activity as MainActivity
         mainActivity.binding.mainFramelayout.isVisible = false
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())

@@ -47,5 +47,9 @@ object MyPageDataObj {
         )
     }
 
+    fun addFrom
+
     fun checkNull(): Boolean = myPageData.checkNull()
+
+    fun getData() = myPageData
 }

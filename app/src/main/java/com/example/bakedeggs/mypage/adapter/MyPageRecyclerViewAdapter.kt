@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
+import com.example.bakedeggs.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardBinding
 import com.example.bakedeggs.databinding.MypageItemEmptyBinding
 import com.example.bakedeggs.databinding.MypageItemHeaderBinding
@@ -24,7 +25,7 @@ enum class ItemViewType {
     TOP_BAR, CARD, HEADER, LIST, SNS_PLUS_BUTTON, EMPTY
 }
 
-class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
+class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     MyPageDiffUtilCallback()
 ) {
 
@@ -68,7 +69,7 @@ class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
         when(holder) {
             is TopBarViewHolder -> holder.bind()
-            is CardViewHolder -> holder.bind()
+            is CardViewHolder -> holder.bind(activity)
             is HeaderViewHolder -> holder.bind()
             is ListViewHolder -> holder.bind()
             is SnsPlusButtonViewHolder -> holder.bind()
