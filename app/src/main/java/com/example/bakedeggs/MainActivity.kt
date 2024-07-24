@@ -17,8 +17,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.data.ServiceLocator
@@ -74,25 +72,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initView(){
+    fun initView() {
 
-        with(binding){
-            mainLlGridlist.setOnClickListener{
+        with(binding) {
+            mainLlGridlist.setOnClickListener {
                 binding.mainViewWhitebtn.callOnClick()
-                isGrid=!isGrid
+                isGrid = !isGrid
                 lifecycleScope.launch {
                     EventBus.produceEvent(isGrid)
                 }
             }
 
             mainBtnContact.setOnClickListener {
-                if(isContact) return@setOnClickListener
-                isContact=!isContact
+                if (isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
             mainBtnMypage.setOnClickListener {
-                if(!isContact) return@setOnClickListener
-                isContact=!isContact
+                if (!isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
 
@@ -130,11 +128,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
         //if -> list or grid에 따라 선택
+    //if -> list or grid에 따라 선택
 
-    fun setFragment(isContact: Boolean){
-        if(isContact){
+    fun setFragment(isContact: Boolean) {
+        if (isContact) {
 
-        }else{
+        } else {
 
         }
     }
