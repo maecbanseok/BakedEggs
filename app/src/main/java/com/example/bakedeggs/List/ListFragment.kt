@@ -13,6 +13,7 @@ import com.example.bakedeggs.data.ContactDataSource
 import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.data.ServiceLocator
+import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "param1"
@@ -25,20 +26,16 @@ private const val ARG_PARAM2 = "param2"
  */
 class ListFragment : Fragment() {
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var listAdapter: ListAdapter
+    private lateinit var contactRepository: ContactRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        lifecycleScope.launch {
-            EventBus.events.collect { Boolean
-            }
-        }
+
+        //serviceLocator를 사용하여 contactRepository 초기화
+        var serviceLocator = ServiceLocator.getInstance(requireActivity().application)
+        //contactRepository = ContactRepositoryImpl(serviceLocator.)
+
     }
 
     override fun onCreateView(
@@ -50,15 +47,23 @@ class ListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val serviceLocator =
-            ServiceLocator.getInstance(requireActivity().application) as ServiceLocator
-        //val repository = serviceLocator.contactDataSource.ContactEntities
+        super.onViewCreated(view, savedInstanceState)
+        //recyclerView 초기화
+        //어댑터 초기화 및 설정
+        listAdapter = ListAdapter(contactRepository.getContactList())
 
+        listAdapter.setListClickListener(object : ListAdapter.ListClick{
 
-        /*val adapter = ListAdapter(arrayList)
-        val listRecyclerView : RecyclerView = findViewById(R.id.list_recyclerview)
-        listRecyclerView.layoutManager = LinearLayoutManager(this)
-        listRecyclerView.adapter = adapter*/
+            override fun onClick(view: View, position: Int) {
+                //클릭 이벤트 처리
+            }
+
+            override fun onPressed(view: View, position: Int) {
+                //길게 클릭 이벤트 처리
+            }
+
+        })
+
 
 
     }

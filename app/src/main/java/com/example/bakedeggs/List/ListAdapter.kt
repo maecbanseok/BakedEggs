@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
-class ListAdapter(val arrayList: ArrayList<ContactEntity>) :
+class ListAdapter(private val arrayList: ArrayList<ContactEntity>) :
     RecyclerView.Adapter<ListAdapter.ListHolder>() {
 
     class ListHolder(val binding: ListRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -23,10 +23,6 @@ class ListAdapter(val arrayList: ArrayList<ContactEntity>) :
         val binding =
             ListRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListHolder(binding)
-    }
-
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
     }
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
@@ -52,14 +48,20 @@ class ListAdapter(val arrayList: ArrayList<ContactEntity>) :
         holder.img.setImageBitmap(img)
     }
 
-    //override fun getItemCount(): Int = listData.size
+    override fun getItemCount(): Int {
+        return arrayList.size
+    }
 
     interface ListClick {
         fun onClick(view: View, position: Int)
         fun onPressed(view: View, position: Int)
     }
 
-    val listClick: ListClick? = null
+    var listClick: ListClick? = null
 
+    fun setListClickListener(listener : ListClick)
+    {
+        this.listClick = listener
+    }
 
 }
