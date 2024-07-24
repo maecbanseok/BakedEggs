@@ -36,8 +36,7 @@ class ListFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
         lifecycleScope.launch {
-            EventBus.events.collect { Boolean ->
-                true
+            EventBus.events.collect { Boolean
             }
         }
     }
