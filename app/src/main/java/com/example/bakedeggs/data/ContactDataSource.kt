@@ -3,7 +3,7 @@ package com.example.bakedeggs.data
 import android.app.Application
 
 class ContactDataSource(application: Application) {
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: ContactDataSource? = null
 

@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         val serviceLocator = ServiceLocator.getInstance(application) as ServiceLocator
 
 
-        binding.mainLlGridlist.setOnClickListener{
+        binding.mainLlGridlist.setOnClickListener {
             binding.mainViewWhitebtn.callOnClick()
-            isGrid=!isGrid
+            isGrid = !isGrid
             lifecycleScope.launch {
                 EventBus.produceEvent(isGrid)
             }
@@ -54,36 +54,36 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initView(){
+    fun initView() {
 
-        with(binding){
-            mainLlGridlist.setOnClickListener{
+        with(binding) {
+            mainLlGridlist.setOnClickListener {
                 binding.mainViewWhitebtn.callOnClick()
-                isGrid=!isGrid
+                isGrid = !isGrid
                 lifecycleScope.launch {
                     EventBus.produceEvent(isGrid)
                 }
             }
 
             mainBtnContact.setOnClickListener {
-                if(isContact) return@setOnClickListener
-                isContact=!isContact
+                if (isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
             mainBtnMypage.setOnClickListener {
-                if(!isContact) return@setOnClickListener
-                isContact=!isContact
+                if (!isContact) return@setOnClickListener
+                isContact = !isContact
                 setFragment(isContact)
             }
         }
     }
-        //if -> list or grid에 따라 선택
+    //if -> list or grid에 따라 선택
     //if -> list or grid에 따라 선택
 
-    fun setFragment(isContact: Boolean){
-        if(isContact){
+    fun setFragment(isContact: Boolean) {
+        if (isContact) {
 
-        }else{
+        } else {
 
         }
     }
