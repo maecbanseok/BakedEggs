@@ -78,6 +78,8 @@ class MainActivity : AppCompatActivity() {
                 flag=true
             }
         }
+        if(flag) requestPermissions(permissions,0)
+        else initView()
 
 
     }
