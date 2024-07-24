@@ -35,19 +35,8 @@ class ListAdapter(val arrayList : ArrayList<ContactEntity>) :
         holder.itemView.setOnClickListener { listClick?.onPressed(it, position) }
 
         holder.name.text = arrayList[position].name
-        val image = arrayList[position].img?.let{
-            //uri 있는지 확인
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-            {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(holder.binding.root.context.contentResolver, it))
-            } else
-            {
-                MediaStore.Images.Media.getBitmap(holder.binding.root.context.contentResolver, it)
-            }
-        }
-        holder.img.setImageBitmap(image)
-
-        //if 즐겨찾기인지 아닌지 확인??
+        holder.imgUri.
+        //if -> 즐겨찾기인지 아닌지 확인하는 구문
     }
 
    //override fun getItemCount(): Int = listData.size

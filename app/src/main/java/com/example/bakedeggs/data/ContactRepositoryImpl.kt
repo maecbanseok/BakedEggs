@@ -7,6 +7,15 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
         return contactDataSource.ContactEntities
     }
 
+    override fun getCallLogs(): ArrayList<CallLogEntity> {
+        val map=contactDataSource.ContactEntities.associate { it.num to it.name }
+        val callLogs=contactDataSource.CallLogEntities
+        for(i in callLogs){
+            i.name = map.getOrDefault(i.number,i.number)
+        }
+        return callLogs
+    }
+
     override fun addContactList(contact: ContactEntity) {
         contactDataSource.ContactEntities.add(contact)
         contactDataSource.ContactEntities.sortBy { it.name }
@@ -30,4 +39,6 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
         }
         return result
     }
+
+
 }

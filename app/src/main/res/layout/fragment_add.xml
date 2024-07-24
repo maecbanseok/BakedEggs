@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_lo_total"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="16dp">
+
+            <!-- 프로필 사진-->
+            <ImageView
+                android:id="@+id/add_iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/add_businesscard_shape"
+                android:clipToOutline="true"
+                android:src="@drawable/dummy_business_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo_16"
+                app:layout_constraintStart_toStartOf="@+id/add_iv_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/add_tbtn_like"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/favorite_24px"
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintEnd_toEndOf="@+id/add_iv_profile"
+                app:layout_constraintTop_toTopOf="@+id/add_iv_profile" />
+
+            <!--    이름 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_iv_profile">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_nameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_name"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_name"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="이름"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_nameTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_nameTitle" />
+
+                <TextView
+                    android:id="@+id/add_et_nameWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="이름입력 오류경고"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_name"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_name"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    번호 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_name">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_phoneTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_phone"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_phone"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="010-0000-0000"
+                    android:inputType="phone"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_phoneTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_phoneTitle" />
+
+                <TextView
+                    android:id="@+id/add_et_phoneWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="번호입력 오류경고"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_phone"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_phone"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    E-mail 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_phone">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_emailTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_email"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_email"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_emailTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_emailTitle" />
+
+                <TextView
+                    android:id="@+id/add_et_emailWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="이메일입력 오류경고"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_email"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_email"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    생일 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_email">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_birthdayTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_birthday"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_birthday"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="데이트 픽커로 변경예정"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_birthdayTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_birthdayTitle" />
+
+                <TextView
+                    android:id="@+id/add_et_birthdayWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="생일입력 오류경고"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_birthday"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_birthday"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--   SNS 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_sns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_birthday">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_snsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_SNSadd"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ToggleButton
+                    android:id="@+id/add_tbtn_foldbutton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/add_fold_button_selector"
+                    android:backgroundTint="@color/function"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_snsTitle"
+                    app:layout_constraintStart_toEndOf="@+id/add_tv_snsTitle"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_snsTitle" />
+
+                <Button
+                    android:id="@+id/add_fbtn_snsadd"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tbtn_foldbutton"
+                    app:layout_constraintStart_toEndOf="@+id/add_tbtn_foldbutton"
+                    app:layout_constraintTop_toTopOf="@+id/add_tbtn_foldbutton"/>
+                <Button
+                    android:id="@+id/add_fbtn_Instagram"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_snsadd"
+                    app:layout_constraintStart_toEndOf="@+id/add_fbtn_snsadd"
+                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_snsadd"/>
+                <Button
+                    android:id="@+id/add_fbtn_github"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_Instagram"
+                    app:layout_constraintStart_toEndOf="@+id/add_fbtn_Instagram"
+                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_Instagram"/>
+                <Button
+                    android:id="@+id/add_fbtn_dixcode"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_github"
+                    app:layout_constraintStart_toEndOf="@+id/add_fbtn_github"
+                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_github"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+    <Button
+        android:id="@+id/add_btn_save"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:text="@string/add_save"
+        android:layout_gravity="bottom|center_horizontal"/>
+</FrameLayout>
