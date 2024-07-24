@@ -38,13 +38,7 @@ class MyPageFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = MyPageFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

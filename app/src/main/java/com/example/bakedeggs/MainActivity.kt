@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -17,9 +18,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.example.bakedeggs.AddContact.AddFragment
+import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
@@ -76,6 +78,8 @@ class MainActivity : AppCompatActivity() {
 
     fun initView(){
 
+        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+
         with(binding){
             mainLlGridlist.setOnClickListener{
                 binding.mainViewWhitebtn.callOnClick()
@@ -129,13 +133,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-        //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){
-
+            binding.mainFramelayout.visibility= View.VISIBLE
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
         }else{
-
+            binding.mainFramelayout.visibility=View.GONE
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
         }
     }
 

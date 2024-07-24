@@ -28,7 +28,7 @@
                 android:id="@+id/main_view_whitebtn"
                 app:layout_constraintHorizontal_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="30sp"
+                android:layout_height="30dp"
                 android:background="@drawable/gridlist_shape"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,27 +45,27 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/main_btn_grid"
                 android:layout_width="0dp"
-                android:layout_height="30sp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="@string/main_gridviewbtn"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:clickable="false"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/main_btn_list"
                 android:layout_width="0dp"
-                android:layout_height="30sp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="@string/main_listviewbtn"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:clickable="false"/>
         </LinearLayout>
 
@@ -74,7 +74,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/fragment"
+        android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -93,6 +93,7 @@
             app:shapeAppearance="?attr/cornerFamily"
             android:backgroundTint="@color/white"
             app:fabCustomSize="48dp"
+            app:tint="@color/black"
             android:src="@drawable/ic_add" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -106,6 +107,7 @@
             app:shapeAppearance="?attr/cornerFamily"
             android:backgroundTint="@color/white"
             app:fabCustomSize="48dp"
+            app:tint="@color/black"
             android:src="@drawable/ic_add_alarm" />
     </FrameLayout>
 
