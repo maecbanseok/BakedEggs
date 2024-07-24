@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +19,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.bakedeggs.AddContact.AddFragment
+import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
@@ -31,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -72,16 +74,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initView() {
+    fun initView(){
 
-        with(binding) {
-            mainLlGridlist.setOnClickListener {
-                binding.mainViewWhitebtn.callOnClick()
-                isGrid = !isGrid
-                lifecycleScope.launch {
-                    EventBus.produceEvent(isGrid)
-                }
-            }
+        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+
+        with(binding){
 
             mainBtnContact.setOnClickListener {
                 if (isContact) return@setOnClickListener
@@ -127,14 +124,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-        //if -> list or grid에 따라 선택
-    //if -> list or grid에 따라 선택
 
-    fun setFragment(isContact: Boolean) {
-        if (isContact) {
-
-        } else {
-
+    fun setFragment(isContact: Boolean){
+        if(isContact){
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+        }else{
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
         }
     }
 
