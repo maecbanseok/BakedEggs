@@ -18,4 +18,5 @@ class ContactDataSource(application: Application) {
     }
 
     val ContactEntities by lazy { contactList(application) }
+    val CallLogEntities by lazy { callHistory(application) }
 }

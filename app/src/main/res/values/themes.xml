@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:colorBackground">@color/background_color</item>
+        <item name="android:textColor">@color/function</item>
     </style>
 
     <style name="Theme.BakedEggs" parent="Base.Theme.BakedEggs" />

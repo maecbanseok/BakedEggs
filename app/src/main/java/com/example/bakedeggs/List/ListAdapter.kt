@@ -33,6 +33,7 @@ class ListAdapter() :
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
         holder.itemView.setOnClickListener{ listClick?.onClick(it, position) }
         holder.itemView.setOnClickListener { listClick?.onPressed(it, position) }
+
         //if -> 즐겨찾기인지 아닌지 확인하는 구문
     }
 
