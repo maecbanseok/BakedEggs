@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddContact.AddFragment">
+    android:layout_height="wrap_content"
+    tools:context=".AddContact.AddDialogFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="@string/add_name"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
 
                 <EditText
                     android:id="@+id/add_et_name"
-                    android:layout_width="270dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/add_edittext_shape"
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="@string/add_phone"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +134,7 @@
 
                 <EditText
                     android:id="@+id/add_et_phone"
-                    android:layout_width="270dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/add_edittext_shape"
@@ -181,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="@string/add_email"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -189,7 +189,7 @@
 
                 <EditText
                     android:id="@+id/add_et_email"
-                    android:layout_width="270dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/add_edittext_shape"
@@ -236,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="@string/add_birthday"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -244,7 +244,7 @@
 
                 <EditText
                     android:id="@+id/add_et_birthday"
-                    android:layout_width="270dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/add_edittext_shape"
@@ -290,7 +290,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="@string/add_SNSadd"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -298,8 +298,8 @@
 
                 <ToggleButton
                     android:id="@+id/add_tbtn_foldbutton"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/add_fold_button_selector"
                     android:backgroundTint="@color/function"
                     android:textOff=""
@@ -312,34 +312,37 @@
                     android:id="@+id/add_fbtn_snsadd"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="12dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_tbtn_foldbutton"
                     app:layout_constraintStart_toEndOf="@+id/add_tbtn_foldbutton"
-                    app:layout_constraintTop_toTopOf="@+id/add_tbtn_foldbutton"/>
+                    app:layout_constraintTop_toTopOf="@+id/add_tbtn_foldbutton" />
+
                 <Button
                     android:id="@+id/add_fbtn_Instagram"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="12dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_snsadd"
                     app:layout_constraintStart_toEndOf="@+id/add_fbtn_snsadd"
-                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_snsadd"/>
+                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_snsadd" />
+
                 <Button
                     android:id="@+id/add_fbtn_github"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="12dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_Instagram"
                     app:layout_constraintStart_toEndOf="@+id/add_fbtn_Instagram"
-                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_Instagram"/>
+                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_Instagram" />
+
                 <Button
                     android:id="@+id/add_fbtn_dixcode"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="12dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_github"
                     app:layout_constraintStart_toEndOf="@+id/add_fbtn_github"
-                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_github"/>
+                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_github" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,61 +1,71 @@
 package com.example.bakedeggs.AddContact
 
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.bakedeggs.R
+
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.example.bakedeggs.databinding.FragmentAddBinding
 
-private const val CONTACT_DATA = "param1"
-
-class AddFragment : Fragment() {
+class AddDialogFragment : DialogFragment() {
     private var _binding : FragmentAddBinding? = null
     private val binding  get() = _binding!!
 
-    private var param1: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(CONTACT_DATA)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAddBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //binding.
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @return A new instance of fragment AddFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddFragment().apply {
-                arguments = Bundle().apply {
-                    putString(CONTACT_DATA, param1)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            // Use the Builder class for convenient dialog construction
+            val builder = AlertDialog.Builder(it)
+            builder.setMessage("Do you like this app?")
+                .setPositiveButton("Yes") { dialog, id ->
+                    // Send the positive button event back to the host activity
                 }
-            }
+                .setNegativeButton("No") { dialog, id ->
+                    // Send the negative button event back to the host activity
+                }
+            // Create the AlertDialog object and return it
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
+
+
+
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        //false로 설정해 주면 화면밖 혹은 뒤로가기 버튼시 다이얼로그라 dismiss 되지 않는다.
+//        isCancelable = true
+//    }
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        _binding = FragmentAddBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        binding.addIvProfile.setOnClickListener {
+//
+//        }
+//        binding.addBtnSave.setOnClickListener {
+//            onDestroy()
+//        }
+//        binding.addEtName
+//        binding.addEtNameWarning
+//        binding.addEtPhone
+//        binding.addEtPhoneWarning
+//        binding.addEtEmail
+//        binding.addEtEmailWarning
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        _binding = null
+//    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance() = AddDialogFragment()
+//    }
 }

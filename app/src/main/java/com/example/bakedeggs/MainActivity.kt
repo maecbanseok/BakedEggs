@@ -28,6 +28,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.data.EventBus
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.AddContact.AddDialogFragment
 import com.example.bakedeggs.List.ListAdapter
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
@@ -38,6 +39,7 @@ import com.example.bakedeggs.databinding.DialogAlarmBinding
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private val addDialogFragment by lazy { AddDialogFragment() }
 
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -107,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             mainFbtnAdd.setOnClickListener{
-
+                AddDialogFragment().show(supportFragmentManager,"Add Contact")
             }
 
             mainFbtnAddalarm.setOnClickListener {
