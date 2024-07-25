@@ -28,8 +28,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -38,11 +36,11 @@ private const val ARG_PARAM2 = "param2"
  */
 class ListFragment : Fragment() {
 
-    var isGrid=true
+    var isGrid = true
     private lateinit var listAdapter: ListAdapter
     private lateinit var contactRepository: ContactRepositoryImpl
 
-    private var _binding:FragmentListBinding? = null
+    private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var serviceLocator: ServiceLocator
@@ -59,7 +57,7 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding=FragmentListBinding.inflate(inflater,container,false)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -69,11 +67,12 @@ class ListFragment : Fragment() {
         //어댑터 초기화 및 설정
         listAdapter = ListAdapter(contactRepository.getContactList())
 
-        listAdapter.setListClickListener(object : ListAdapter.ListClick{
+        listAdapter.setListClickListener(object : ListAdapter.ListClick {
 
             override fun onClick(view: View, position: Int) {
                 //클릭 이벤트 처리
             }
+
             override fun onPressed(view: View, position: Int) {
                 //길게 클릭 이벤트 처리
             }
@@ -88,12 +87,12 @@ class ListFragment : Fragment() {
 
     }
 
-    fun initView(){
-        serviceLocator=ServiceLocator(requireActivity().application)
-        with(binding){
-            listLlGridlist.setOnClickListener{
+    fun initView() {
+        serviceLocator = ServiceLocator(requireActivity().application)
+        with(binding) {
+            listLlGridlist.setOnClickListener {
                 mainViewWhitebtn.callOnClick()
-                listMlGridlist.setTransitionListener(object :MotionLayout.TransitionListener{
+                listMlGridlist.setTransitionListener(object : MotionLayout.TransitionListener {
                     override fun onTransitionStarted(
                         motionLayout: MotionLayout?,
                         startId: Int,
@@ -115,7 +114,7 @@ class ListFragment : Fragment() {
                         motionLayout: MotionLayout?,
                         currentId: Int
                     ) {
-                        isGrid = motionLayout!!.currentState==motionLayout!!.startState
+                        isGrid = motionLayout!!.currentState == motionLayout!!.startState
                         println(isGrid)
                         return
                     }
@@ -135,10 +134,9 @@ class ListFragment : Fragment() {
     }
 
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding=null
+        _binding = null
     }
 
     companion object {
