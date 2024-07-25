@@ -18,10 +18,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.bakedeggs.AddContact.AddDialogFragment
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import com.example.bakedeggs.AddContact.AddFragment
 import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ServiceLocator
@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -110,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             }.attach()
 
             mainFbtnAdd.setOnClickListener{
-
+                AddDialogFragment().show(supportFragmentManager,"Add Contact")
             }
 
             mainFbtnAddalarm.setOnClickListener {
@@ -143,13 +142,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setFragment(isContact: Boolean){
-        if(isContact){
-            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
-        }else{
-            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
-        }
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
