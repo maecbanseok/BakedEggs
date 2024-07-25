@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.easyflipview)
+    implementation("androidx.activity:activity-ktx:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.8.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

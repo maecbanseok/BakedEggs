@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/background_color"
     tools:context=".AddContact.AddDialogFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/add_lo_total"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="16dp">
+
+
 
             <!-- 프로필 사진-->
             <ImageView
@@ -43,7 +45,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/favorite_24px"
+                android:background="@drawable/add_like_selector"
                 android:textOff=""
                 android:textOn=""
                 app:layout_constraintEnd_toEndOf="@+id/add_iv_profile"
@@ -56,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_iv_profile">
 
 
@@ -86,21 +89,11 @@
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
                     android:hint="이름"
-                    android:maxLength="30"
-                    android:maxLines="1"
+                    android:maxLength="12"
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_tv_nameTitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/add_tv_nameTitle" />
-
-                <TextView
-                    android:id="@+id/add_et_nameWarning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="이름입력 오류경고"
-                    app:layout_constraintEnd_toEndOf="@+id/add_et_name"
-                    app:layout_constraintStart_toStartOf="@+id/add_et_name"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--    번호 입력    -->
@@ -110,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_lo_name">
 
 
@@ -165,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_lo_phone">
 
 
@@ -220,15 +215,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_lo_email">
 
 
                 <ImageView
+                    android:id="@+id/imageView"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/logo_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/add_dp_birthday" />
 
                 <TextView
                     android:id="@+id/add_tv_birthdayTitle"
@@ -240,30 +238,18 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:layout_constraintVertical_bias="0.01" />
 
-                <EditText
-                    android:id="@+id/add_et_birthday"
+                <DatePicker
+                    android:id="@+id/add_dp_birthday"
                     android:layout_width="230dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/add_edittext_shape"
-                    android:gravity="center_horizontal"
-                    android:hint="데이트 픽커로 변경예정"
-                    android:maxLength="30"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_birthdayTitle"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/add_tv_birthdayTitle" />
-
-                <TextView
-                    android:id="@+id/add_et_birthdayWarning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="생일입력 오류경고"
-                    app:layout_constraintEnd_toEndOf="@+id/add_et_birthday"
-                    app:layout_constraintStart_toStartOf="@+id/add_et_birthday"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -274,6 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="24dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_lo_birthday">
 
 
@@ -292,7 +279,7 @@
                     android:text="@string/add_SNSadd"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -300,6 +287,7 @@
                     android:id="@+id/add_tbtn_foldbutton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
                     android:background="@drawable/add_fold_button_selector"
                     android:backgroundTint="@color/function"
                     android:textOff=""
@@ -309,52 +297,62 @@
                     app:layout_constraintTop_toTopOf="@+id/add_tv_snsTitle" />
 
                 <Button
-                    android:id="@+id/add_fbtn_snsadd"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="12dp"
+                    android:id="@+id/add_btn_snsadd"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/add_snsadd_button_selector"
                     app:layout_constraintBottom_toBottomOf="@+id/add_tbtn_foldbutton"
                     app:layout_constraintStart_toEndOf="@+id/add_tbtn_foldbutton"
                     app:layout_constraintTop_toTopOf="@+id/add_tbtn_foldbutton" />
 
                 <Button
-                    android:id="@+id/add_fbtn_Instagram"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_snsadd"
-                    app:layout_constraintStart_toEndOf="@+id/add_fbtn_snsadd"
-                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_snsadd" />
+                    android:id="@+id/add_btn_Instagram"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/instagram_24"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_btn_snsadd"
+                    app:layout_constraintStart_toEndOf="@+id/add_btn_snsadd"
+                    app:layout_constraintTop_toTopOf="@+id/add_btn_snsadd" />
 
                 <Button
-                    android:id="@+id/add_fbtn_github"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_Instagram"
-                    app:layout_constraintStart_toEndOf="@+id/add_fbtn_Instagram"
-                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_Instagram" />
+                    android:id="@+id/add_btn_github"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/github_24"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_btn_Instagram"
+                    app:layout_constraintStart_toEndOf="@+id/add_btn_Instagram"
+                    app:layout_constraintTop_toTopOf="@+id/add_btn_Instagram" />
 
                 <Button
-                    android:id="@+id/add_fbtn_dixcode"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/add_fbtn_github"
-                    app:layout_constraintStart_toEndOf="@+id/add_fbtn_github"
-                    app:layout_constraintTop_toTopOf="@+id/add_fbtn_github" />
+                    android:id="@+id/add_btn_discord"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/discord_24"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_btn_github"
+                    app:layout_constraintStart_toEndOf="@+id/add_btn_github"
+                    app:layout_constraintTop_toTopOf="@+id/add_btn_github" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/add_rv_snsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="@+id/add_tv_snsTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/add_tv_snsTitle">
+
+                </androidx.recyclerview.widget.RecyclerView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-    <Button
-        android:id="@+id/add_btn_save"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:text="@string/add_save"
-        android:layout_gravity="bottom|center_horizontal"/>
 </FrameLayout>
