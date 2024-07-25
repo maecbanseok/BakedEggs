@@ -1,7 +1,7 @@
 package com.example.bakedeggs.mypage.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.bakedeggs.mypage.MyPageUIModel
+import com.example.bakedeggs.mypage.data.MyPageUIModel
 
 class MyPageDiffUtilCallback: DiffUtil.ItemCallback<MyPageUIModel>() {
     override fun areItemsTheSame(oldItem: MyPageUIModel, newItem: MyPageUIModel): Boolean {

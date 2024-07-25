@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -17,11 +18,16 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
+import com.example.bakedeggs.AddContact.AddFragment
 import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
+import com.example.bakedeggs.mypage.MyPageFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -90,6 +97,8 @@ class MainActivity : AppCompatActivity() {
 
     fun initView(){
 
+        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+
         with(binding){
 
             mainViewpager.adapter=mainViewPagerAdapter
@@ -136,6 +145,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun setFragment(isContact: Boolean){
+        if(isContact){
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
+        }else{
+            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

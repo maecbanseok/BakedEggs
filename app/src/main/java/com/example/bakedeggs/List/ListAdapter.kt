@@ -3,16 +3,18 @@ package com.example.bakedeggs.List
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.provider.MediaStore
-import android.provider.MediaStore.Audio.Media
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bakedeggs.data.ContactEntity
+import com.example.bakedeggs.data.ContactRepositoryImpl
+import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
-class ListAdapter(val arrayList: ArrayList<ContactEntity>) :
+class ListAdapter(private val serviceLocator: ServiceLocator) :
     RecyclerView.Adapter<ListAdapter.ListHolder>() {
+
+        private val getData = serviceLocator.contactRepositoryImpl.getContactList()
 
     class ListHolder(val binding: ListRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
         val name = binding.listTvName
@@ -25,18 +27,15 @@ class ListAdapter(val arrayList: ArrayList<ContactEntity>) :
         return ListHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
-
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
         holder.itemView.setOnClickListener { listClick?.onClick(it, position) }
-        holder.itemView.setOnClickListener { listClick?.onPressed(it, position) }
+        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, position)
+            true }
 
-        holder.name.text = arrayList[position].name
+        holder.name.text = getData[position].name
         //if -> 즐겨찾기인지 아닌지 확인하는 구문
 
-        val img = arrayList[position].img?.let {
+        val img = getData[position].img?.let {
             //uri 있는지 확인
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 ImageDecoder.decodeBitmap(
@@ -52,14 +51,16 @@ class ListAdapter(val arrayList: ArrayList<ContactEntity>) :
         holder.img.setImageBitmap(img)
     }
 
-    //override fun getItemCount(): Int = listData.size
+    override fun getItemCount(): Int {
+        return getData.size
+    }
 
     interface ListClick {
         fun onClick(view: View, position: Int)
-        fun onPressed(view: View, position: Int)
+        fun onLongClick(view: View, position: Int)
     }
 
-    val listClick: ListClick? = null
+    var listClick: ListClick? = null
 
 
 }
