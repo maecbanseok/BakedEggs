@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/background_color"
     tools:context=".AddContact.AddDialogFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/add_lo_total"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:padding="16dp">
-
-
 
             <!-- 프로필 사진-->
             <ImageView
@@ -63,6 +63,7 @@
 
 
                 <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/logo_16"
@@ -86,6 +87,7 @@
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
                     android:hint="이름"
@@ -93,6 +95,8 @@
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_tv_nameTitle"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/add_tv_nameTitle" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,6 +135,7 @@
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
                     android:hint="010-0000-0000"
@@ -140,6 +145,8 @@
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_tv_phoneTitle"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/add_tv_phoneTitle" />
 
                 <TextView
@@ -187,6 +194,7 @@
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
                     android:hint="이메일"
@@ -196,6 +204,8 @@
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/add_tv_emailTitle"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/add_tv_emailTitle" />
 
                 <TextView
@@ -246,11 +256,15 @@
                     android:layout_width="230dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
                     android:calendarViewShown="false"
                     android:datePickerMode="spinner"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--   SNS 입력    -->
@@ -339,20 +353,26 @@
                     app:layout_constraintStart_toEndOf="@+id/add_btn_github"
                     app:layout_constraintTop_toTopOf="@+id/add_btn_github" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/add_rv_snsList"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/add_tv_snsTitle"
                     app:layout_constraintTop_toBottomOf="@+id/add_tv_snsTitle">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/add_rv_snsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:overScrollMode="never"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
+                </RelativeLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
-</FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

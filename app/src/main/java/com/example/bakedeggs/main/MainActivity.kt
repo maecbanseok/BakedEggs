@@ -1,4 +1,4 @@
-package com.example.bakedeggs
+package com.example.bakedeggs.main
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -19,10 +19,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.bakedeggs.AddContact.AddDialogFragment
 import com.example.bakedeggs.List.ListFragment
+import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
-import com.example.bakedeggs.mypage.MyPageFragment
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     private val myNotificationID = 1
     private val channelID = "default"
+
+    private val mainViewPagerAdapter by lazy {
+        MainViewPagerAdapter(this)
+    }
 
     private lateinit var serviceLocator: ServiceLocator
 
@@ -86,20 +91,17 @@ class MainActivity : AppCompatActivity() {
 
     fun initView(){
 
-        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
-
         with(binding){
 
-            mainBtnContact.setOnClickListener {
-                if (isContact) return@setOnClickListener
-                isContact = !isContact
-                setFragment(isContact)
-            }
-            mainBtnMypage.setOnClickListener {
-                if (!isContact) return@setOnClickListener
-                isContact = !isContact
-                setFragment(isContact)
-            }
+            mainViewpager.adapter=mainViewPagerAdapter
+            mainViewpager.offscreenPageLimit=2
+
+            TabLayoutMediator(mainTabs,mainViewpager){tab,position ->
+                when(position){
+                    0->tab.text="CONTACT"
+                    1->tab.text="MYPAGE"
+                }
+            }.attach()
 
             mainFbtnAdd.setOnClickListener{
                 AddDialogFragment().show(supportFragmentManager,"Add Contact")
@@ -135,13 +137,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setFragment(isContact: Boolean){
-        if(isContact){
-            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
-        }else{
-            supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, MyPageFragment.newInstance()).commit()
-        }
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -156,6 +151,7 @@ class MainActivity : AppCompatActivity() {
 
             }
             if(flag) initView()
+            else println(grantResults.contentToString())
         }
     }
 

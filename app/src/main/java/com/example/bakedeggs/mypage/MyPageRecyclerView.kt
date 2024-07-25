@@ -74,6 +74,10 @@ class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
         }
     }
 
+    override fun getItemCount(): Int {
+        return currentList.size
+    }
+
     override fun getItemViewType(position: Int): Int {
         println(list)
         val viewType:Int = when(currentList[position]) {
@@ -107,5 +111,6 @@ class MyPageRecyclerView : ListAdapter<MyPageUIModel, MyPageViewHolder>(
 //    }
 //
 //    fun getListRange(start: Int, list: List<ListElement>): IntRange = (start..<list.size + start)
+
 
 }
