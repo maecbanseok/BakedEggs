@@ -18,6 +18,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.AddContact.AddFragment
 import com.example.bakedeggs.List.ListFragment
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
@@ -50,6 +53,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        println(binding)
+
         serviceLocator=ServiceLocator.getInstance(application)
 
         getPermission()
@@ -95,13 +101,13 @@ class MainActivity : AppCompatActivity() {
         with(binding){
 
             mainBtnContact.setOnClickListener {
-                if (isContact) return@setOnClickListener
-                isContact = !isContact
+                if(isContact) return@setOnClickListener
+                isContact=!isContact
                 setFragment(isContact)
             }
             mainBtnMypage.setOnClickListener {
-                if (!isContact) return@setOnClickListener
-                isContact = !isContact
+                if(!isContact) return@setOnClickListener
+                isContact=!isContact
                 setFragment(isContact)
             }
 
@@ -138,6 +144,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+        //if -> list or grid에 따라 선택
 
     fun setFragment(isContact: Boolean){
         if(isContact){
