@@ -11,7 +11,7 @@ import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.databinding.MypageItemTopBarBinding
-import com.example.bakedeggs.mypage.data.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.example.bakedeggs.mypage.diffutil.MyPageDiffUtilCallback
 import com.example.bakedeggs.mypage.viewholders.CardViewHolder
 import com.example.bakedeggs.mypage.viewholders.EmptyViewHolder
@@ -28,8 +28,6 @@ enum class ItemViewType {
 class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     MyPageDiffUtilCallback()
 ) {
-
-    private var list: List<MyPageUIModel> = currentList.toList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageViewHolder {
         val binding: ViewBinding?
@@ -68,16 +66,15 @@ class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapte
 
     override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
         when(holder) {
-            is TopBarViewHolder -> holder.bind(itemChange)
-            is CardViewHolder -> holder.bind(itemChange, activity)
-            is HeaderViewHolder -> holder.bind(itemChange)
-            is ListViewHolder -> holder.bind(itemChange)
-            is SnsPlusButtonViewHolder -> holder.bind(itemChange)
+            is TopBarViewHolder -> holder.bind(getItem(position), itemChange)
+            is CardViewHolder -> holder.bind(getItem(position), itemChange, activity)
+            is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
+            is ListViewHolder -> holder.bind(getItem(position), itemChange)
+            is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        println(list)
         val viewType:Int = when(currentList[position]) {
             is MyPageUIModel.TopBarModel -> ItemViewType.TOP_BAR.ordinal
             is MyPageUIModel.CardModel -> ItemViewType.CARD.ordinal
@@ -91,7 +88,6 @@ class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapte
 
     interface ItemChange {
         fun onChangeData()
-        fun onChangeFold(isOpenSNS: Boolean,isOpenFavorite: Boolean,isOpenBlock: Boolean,)
     }
 
     var itemChange: ItemChange? = null

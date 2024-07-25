@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage.data
+package com.example.bakedeggs.mypage.data.model
 
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity

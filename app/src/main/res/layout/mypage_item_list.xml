@@ -16,29 +16,18 @@
         app:tint="@color/function"
         />
 
-    <TextView
-        android:id="@+id/mypage_tv_list_sns"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/mypage_et_list_sns"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="SNS 아이디"
         app:layout_constraintStart_toEndOf="@id/mypage_iv_list_sns"
         app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
         app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        android:layout_marginStart="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
         style="@style/listView_myCard_14"
-        />
-
-    <ImageView
-        android:id="@+id/mypage_iv_list_delete"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@id/mypage_tv_list_sns"
-        app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
-        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        android:src="@drawable/mypage_icon_delete"
-        app:tint="@color/function"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

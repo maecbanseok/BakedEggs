@@ -3,9 +3,9 @@ package com.example.bakedeggs.mypage
 import android.app.Application
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ServiceLocator
-import com.example.bakedeggs.mypage.data.MyPageDataModel
-import com.example.bakedeggs.mypage.data.MyPageUIModel
-import com.example.bakedeggs.mypage.data.extractToMyPageDataObj
+import com.example.bakedeggs.mypage.data.model.MyPageDataModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
+import com.example.bakedeggs.mypage.data.changer.extractToMyPageDataObj
 
 object MyPageDataObj {
     private var myPageData = MyPageDataModel()
@@ -79,7 +79,7 @@ object MyPageDataObj {
     }
 
     fun addGithub(data: String?) {
-        val githubList = myPageData.instagramIds?.toMutableList() ?: mutableListOf()
+        val githubList = myPageData.githubIds?.toMutableList() ?: mutableListOf()
         if(data != null) githubList.add(data)
         myPageData = MyPageDataModel(
             myPageData.name,
@@ -95,7 +95,7 @@ object MyPageDataObj {
     }
 
     fun addDiscord(data: String?) {
-        val discordList = myPageData.instagramIds?.toMutableList() ?: mutableListOf()
+        val discordList = myPageData.discordIds?.toMutableList() ?: mutableListOf()
         if(data != null) discordList.add(data)
         myPageData = MyPageDataModel(
             myPageData.name,

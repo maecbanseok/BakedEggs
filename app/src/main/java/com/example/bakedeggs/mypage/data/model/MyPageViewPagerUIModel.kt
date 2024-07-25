@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage.data
+package com.example.bakedeggs.mypage.data.model
 
 data class MyPageViewPagerUIModel(
     val photoId: Int? = null,

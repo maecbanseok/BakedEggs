@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage.data
+package com.example.bakedeggs.mypage.data.model
 
 import com.example.bakedeggs.R
 
@@ -15,17 +15,20 @@ sealed class MyPageUIModel {
     data class HeaderModel(
         override val id: Int? = null,
         val title: String? = null,
+        val type: Int? = null,
+        val isFold: Boolean = false,
     ): MyPageUIModel()
 
     data class ListModel(
         override val id: Int? = null,
         val iconId: Int? = null,
         val content: String? = null,
-    ): MyPageUIModel(), ListElement
+        val type: Int? = null,
+    ): MyPageUIModel()
 
-    data object SnsPlusButtonModel: MyPageUIModel(), ListElement {
-        override var id: Int? = null
-    }
+    data class SnsPlusButtonModel(
+        override val id: Int? = null,
+    ): MyPageUIModel()
 
     data class CardModel(
         override val id: Int = 1,
@@ -46,5 +49,3 @@ sealed class MyPageUIModel {
 
     data class EmptyModel(override val id: Int? = null) : MyPageUIModel()
 }
-
-interface ListElement

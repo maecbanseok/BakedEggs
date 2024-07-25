@@ -1,13 +1,8 @@
 package com.example.bakedeggs.mypage.viewholders
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
-import android.media.Image
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.MainActivity
 import com.example.bakedeggs.R
@@ -15,7 +10,7 @@ import com.example.bakedeggs.databinding.DialogAddCardBinding
 import com.example.bakedeggs.databinding.MypageItemCardEmptyBinding
 import com.example.bakedeggs.mypage.MyPageDataObj
 import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
-import com.example.bakedeggs.mypage.data.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(itemClick: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) {
@@ -28,11 +23,6 @@ class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : Rec
 fun MainActivity.showAddCardDialog(itemClick: MyPageRecyclerViewAdapter.ItemChange?) {
     val builder = AlertDialog.Builder(this)
     builder.setView(layoutInflater.inflate(R.layout.dialog_add_card, null))
-    val dialogBinding = DialogAddCardBinding.inflate(layoutInflater)
-    val etName = dialogBinding.mypageEtAddCardName
-    val etNum = dialogBinding.mypageEtAddCardPhone
-    val etEmail = dialogBinding.mypageEtAddCardEmail
-    val ivProfile = dialogBinding.mypageIvAddCardProfile
     //etName.setText(MyPageDataObj.getData().name ?: "이름")
     //etNum.setText(MyPageDataObj.getData().phoneNum ?: "전화번호")
     //etEmail.setText(MyPageDataObj.getData().email ?: "이메일(선택)")
@@ -70,7 +60,6 @@ fun saveData(name: String?, phoneNum: String?, email: String? = null, photoId: I
 
 fun validationAddCard(name: String?, phoneNum: String?): Boolean {
     if (isAddCardEmpty(name, phoneNum)){
-        println("널널")
         return false
     }
     return true

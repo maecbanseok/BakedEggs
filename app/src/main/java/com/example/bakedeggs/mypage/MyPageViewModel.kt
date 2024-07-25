@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.bakedeggs.mypage.data.MyPageDataModel
+import com.example.bakedeggs.mypage.data.model.MyPageDataModel
 
 class MyPageViewModel: ViewModel() {
     private val _liveData = MutableLiveData<MyPageDataModel?>()

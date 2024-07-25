@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bakedeggs.MainActivity
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
 import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
-import com.example.bakedeggs.mypage.data.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 
 class MyPageFragment : Fragment() {
@@ -25,6 +25,7 @@ class MyPageFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MyPageDataObj.initData(application = requireActivity().application)
+        MyPageFlagObj.initData()
         viewModel.initData()
         arguments?.let {}
     }
@@ -50,30 +51,21 @@ class MyPageFragment : Fragment() {
                 MyPageUIModel.CardModel(),
                 MyPageUIModel.HeaderModel(2, "SNS 계정 추가"),
                 MyPageUIModel.ListModel(3, 0, "0"),
-                MyPageUIModel.SnsPlusButtonModel
+                MyPageUIModel.SnsPlusButtonModel()
             )
         )
         mainActivity.binding.mainFramelayout.isVisible = false
 
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {
-                viewModel.setData()
-            }
-
-            override fun onChangeFold(
-                isOpenSNS: Boolean,
-                isOpenFavorite: Boolean,
-                isOpenBlock: Boolean,
-            ) {
-                adapter.submitList(listOf())
+//                viewModel.setData()
                 adapter.submitList(MyPageDataObj.getData().makeMyPageUIList())
-                viewModel.setData()
             }
-
         }
 
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.itemAnimator = null
         viewModel.liveData.observe(viewLifecycleOwner) {
             println("값 변경됨!!!")
             if (viewModel.getData() != null) {

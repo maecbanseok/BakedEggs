@@ -1,10 +1,10 @@
 package com.example.bakedeggs.mypage
 
 import com.example.bakedeggs.R
-import com.example.bakedeggs.mypage.data.MyPageDataModel
-import com.example.bakedeggs.mypage.data.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageDataModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: Boolean = true, isOpenBlock: Boolean = false): List<MyPageUIModel> {
+fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
 
     var idCount = 0
 
@@ -25,18 +25,20 @@ fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: 
         MyPageUIModel.HeaderModel(
             id = idCount++,
             title = "SNS 계정",
+            type = 0,
         ),
     )
 
     val snsListSize = (this.instagramIds?.size ?: 0 )+ (this.githubIds?.size ?: 0) + (this.discordIds?.size ?: 0)
 
-    if (isOpenSNS) {
+    if (MyPageFlagObj.getFlag().isOpenSNS) {
         for (element in this.instagramIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_insta,
-                    content = element
+                    content = element,
+                    type = 0,
                 )
             )
         }
@@ -45,7 +47,8 @@ fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: 
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_github,
-                    content = element
+                    content = element,
+                    type = 1,
                 )
             )
         }
@@ -54,15 +57,16 @@ fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: 
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_discord,
-                    content = element
+                    content = element,
+                    type = 2,
                 )
             )
         }
         if (snsListSize < 9) {
             list.add(
-                MyPageUIModel.SnsPlusButtonModel.apply {
-                    id = idCount++
-                }
+                MyPageUIModel.SnsPlusButtonModel(
+                    id = idCount++,
+                )
             )
         }
     }
@@ -71,10 +75,11 @@ fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: 
         MyPageUIModel.HeaderModel(
             id = idCount++,
             title = "즐겨찾기 목록",
+            type = 1,
         )
     )
 
-    if (isOpenFavorite) {
+    if (MyPageFlagObj.getFlag().isOpenFavorite) {
         for (element in this.favoriteList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
@@ -90,10 +95,11 @@ fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: 
         MyPageUIModel.HeaderModel(
             id = idCount++,
             title = "차단 목록",
+            type = 2,
         )
     )
 
-    if (isOpenBlock) {
+    if (MyPageFlagObj.getFlag().isOpenBlock) {
         for (element in this.blackList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
@@ -107,6 +113,8 @@ fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: 
 
     return list
 }
+
+
 
 //    val snsAccountList: List<ListElement> = listOf()
 //    val favoriteList: List<ListElement> = listOf()
