@@ -43,7 +43,6 @@ import kotlinx.coroutines.runBlocking
 class ListFragment : Fragment() {
 
 
-
     var isGrid = true
     private lateinit var listAdapter: ListAdapter
     private lateinit var serviceLocator: ServiceLocator
@@ -52,9 +51,6 @@ class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +68,7 @@ class ListFragment : Fragment() {
 //    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
@@ -95,25 +90,19 @@ class ListFragment : Fragment() {
                 mainViewWhitebtn.callOnClick()
                 listMlGridlist.setTransitionListener(object : MotionLayout.TransitionListener {
                     override fun onTransitionStarted(
-                        motionLayout: MotionLayout?,
-                        startId: Int,
-                        endId: Int
+                        motionLayout: MotionLayout?, startId: Int, endId: Int
                     ) {
                         return
                     }
 
                     override fun onTransitionChange(
-                        motionLayout: MotionLayout?,
-                        startId: Int,
-                        endId: Int,
-                        progress: Float
+                        motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float
                     ) {
                         return
                     }
 
                     override fun onTransitionCompleted(
-                        motionLayout: MotionLayout?,
-                        currentId: Int
+                        motionLayout: MotionLayout?, currentId: Int
                     ) {
                         isGrid = motionLayout!!.currentState == motionLayout!!.startState
                         listRecyclerview.layoutManager = if (isGrid) {
@@ -146,10 +135,14 @@ class ListFragment : Fragment() {
                     // 컬렉터로 받기
                     lifecycleScope.launch {
                         EventBus.produceEvent(Bundle().apply {
-                            putInt("ContactDetail",position)
+                            putInt("ContactDetail", position)
                         })
                     }
                     //Intent
+//                    val intent = Intent(activity, DetailActivity::class.java).apply {
+//                        putExtra("contactNum", getData[position].num)
+//                    }
+//                    startActivity(intent)
 
                 }
 
