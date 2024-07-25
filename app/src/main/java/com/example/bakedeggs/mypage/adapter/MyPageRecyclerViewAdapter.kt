@@ -68,11 +68,11 @@ class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapte
 
     override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
         when(holder) {
-            is TopBarViewHolder -> holder.bind()
-            is CardViewHolder -> holder.bind(activity)
-            is HeaderViewHolder -> holder.bind()
-            is ListViewHolder -> holder.bind()
-            is SnsPlusButtonViewHolder -> holder.bind()
+            is TopBarViewHolder -> holder.bind(itemChange)
+            is CardViewHolder -> holder.bind(itemChange, activity)
+            is HeaderViewHolder -> holder.bind(itemChange)
+            is ListViewHolder -> holder.bind(itemChange)
+            is SnsPlusButtonViewHolder -> holder.bind(itemChange)
         }
     }
 
@@ -88,5 +88,12 @@ class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapte
         }
         return viewType
     }
+
+    interface ItemChange {
+        fun onChangeData()
+        fun onChangeFold(isOpenSNS: Boolean,isOpenFavorite: Boolean,isOpenBlock: Boolean,)
+    }
+
+    var itemChange: ItemChange? = null
 
 }

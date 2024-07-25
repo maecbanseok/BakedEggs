@@ -8,8 +8,21 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.bakedeggs.mypage.data.MyPageDataModel
 
 class MyPageViewModel: ViewModel() {
-    private val _liveData = MutableLiveData<MyPageDataModel>()
-    val liveData: LiveData<MyPageDataModel> get() = _liveData
+    private val _liveData = MutableLiveData<MyPageDataModel?>()
+    val liveData: LiveData<MyPageDataModel?> get() = _liveData
+
+    override fun onCleared() {
+        super.onCleared()
+        _liveData.value = null
+    }
+
+    fun initData() = setData()
+
+    fun setData() {
+        _liveData.value = MyPageDataObj.getData()
+    }
+
+    fun getData(): MyPageDataModel? = liveData.value
 }
 
 class MyPageViewModelFactory: ViewModelProvider.Factory {
