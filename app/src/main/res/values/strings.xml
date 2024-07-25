@@ -22,6 +22,8 @@
     <string name="add_birthday">생일</string>
     <string name="add_SNSadd">SNS 계정 추가</string>
     <string name="add_save">저장</string>
+    <string name="main_tabs_contact">CONTACT</string>
+    <string name="main_tabs_mypage">MYPAGE</string>
 
     <!-- MypageFragment -->
 
