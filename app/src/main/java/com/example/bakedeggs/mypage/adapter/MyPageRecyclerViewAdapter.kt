@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
-import com.example.bakedeggs.MainActivity
+import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardBinding
 import com.example.bakedeggs.databinding.MypageItemEmptyBinding
 import com.example.bakedeggs.databinding.MypageItemHeaderBinding

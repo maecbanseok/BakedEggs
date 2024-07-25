@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
-class ListAdapter(private val serviceLocator: ServiceLocator) :
+class ListAdapter(var getData : ArrayList<ContactEntity>) :
     RecyclerView.Adapter<ListAdapter.ListHolder>() {
-
-        private val getData = serviceLocator.contactRepositoryImpl.getContactList()
 
     class ListHolder(val binding: ListRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
         val name = binding.listTvName

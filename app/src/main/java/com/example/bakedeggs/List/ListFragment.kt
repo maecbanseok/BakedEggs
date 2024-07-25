@@ -1,11 +1,15 @@
 package com.example.bakedeggs.List
 
+import android.app.AlertDialog
+import android.app.ProgressDialog.show
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.ConstraintSet.Constraint
@@ -35,7 +39,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-/**
+/*
  * A simple [Fragment] subclass.
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
@@ -57,15 +61,6 @@ class ListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if (context is FragmentDataListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException("$context must implement FragmentDataListener")
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -126,8 +121,8 @@ class ListFragment : Fragment() {
             }
 
             //어댑터 초기화 및 설정
-            listAdapter = ListAdapter(serviceLocator)
-            listRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+            listAdapter = ListAdapter(serviceLocator.contactRepositoryImpl.getContactList())
+            listRecyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
             listRecyclerview.adapter = listAdapter
             listAdapter.listClick = object : ListAdapter.ListClick {
 
@@ -146,14 +141,37 @@ class ListFragment : Fragment() {
 
                 }
 
+
                 override fun onLongClick(view: View, position: Int) {
-                    //길게 클릭 이벤트 처리 -> 삭제
-                    serviceLocator.contactRepositoryImpl.removeContact(position)
-                    listAdapter.notifyDataSetChanged()
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("삭제하시겠습니까?")
+                        .setNegativeButton("취소") { dialog, which -> return@setNegativeButton }
+                        .setPositiveButton("확인") { dialog, which ->
+                            serviceLocator.contactRepositoryImpl.removeContact(position)
+                            listAdapter.notifyDataSetChanged()
+                        }
+                        .show()
                 }
             }
+
+            //androidx.appcompat.widget.SearchView -> 위젯 사용
+            listSearchView.setOnQueryTextListener (object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    // 검색해서 나온 데이터들
+                    listAdapter.getData = serviceLocator.contactRepositoryImpl.search(newText?:"")
+                    listAdapter.notifyDataSetChanged()
+                    return true
+                }
+            })
+
         }
     }
+
+
 
 
     override fun onDestroyView() {
