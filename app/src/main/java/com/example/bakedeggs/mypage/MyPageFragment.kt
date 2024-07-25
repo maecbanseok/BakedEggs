@@ -66,7 +66,7 @@ class MyPageFragment : Fragment() {
                 isOpenBlock: Boolean,
             ) {
                 adapter.submitList(listOf())
-                adapter.submitList(makeMyPageUIList(viewModel.getData()!!))
+                adapter.submitList(MyPageDataObj.getData().makeMyPageUIList())
                 viewModel.setData()
             }
 
@@ -78,7 +78,7 @@ class MyPageFragment : Fragment() {
             println("값 변경됨!!!")
             if (viewModel.getData() != null) {
                 adapter.submitList(listOf())
-                adapter.submitList(makeMyPageUIList(viewModel.getData()!!))
+                adapter.submitList(MyPageDataObj.getData().makeMyPageUIList())
             }
         }
     }

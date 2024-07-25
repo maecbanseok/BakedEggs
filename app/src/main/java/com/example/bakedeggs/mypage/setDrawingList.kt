@@ -4,7 +4,7 @@ import com.example.bakedeggs.R
 import com.example.bakedeggs.mypage.data.MyPageDataModel
 import com.example.bakedeggs.mypage.data.MyPageUIModel
 
-fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFavorite: Boolean = true, isOpenBlock: Boolean = false): List<MyPageUIModel> {
+fun MyPageDataModel.makeMyPageUIList(isOpenSNS: Boolean = true, isOpenFavorite: Boolean = true, isOpenBlock: Boolean = false): List<MyPageUIModel> {
 
     var idCount = 0
 
@@ -14,13 +14,13 @@ fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFav
         ),
         MyPageUIModel.CardModel(
             id = idCount++,
-            photoId = data.photoId,
-            name = data.name,
-            phoneNum = data.phoneNum,
-            email = data.email,
-            instagramId = data.instagramIds?.get(0) ?: "",
-            githubId = data.githubIds?.get(0) ?: "",
-            discordId = data.discordIds?.get(0) ?: "",
+            photoId = this.photoId,
+            name = this.name,
+            phoneNum = this.phoneNum,
+            email = this.email,
+            instagramId = this.instagramIds?.get(0) ?: "",
+            githubId = this.githubIds?.get(0) ?: "",
+            discordId = this.discordIds?.get(0) ?: "",
         ),
         MyPageUIModel.HeaderModel(
             id = idCount++,
@@ -28,10 +28,10 @@ fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFav
         ),
     )
 
-    val snsListSize = (data.instagramIds?.size ?: 0 )+ (data.githubIds?.size ?: 0) + (data.discordIds?.size ?: 0)
+    val snsListSize = (this.instagramIds?.size ?: 0 )+ (this.githubIds?.size ?: 0) + (this.discordIds?.size ?: 0)
 
     if (isOpenSNS) {
-        for (element in data.instagramIds ?: listOf()) {
+        for (element in this.instagramIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
@@ -40,7 +40,7 @@ fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFav
                 )
             )
         }
-        for (element in data.githubIds ?: listOf()) {
+        for (element in this.githubIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
@@ -49,7 +49,7 @@ fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFav
                 )
             )
         }
-        for (element in data.discordIds ?: listOf()) {
+        for (element in this.discordIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
@@ -75,7 +75,7 @@ fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFav
     )
 
     if (isOpenFavorite) {
-        for (element in data.favoriteList ?: listOf()) {
+        for (element in this.favoriteList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
@@ -94,7 +94,7 @@ fun makeMyPageUIList(data: MyPageDataModel, isOpenSNS: Boolean = true, isOpenFav
     )
 
     if (isOpenBlock) {
-        for (element in data.blackList ?: listOf()) {
+        for (element in this.blackList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
