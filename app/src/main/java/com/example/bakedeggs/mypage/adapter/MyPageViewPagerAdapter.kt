@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.bakedeggs.MainActivity
+import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardEmptyBinding
 import com.example.bakedeggs.databinding.MypageItemViewpagerBinding
 import com.example.bakedeggs.mypage.MyPageDataObj

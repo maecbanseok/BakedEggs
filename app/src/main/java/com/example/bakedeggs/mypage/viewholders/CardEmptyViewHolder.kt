@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bakedeggs.MainActivity
+import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.DialogAddCardBinding
 import com.example.bakedeggs.databinding.MypageItemCardEmptyBinding

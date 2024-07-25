@@ -97,8 +97,6 @@ class MainActivity : AppCompatActivity() {
 
     fun initView(){
 
-        supportFragmentManager.beginTransaction().replace(binding.mainFragmentContainer.id, ListFragment.newInstance()).commit()
-
         with(binding){
 
             mainViewpager.adapter=mainViewPagerAdapter
