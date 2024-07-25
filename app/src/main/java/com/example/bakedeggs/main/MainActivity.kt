@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -18,11 +19,15 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.bakedeggs.AddContact.AddDialogFragment
+import androidx.core.view.isVisible
+import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
+import com.example.bakedeggs.mypage.MyPageFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
