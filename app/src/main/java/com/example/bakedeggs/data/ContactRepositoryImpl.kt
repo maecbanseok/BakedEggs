@@ -39,16 +39,13 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
     override suspend fun addContact(contactEntity: ContactEntity) {
         contactDataSource.ContactEntities.add(contactEntity)
         contactDataSource.ContactEntities.sortBy { it.name }
-        fetchData()
     }
     override suspend fun removeContact(position:Int) {
         contactDataSource.ContactEntities.removeAt(position)
-        fetchData()
     }
 
     override suspend fun modifyContact(position: Int, contactEntity: ContactEntity) {
         contactDataSource.ContactEntities[position] = contactEntity
-        fetchData()
     }
 
     override suspend fun fetchData() {

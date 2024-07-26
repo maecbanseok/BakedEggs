@@ -13,5 +13,5 @@ data class ContactEntity(
     val img: Uri?,
     val birth: String?,
     val email: String?,
-    val sns: SNS = SNS()
+    val sns:SNS = SNS()
 )
