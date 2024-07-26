@@ -1,8 +1,12 @@
 package com.example.bakedeggs.alarm
 
+import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.ViewModelProvider
+import com.example.bakedeggs.alarm.ViewModel.AlarmViewModel
+import com.example.bakedeggs.alarm.ViewModel.AlarmViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,7 +16,9 @@ class RebootAlarmReceiver: BroadcastReceiver() {
     private val coroutineScope by lazy { CoroutineScope((Dispatchers.IO)) }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val db=AlarmDataBase.getInstance(context)
+
+        val db = AlarmDataBase.getInstance(context)
+
         if(intent.action.equals("android.intent.action.BOOT_COMPLETED") ){
             AlarmCall(context).run {
                 coroutineScope.launch {

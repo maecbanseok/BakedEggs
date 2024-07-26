@@ -11,15 +11,19 @@ import android.os.Bundle
 import android.provider.Settings
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.AddContact.AddDialogFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.alarm.AlarmCall
 import com.example.bakedeggs.alarm.AlarmDataBase
 import com.example.bakedeggs.alarm.AlarmEntity
+import com.example.bakedeggs.alarm.ViewModel.AlarmViewModel
+import com.example.bakedeggs.alarm.ViewModel.AlarmViewModelFactory
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
@@ -40,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewPagerAdapter by lazy {
         MainViewPagerAdapter(this)
+    }
+
+    private val alarmViewModel: AlarmViewModel by viewModels {
+        AlarmViewModelFactory(application)
     }
 
     private lateinit var serviceLocator: ServiceLocator
@@ -122,10 +130,7 @@ class MainActivity : AppCompatActivity() {
                     })
                     println("dif: ${time-System.currentTimeMillis()}")
                     AlarmCall(this@MainActivity).callAlarm(name, time)
-                    val db=AlarmDataBase.getInstance(this@MainActivity)
-                    CoroutineScope(Dispatchers.IO).launch {
-                        db.alarmDao().addAlarm(AlarmEntity(time,name))
-                    }
+                    alarmViewModel.addAlarm(AlarmEntity(time,name))
 
                 }
                 builder.setPositiveButton("확인",listener)

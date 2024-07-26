@@ -1,4 +1,4 @@
-package com.example.bakedeggs.ViewModel
+package com.example.bakedeggs.data.ViewModel
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

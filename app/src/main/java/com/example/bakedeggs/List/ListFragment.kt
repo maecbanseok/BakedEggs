@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.R
-import com.example.bakedeggs.ViewModel.ContactViewModel
-import com.example.bakedeggs.ViewModel.ContactViewModelFactory
+import com.example.bakedeggs.data.ViewModel.ContactViewModel
+import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.data.ContactDataSource
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
