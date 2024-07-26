@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
 import com.example.bakedeggs.main.MainActivity
-import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.MyPageUIModel
 
 

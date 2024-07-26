@@ -8,6 +8,7 @@ class ContactDataSource(application: Application) {
         private var INSTANCE: ContactDataSource? = null
 
 
+
         fun getContactDataSource(application: Application): ContactDataSource {
             return synchronized(this) {
                 val newInstance = INSTANCE ?: ContactDataSource(application)
@@ -19,4 +20,5 @@ class ContactDataSource(application: Application) {
 
     val ContactEntities by lazy { contactList(application) }
     val CallLogEntities by lazy { callHistory(application) }
+
 }

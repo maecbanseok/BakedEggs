@@ -1,45 +1,42 @@
 package com.example.bakedeggs.main
 
-import android.Manifest
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.AlarmManager
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.View
+import android.provider.Settings
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.bakedeggs.AddContact.AddDialogFragment
-import androidx.core.view.isVisible
-import androidx.fragment.app.commit
-import androidx.lifecycle.lifecycleScope
-import com.example.bakedeggs.List.ListFragment
 import com.example.bakedeggs.R
+import com.example.bakedeggs.alarm.AlarmCall
+import com.example.bakedeggs.alarm.AlarmDataBase
+import com.example.bakedeggs.alarm.AlarmEntity
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
-import com.example.bakedeggs.mypage.MyPageFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-
-    var isContact = true
-
-    private val myNotificationID = 1
-    private val channelID = "default"
 
     private val mainViewPagerAdapter by lazy {
         MainViewPagerAdapter(this)
@@ -59,39 +56,25 @@ class MainActivity : AppCompatActivity() {
         serviceLocator=ServiceLocator.getInstance(application)
 
         getPermission()
-        createNotificationChannel()
 
     }
 
     fun getPermission(){
-        if(Build.VERSION.SDK_INT < 33){
-            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.SEND_SMS,
-                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
-            var flag=false
-            for(i in permissions){
-                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
-                    flag=true
-                }
+        val permissions = if(Build.VERSION.SDK_INT >=33) arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
+            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+        else arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+            android.Manifest.permission.SEND_SMS,
+            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+
+        var flag=false
+        for(i in permissions){
+            if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                flag=true
             }
-            if(flag) requestPermissions(permissions,0)
-            else initView()
-        }else{
-            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
-                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
-            var flag=false
-            for(i in permissions){
-                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
-                    flag=true
-                }
-            }
-            if(flag) requestPermissions(permissions,0)
-            else initView()
         }
-
-
-
+        if(flag) requestPermissions(permissions,0)
+        else initView()
     }
 
     fun initView(){
@@ -113,6 +96,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             mainFbtnAddalarm.setOnClickListener {
+                if(Build.VERSION.SDK_INT>=31&&!(getSystemService(Context.ALARM_SERVICE) as AlarmManager).canScheduleExactAlarms())
+                    startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                        data = Uri.parse("package:"+this@MainActivity.packageName)
+                    })
+
                 val builder = AlertDialog.Builder(this@MainActivity)
                 builder.setTitle("알림 추가")
                 builder.setIcon(R.mipmap.ic_launcher)
@@ -125,21 +113,34 @@ class MainActivity : AppCompatActivity() {
 
                 val listener = DialogInterface.OnClickListener { _,_->
                     val selected=bindingDialog.dialongSpinnerTime.selectedItemPosition
-                    val time=when(selected){
-                        0 -> 0
-                        1 -> 5
-                        2 -> 15
-                        else -> 30
+                    val name= bindingDialog.dialogEtName.text.toString()
+                    val time=genCode(when(selected){
+                        0 -> 0L
+                        1 -> 5L
+                        2 -> 15L
+                        else -> 30L
+                    })
+                    println("dif: ${time-System.currentTimeMillis()}")
+                    AlarmCall(this@MainActivity).callAlarm(name, time)
+                    val db=AlarmDataBase.getInstance(this@MainActivity)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        db.alarmDao().addAlarm(AlarmEntity(time,name))
                     }
-                    showNotification(bindingDialog.dialogEtName.text.toString(), time)
-                }
 
+                }
                 builder.setPositiveButton("확인",listener)
                 builder.setNegativeButton("취소",null)
 
                 builder.show()
             }
         }
+    }
+
+    fun genCode(time:Long):Long{
+        val format = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
+        val cur =LocalDateTime.now().atZone(ZoneId.systemDefault())
+        return if(time!=0L) cur.plusMinutes(time).toInstant().toEpochMilli()
+            else cur.plusSeconds(1L).toInstant().toEpochMilli()
     }
 
 
@@ -158,39 +159,5 @@ class MainActivity : AppCompatActivity() {
             if(flag) initView()
             else println(grantResults.contentToString())
         }
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // Android 8.0
-            val channel = NotificationChannel(
-                channelID, "default channel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.description = "call alarm"
-            val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-    private fun showNotification(str:String, time:Int) {
-        val builder = NotificationCompat.Builder(this, channelID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("연락처 알림")
-            .setContentText(str+"에게 연락할 시간입니다.")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            getPermission()
-            return
-        }
-        Thread{
-            Thread.sleep((60*1000*time).toLong())
-            NotificationManagerCompat.from(this).notify(myNotificationID, builder.build())
-        }.start()
-
     }
 }
