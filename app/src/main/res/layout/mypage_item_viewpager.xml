@@ -169,4 +169,17 @@
 
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
+    <ImageView
+        android:id="@+id/mypage_iv_card_edit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"
+        android:padding="12dp"
+        android:src="@drawable/mypage_baseline_edit_24"
+        app:tint="@color/function"
+        android:translationZ="5dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

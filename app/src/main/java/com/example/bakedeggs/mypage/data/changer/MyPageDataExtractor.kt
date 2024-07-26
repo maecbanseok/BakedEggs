@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage.data
+package com.example.bakedeggs.mypage.data.changer
 
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.mypage.MyPageDataObj

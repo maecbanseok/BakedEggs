@@ -1,14 +1,10 @@
 package com.example.bakedeggs.mypage
 
 import com.example.bakedeggs.R
-import com.example.bakedeggs.mypage.data.MyPageDataModel
-import com.example.bakedeggs.mypage.data.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageDataModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-fun makeMyPageUIList(data: MyPageDataModel): List<MyPageUIModel> {
-
-    val isOpenSNS = true
-    val isOpenFavorite = true
-    val isOpenBlock = false
+fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
 
     var idCount = 0
 
@@ -18,68 +14,85 @@ fun makeMyPageUIList(data: MyPageDataModel): List<MyPageUIModel> {
         ),
         MyPageUIModel.CardModel(
             id = idCount++,
-            photoId = data.photoId,
-            name = data.name,
-            phoneNum = data.phoneNum,
-            email = data.email,
-            instagramId = data.instagramIds[0],
-            githubId = data.githubIds[0],
-            discordId = data.discordIds[0],
-        ),
-        MyPageUIModel.HeaderModel(
-            id = idCount++,
-            title = "SNS 계정",
+            photoId = this.photoId,
+            name = this.name,
+            phoneNum = this.phoneNum,
+            email = this.email,
+            instagramId = this.instagramIds?.get(0) ?: "",
+            githubId = this.githubIds?.get(0) ?: "",
+            discordId = this.discordIds?.get(0) ?: "",
         ),
     )
 
-    val snsListSize = data.instagramIds.size + data.githubIds.size + data.discordIds.size
+    val snsListSize = (this.instagramIds?.size ?: 0 )+ (this.githubIds?.size ?: 0) + (this.discordIds?.size ?: 0)
 
-    if (isOpenSNS) {
-        for(element in data.instagramIds) {
+    if (MyPageFlagObj.getFlag().isOpenSNS) {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "SNS 계정",
+                type = 0,
+                isFold = false
+            )
+        )
+        for (element in this.instagramIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_insta,
-                    content = element
+                    content = element,
+                    type = 0,
                 )
             )
         }
-        for(element in data.githubIds) {
+        for (element in this.githubIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_github,
-                    content = element
+                    content = element,
+                    type = 1,
                 )
             )
         }
-        for(element in data.discordIds) {
+        for (element in this.discordIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_discord,
-                    content = element
+                    content = element,
+                    type = 2,
                 )
             )
         }
-        if(snsListSize < 9) {
+        if (snsListSize < 9) {
             list.add(
-                MyPageUIModel.SnsPlusButtonModel.apply {
-                    id = idCount++
-                }
+                MyPageUIModel.SnsPlusButtonModel(
+                    id = idCount++,
+                )
             )
         }
+    } else {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "SNS 계정",
+                type = 0,
+                isFold = true
+            )
+        )
     }
 
-    list.add(
-        MyPageUIModel.HeaderModel(
-            id = idCount++,
-            title = "즐겨찾기 목록",
+    if (MyPageFlagObj.getFlag().isOpenFavorite) {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "즐겨찾기 목록",
+                type = 1,
+                isFold = false,
+            )
         )
-    )
-
-    if(isOpenFavorite) {
-        for(element in data.favoriteList) {
+        for (element in this.favoriteList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
@@ -88,17 +101,27 @@ fun makeMyPageUIList(data: MyPageDataModel): List<MyPageUIModel> {
                 )
             )
         }
+    } else {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "즐겨찾기 목록",
+                type = 1,
+                isFold = true,
+            )
+        )
     }
 
-    list.add(
-        MyPageUIModel.HeaderModel(
-            id = idCount++,
-            title = "차단 목록",
+    if (MyPageFlagObj.getFlag().isOpenBlock) {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "차단 목록",
+                type = 2,
+                isFold = false
+            )
         )
-    )
-
-    if(isOpenBlock) {
-        for (element in data.blackList) {
+        for (element in this.blackList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
                     id = idCount++,
@@ -107,10 +130,21 @@ fun makeMyPageUIList(data: MyPageDataModel): List<MyPageUIModel> {
                 )
             )
         }
+    } else {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "차단 목록",
+                type = 2,
+                isFold = true
+            )
+        )
     }
 
     return list
 }
+
+
 
 //    val snsAccountList: List<ListElement> = listOf()
 //    val favoriteList: List<ListElement> = listOf()
