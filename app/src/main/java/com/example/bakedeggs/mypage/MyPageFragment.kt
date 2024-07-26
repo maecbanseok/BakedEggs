@@ -12,6 +12,8 @@ import com.example.bakedeggs.databinding.FragmentMyPageBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
+const val MY_PAGE = 0
+const val ADD_CONTRACT = 1
 
 class MyPageFragment : Fragment() {
 
@@ -43,21 +45,19 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainActivity: MainActivity = activity as MainActivity
-        val adapter = MyPageRecyclerViewAdapter(mainActivity)
+        val adapter = MyPageRecyclerViewAdapter(0, mainActivity)
         adapter.submitList(
-            listOf(
-                MyPageUIModel.TopBarModel(),
-                MyPageUIModel.CardModel(),
-                MyPageUIModel.HeaderModel(2, "SNS 계정 추가"),
-                MyPageUIModel.ListModel(3, 0, "0"),
-                MyPageUIModel.SnsPlusButtonModel()
-            )
+            listOf()
         )
 
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {
 //                viewModel.setData()
                 adapter.submitList(MyPageDataObj.getData().makeMyPageUIList())
+            }
+
+            override fun onChangeEditable(isEditable: Boolean) {
+
             }
         }
 

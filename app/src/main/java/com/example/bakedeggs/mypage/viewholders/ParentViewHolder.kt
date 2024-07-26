@@ -10,5 +10,17 @@ import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 abstract class MyPageViewHolder(binding: ViewBinding): RecyclerView.ViewHolder(binding.root), ViewBinding by binding {
     abstract fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, )
     // 이거 나중에 abstract로 바꿔야 함
-    open fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) { }
+//    open fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) { }
+}
+
+interface CardSticker {
+    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity)
+}
+
+interface ListSticker {
+    fun bind(screenType: Int, uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, isEditable: Boolean)
+}
+
+interface EditableListAddSticker {
+    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, index: Int)
 }

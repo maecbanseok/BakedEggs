@@ -143,26 +143,3 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
 
     return list
 }
-
-
-
-//    val snsAccountList: List<ListElement> = listOf()
-//    val favoriteList: List<ListElement> = listOf()
-//    val blackList: List<ListElement> = listOf()
-//
-//    fun getSnsListRange(): IntRange {
-//        val start = 3
-//        return getListRange(start, snsAccountList)
-//    }
-//
-//    fun getFavoriteListRange(): IntRange {
-//        val start = getSnsListRange().last + 2
-//        return getListRange(start, favoriteList)
-//    }
-//
-//    fun getBlackListRange(): IntRange {
-//        val start = getFavoriteListRange().last + 2
-//        return getListRange(start, blackList)
-//    }
-//
-//    fun getListRange(start: Int, list: List<ListElement>): IntRange = (start..<list.size + start)

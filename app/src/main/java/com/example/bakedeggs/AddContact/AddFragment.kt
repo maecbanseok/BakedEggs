@@ -168,7 +168,7 @@ class AddDialogFragment : DialogFragment() {
                 }
             }
 
-            adapter = MyPageRecyclerViewAdapter(activity as MainActivity)
+            adapter = MyPageRecyclerViewAdapter(1, activity as MainActivity)
             adapter.submitList(listOf())
 
             binding.addRvSnsList.adapter = adapter

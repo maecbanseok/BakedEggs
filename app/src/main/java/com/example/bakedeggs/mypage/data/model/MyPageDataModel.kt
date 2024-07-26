@@ -13,6 +13,7 @@ data class MyPageDataModel (
     val discordIds: List<String>? = null,
     val favoriteList: List<ContactEntity>? = null,
     val blackList: List<ContactEntity>? = null,
+    val uiModel: MyPageUIModel? = null,
 ) {
     fun checkNull(): Boolean {
         var isNull: Boolean = false

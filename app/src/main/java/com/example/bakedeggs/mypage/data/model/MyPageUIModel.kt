@@ -24,6 +24,7 @@ sealed class MyPageUIModel {
         val iconId: Int? = null,
         val content: String? = null,
         val type: Int? = null,
+        val isEditable: Boolean = true,
     ): MyPageUIModel()
 
     data class SnsPlusButtonModel(

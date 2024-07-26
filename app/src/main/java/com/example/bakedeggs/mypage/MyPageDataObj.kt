@@ -11,7 +11,6 @@ object MyPageDataObj {
     private var myPageData = MyPageDataModel()
 
     fun initData(application: Application) {
-//        myPageData = data
         val serviceLocator = ServiceLocator(application)
         serviceLocator.contactRepositoryImpl.getContactList().extractToMyPageDataObj()
     }
@@ -19,95 +18,40 @@ object MyPageDataObj {
     fun addFavorite(entity: ContactEntity) {
         val favoriteList: MutableList<ContactEntity> = myPageData.favoriteList?.toMutableList() ?: mutableListOf<ContactEntity>()
         favoriteList.add(entity)
-        myPageData = MyPageDataModel(
-            myPageData.name,
-            myPageData.phoneNum,
-            myPageData.email,
-            myPageData.photoId,
-            myPageData.instagramIds,
-            myPageData.githubIds,
-            myPageData.discordIds,
-            favoriteList,
-            myPageData.blackList
-        )
+        myPageData = myPageData.copy(favoriteList = favoriteList)
     }
 
     fun addBlock(entity: ContactEntity) {
         val blackList: MutableList<ContactEntity> = myPageData.blackList?.toMutableList() ?: mutableListOf<ContactEntity>()
         blackList.add(entity)
-        myPageData = MyPageDataModel(
-            myPageData.name,
-            myPageData.phoneNum,
-            myPageData.email,
-            myPageData.photoId,
-            myPageData.instagramIds,
-            myPageData.githubIds,
-            myPageData.discordIds,
-            myPageData.favoriteList,
-            blackList
-        )
+        myPageData = myPageData.copy(blackList = blackList)
     }
 
     fun addNewProfile(data: MyPageUIModel.CardModel) {
-        myPageData = MyPageDataModel(
-            data.name,
-            data.phoneNum,
-            data.email,
-            data.photoId,
-            myPageData.instagramIds,
-            myPageData.githubIds,
-            myPageData.discordIds,
-            myPageData.favoriteList,
-            myPageData.blackList,
+        myPageData = myPageData.copy(
+            name = data.name,
+            phoneNum = data.phoneNum,
+            email = data.email,
+            photoId = data.photoId,
         )
     }
 
     fun addInsta(data: String?) {
         val instaList = myPageData.instagramIds?.toMutableList() ?: mutableListOf()
         if(data != null) instaList.add(data)
-        myPageData = MyPageDataModel(
-            myPageData.name,
-            myPageData.phoneNum,
-            myPageData.email,
-            myPageData.photoId,
-            instaList,
-            myPageData.githubIds,
-            myPageData.discordIds,
-            myPageData.favoriteList,
-            myPageData.blackList,
-        )
+        myPageData = myPageData.copy(instagramIds = instaList)
     }
 
     fun addGithub(data: String?) {
         val githubList = myPageData.githubIds?.toMutableList() ?: mutableListOf()
         if(data != null) githubList.add(data)
-        myPageData = MyPageDataModel(
-            myPageData.name,
-            myPageData.phoneNum,
-            myPageData.email,
-            myPageData.photoId,
-            myPageData.instagramIds,
-            githubList,
-            myPageData.discordIds,
-            myPageData.favoriteList,
-            myPageData.blackList,
-        )
+        myPageData = myPageData.copy(githubIds = githubList)
     }
 
     fun addDiscord(data: String?) {
         val discordList = myPageData.discordIds?.toMutableList() ?: mutableListOf()
         if(data != null) discordList.add(data)
-        myPageData = MyPageDataModel(
-            myPageData.name,
-            myPageData.phoneNum,
-            myPageData.email,
-            myPageData.photoId,
-            myPageData.instagramIds,
-            myPageData.githubIds,
-            discordList,
-            myPageData.favoriteList,
-            myPageData.blackList,
-        )
+        myPageData = myPageData.copy(discordIds = discordList)
     }
 
     fun checkNull(): Boolean = myPageData.checkNull()
