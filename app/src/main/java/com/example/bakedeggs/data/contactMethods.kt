@@ -30,7 +30,7 @@ fun contactList(context: Context):ArrayList<ContactEntity>{
         val photoUri=cursor.getString(photoidx)?.toUri()
         val starred = cursor.getInt(starredidx)
 
-        list+=ContactEntity(name, convertString(name),number,starred,photoUri,null,null,null)
+        list+=ContactEntity(name, convertString(name),number,starred,photoUri,null,null)
     }
     return ArrayList(list.sortedBy{it.name})
 }

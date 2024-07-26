@@ -239,6 +239,7 @@ class AddDialogFragment : DialogFragment() {
                     }
                 }
             }
+            builder.create().set
 
             builder.setView(binding.root)
                 .setPositiveButton("저장", listener)

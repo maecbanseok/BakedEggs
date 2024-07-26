@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    val a = baseContext
     private val mainViewPagerAdapter by lazy {
         MainViewPagerAdapter(this)
     }
