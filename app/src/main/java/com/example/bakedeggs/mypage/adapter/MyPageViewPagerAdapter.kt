@@ -33,7 +33,7 @@ class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel,  priv
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is ViewPagerViewHolder) holder.bind(uiModel)
+        if(holder is ViewPagerViewHolder) holder.bind(uiModel, itemChange, activity)
         else if(holder is CardEmptyViewHolder) holder.bind(itemChange, activity)
     }
 

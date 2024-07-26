@@ -22,16 +22,19 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
             githubId = this.githubIds?.get(0) ?: "",
             discordId = this.discordIds?.get(0) ?: "",
         ),
-        MyPageUIModel.HeaderModel(
-            id = idCount++,
-            title = "SNS 계정",
-            type = 0,
-        ),
     )
 
     val snsListSize = (this.instagramIds?.size ?: 0 )+ (this.githubIds?.size ?: 0) + (this.discordIds?.size ?: 0)
 
     if (MyPageFlagObj.getFlag().isOpenSNS) {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "SNS 계정",
+                type = 0,
+                isFold = false
+            )
+        )
         for (element in this.instagramIds ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
@@ -69,17 +72,26 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 )
             )
         }
+    } else {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "SNS 계정",
+                type = 0,
+                isFold = true
+            )
+        )
     }
 
-    list.add(
-        MyPageUIModel.HeaderModel(
-            id = idCount++,
-            title = "즐겨찾기 목록",
-            type = 1,
-        )
-    )
-
     if (MyPageFlagObj.getFlag().isOpenFavorite) {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "즐겨찾기 목록",
+                type = 1,
+                isFold = false,
+            )
+        )
         for (element in this.favoriteList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
@@ -89,17 +101,26 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 )
             )
         }
+    } else {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "즐겨찾기 목록",
+                type = 1,
+                isFold = true,
+            )
+        )
     }
 
-    list.add(
-        MyPageUIModel.HeaderModel(
-            id = idCount++,
-            title = "차단 목록",
-            type = 2,
-        )
-    )
-
     if (MyPageFlagObj.getFlag().isOpenBlock) {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "차단 목록",
+                type = 2,
+                isFold = false
+            )
+        )
         for (element in this.blackList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
@@ -109,6 +130,15 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 )
             )
         }
+    } else {
+        list.add(
+            MyPageUIModel.HeaderModel(
+                id = idCount++,
+                title = "차단 목록",
+                type = 2,
+                isFold = true
+            )
+        )
     }
 
     return list

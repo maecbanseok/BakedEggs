@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.mypage.MyPageFlagObj
 import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
@@ -24,12 +25,12 @@ class HeaderViewHolder (private val binding: MypageItemHeaderBinding) : MyPageVi
                     println("변경3")
                 }
             }
-            if(uiModel.isFold) {
-
-            } else {
-                
-            }
             itemChange?.onChangeData()
+        }
+        if(uiModel.isFold) {
+            binding.mypageBtnListTitleFold.setImageResource(R.drawable.baseline_arrow_drop_down_24)
+        } else {
+            binding.mypageBtnListTitleFold.setImageResource(R.drawable.baseline_arrow_drop_up_24)
         }
     }
 }

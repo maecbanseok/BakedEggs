@@ -20,7 +20,7 @@ class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : Rec
     }
 }
 
-fun MainActivity.showAddCardDialog(itemClick: MyPageRecyclerViewAdapter.ItemChange?) {
+fun MainActivity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
     val builder = AlertDialog.Builder(this)
     builder.setView(layoutInflater.inflate(R.layout.dialog_add_card, null))
     //etName.setText(MyPageDataObj.getData().name ?: "이름")
@@ -38,7 +38,7 @@ fun MainActivity.showAddCardDialog(itemClick: MyPageRecyclerViewAdapter.ItemChan
             if(validationAddCard(name, num)) {
                 println("$name,$num 인데")
                 saveData(name, num, email, profile)
-                itemClick?.onChangeData()
+                itemChange?.onChangeData()
             }
         }
     }
