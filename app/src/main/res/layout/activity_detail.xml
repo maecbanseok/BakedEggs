@@ -49,6 +49,9 @@
         app:layout_constraintTop_toBottomOf="@+id/detail_tv_name"
         />
 
+
+    <!--    옆 화살표 누르면 리스트 나오고 수정가능하도록-->
+
     <ImageView
         android:id="@+id/detail_iv_message"
         android:layout_width="41dp"
@@ -74,23 +77,19 @@
         app:srcCompat="@drawable/deatil_call_img" />
 
 
-<!--    옆 화살표 누르면 리스트 나오고 수정가능하도록-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Detail_rv_smsList"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
         android:background="#dedcee"
         android:padding="8dp"
-        android:layout_marginBottom="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/Detail_vv_ad"
         app:layout_constraintEnd_toEndOf="@+id/Detail_vv_ad"
         app:layout_constraintStart_toStartOf="@+id/Detail_vv_ad">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-
 
     <VideoView
         android:id="@+id/Detail_vv_ad"
