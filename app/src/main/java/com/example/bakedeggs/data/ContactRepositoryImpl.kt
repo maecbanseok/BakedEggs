@@ -9,15 +9,17 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
 
     private val _contacts = MutableSharedFlow<ArrayList<ContactEntity>>()
     private val _callLogs = MutableSharedFlow<ArrayList<CallLogEntity>>()
+    private val _mypageContact = MutableSharedFlow<ArrayList<ContactEntity>>()
     private val contacts = _contacts.asSharedFlow()
     private val callLogs = _callLogs.asSharedFlow()
+    private val mypageContact = _mypageContact.asSharedFlow()
 
     override fun getContactList(): Flow<ArrayList<ContactEntity>> = contacts
 
     override fun getCallLogs(): Flow<ArrayList<CallLogEntity>> = callLogs
 
     override suspend fun notNormal() {
-        _contacts.emit(contactDataSource.ContactEntities.filter { it.tag!=0 } as ArrayList<ContactEntity>)
+        _mypageContact.emit(contactDataSource.ContactEntities.filter { it.tag!=0 } as ArrayList<ContactEntity>)
     }
 
     override suspend fun search(str: String) {
