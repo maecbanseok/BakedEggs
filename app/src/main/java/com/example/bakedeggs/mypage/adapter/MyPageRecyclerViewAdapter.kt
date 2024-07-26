@@ -1,10 +1,10 @@
-package com.example.bakedeggs.mypage.adapter
+package com.example.bakedeggs.mypage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
-import com.example.bakedeggs.MainActivity
+import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardBinding
 import com.example.bakedeggs.databinding.MypageItemEmptyBinding
 import com.example.bakedeggs.databinding.MypageItemHeaderBinding
@@ -72,6 +72,10 @@ class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapte
             is ListViewHolder -> holder.bind(getItem(position), itemChange)
             is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange)
         }
+    }
+
+    override fun getItemCount(): Int {
+        return currentList.size
     }
 
     override fun getItemViewType(position: Int): Int {

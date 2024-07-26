@@ -1,4 +1,4 @@
-package com.example.bakedeggs
+package com.example.bakedeggs.main
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -17,16 +18,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.bakedeggs.AddContact.AddDialogFragment
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
-import com.example.bakedeggs.data.EventBus
+import com.example.bakedeggs.List.ListFragment
+import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
 import com.example.bakedeggs.mypage.MyPageFragment
-import kotlinx.coroutines.launch
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,11 +36,14 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    var isGrid = false
     var isContact = true
 
     private val myNotificationID = 1
     private val channelID = "default"
+
+    private val mainViewPagerAdapter by lazy {
+        MainViewPagerAdapter(this)
+    }
 
     private lateinit var serviceLocator: ServiceLocator
 
@@ -51,13 +56,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        println(binding)
-
-        supportFragmentManager.commit {
-            replace(R.id.fragment, MyPageFragment.newInstance())
-        }
-
         serviceLocator=ServiceLocator.getInstance(application)
 
         getPermission()
@@ -66,18 +64,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPermission(){
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
-        val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
-            android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
-            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
-        var flag=false
-        for(i in permissions){
-            if(checkSelfPermission(i)== PackageManager.PERMISSION_DENIED){
-                flag=true
+        if(Build.VERSION.SDK_INT < 33){
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+            var flag=false
+            for(i in permissions){
+                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                    flag=true
+                }
             }
+            if(flag) requestPermissions(permissions,0)
+            else initView()
+        }else{
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
+            var flag=false
+            for(i in permissions){
+                if(checkSelfPermission(i) == PackageManager.PERMISSION_DENIED){
+                    flag=true
+                }
+            }
+            if(flag) requestPermissions(permissions,0)
+            else initView()
         }
-        if(flag) requestPermissions(permissions,0)
-        else initView()
+
 
 
     }
@@ -85,27 +97,19 @@ class MainActivity : AppCompatActivity() {
     fun initView(){
 
         with(binding){
-            mainLlGridlist.setOnClickListener{
-                binding.mainViewWhitebtn.callOnClick()
-                isGrid=!isGrid
-                lifecycleScope.launch {
-                    EventBus.produceEvent(isGrid)
-                }
-            }
 
-            mainBtnContact.setOnClickListener {
-                if(isContact) return@setOnClickListener
-                isContact=!isContact
-                setFragment(isContact)
-            }
-            mainBtnMypage.setOnClickListener {
-                if(!isContact) return@setOnClickListener
-                isContact=!isContact
-                setFragment(isContact)
-            }
+            mainViewpager.adapter=mainViewPagerAdapter
+            mainViewpager.offscreenPageLimit=2
+
+            TabLayoutMediator(mainTabs,mainViewpager){tab,position ->
+                when(position){
+                    0->tab.text="CONTACT"
+                    1->tab.text="MYPAGE"
+                }
+            }.attach()
 
             mainFbtnAdd.setOnClickListener{
-
+                AddDialogFragment().show(supportFragmentManager,"Add Contact")
             }
 
             mainFbtnAddalarm.setOnClickListener {
@@ -137,15 +141,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-        //if -> list or grid에 따라 선택
 
-    fun setFragment(isContact: Boolean){
-        if(isContact){
-
-        }else{
-
-        }
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -156,9 +152,11 @@ class MainActivity : AppCompatActivity() {
         if(requestCode ==0){
             var flag=true
             for(i in grantResults){
-                if(i!=PackageManager.PERMISSION_GRANTED) flag=false
+                if(i==PackageManager.PERMISSION_DENIED) flag=false
+
             }
             if(flag) initView()
+            else println(grantResults.contentToString())
         }
     }
 
