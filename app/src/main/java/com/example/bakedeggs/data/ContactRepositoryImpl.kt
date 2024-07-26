@@ -18,6 +18,8 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
 
     override fun getCallLogs(): Flow<ArrayList<CallLogEntity>> = callLogs
 
+    override fun getMypageContact(): Flow<ArrayList<ContactEntity>> =mypageContact
+
     override suspend fun notNormal() {
         _mypageContact.emit(contactDataSource.ContactEntities.filter { it.tag!=0 } as ArrayList<ContactEntity>)
     }
