@@ -34,6 +34,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
         holder.name.text = getData[position].name
         //if -> 즐겨찾기인지 아닌지 확인하는 구문
 
+
         val img = getData[position].img?.let {
             //uri 있는지 확인
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
