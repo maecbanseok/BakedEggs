@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_color"
+    android:padding="16dp">
+
+    <FrameLayout
+        android:id="@+id/mypage_fl_add_card_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mypage_cv_add_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@color/background_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/mypage_iv_add_card_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:src="@drawable/mypage_base_photo_summer" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="16dp"
+            app:cardCornerRadius="30dp"
+            android:layout_gravity="end"
+            >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/mypage_baseline_camera_alt_24" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/mypage_et_add_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="이름"
+        app:layout_constraintStart_toStartOf="@id/mypage_fl_add_card_profile"
+        app:layout_constraintTop_toBottomOf="@id/mypage_fl_add_card_profile" />
+
+    <EditText
+        android:id="@+id/mypage_et_add_card_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="전화번호"
+        app:layout_constraintStart_toStartOf="@id/mypage_et_add_card_name"
+        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_name" />
+
+    <EditText
+        android:id="@+id/mypage_et_add_card_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="이메일(선택)"
+        app:layout_constraintStart_toStartOf="@id/mypage_et_add_card_name"
+        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_phone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

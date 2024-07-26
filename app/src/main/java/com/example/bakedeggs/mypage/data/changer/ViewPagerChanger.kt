@@ -1,4 +1,7 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data.changer
+
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageViewPagerUIModel
 
 fun MyPageUIModel.CardModel.asViewPagerModel(): MyPageViewPagerUIModel {
     return MyPageViewPagerUIModel(
