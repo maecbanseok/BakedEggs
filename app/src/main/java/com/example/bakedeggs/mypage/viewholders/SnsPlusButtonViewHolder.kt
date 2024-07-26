@@ -27,18 +27,15 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
             }
         }
         binding.mypageIvSnsInsta.setOnClickListener {
-            MyPageDataObj.addInsta("insta")
-            println("인스타 리스트: ${MyPageDataObj.getData().instagramIds}")
+            MyPageDataObj.addInsta("")
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsGithub.setOnClickListener {
-            MyPageDataObj.addGithub("github")
-            println("깃헙 리스트: ${MyPageDataObj.getData().githubIds}")
+            MyPageDataObj.addGithub("")
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsDiscord.setOnClickListener {
-            MyPageDataObj.addDiscord("discord")
-            println("디스코드 리스트: ${MyPageDataObj.getData().discordIds}")
+            MyPageDataObj.addDiscord("")
             itemChange?.onChangeData()
         }
     }

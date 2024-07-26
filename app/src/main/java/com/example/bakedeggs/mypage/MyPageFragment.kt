@@ -12,9 +12,6 @@ import com.example.bakedeggs.databinding.FragmentMyPageBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-const val MY_PAGE = 0
-const val ADD_CONTRACT = 1
-
 class MyPageFragment : Fragment() {
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
@@ -25,8 +22,8 @@ class MyPageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MyPageDataObj.initData(application = requireActivity().application)
         MyPageFlagObj.initData()
+        MyPageDataObj.initData(application = requireActivity().application)
         viewModel.initData()
         arguments?.let {}
     }
@@ -46,6 +43,7 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainActivity: MainActivity = activity as MainActivity
         val adapter = MyPageRecyclerViewAdapter(0, mainActivity)
+
         adapter.submitList(
             listOf()
         )
@@ -53,7 +51,8 @@ class MyPageFragment : Fragment() {
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {
 //                viewModel.setData()
-                adapter.submitList(MyPageDataObj.getData().makeMyPageUIList())
+                adapter.submitList(listOf())
+                adapter.submitList(MyPageDataObj.changeUIList())
             }
 
             override fun onChangeEditable(isEditable: Boolean) {
@@ -68,7 +67,7 @@ class MyPageFragment : Fragment() {
             println("값 변경됨!!!")
             if (viewModel.getData() != null) {
                 adapter.submitList(listOf())
-                adapter.submitList(MyPageDataObj.getData().makeMyPageUIList())
+                adapter.submitList(MyPageDataObj.changeUIList())
             }
         }
     }

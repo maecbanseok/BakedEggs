@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.view.LayoutInflater
@@ -16,14 +17,14 @@ import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(itemClick: MyPageRecyclerViewAdapter.ItemChange?, activity: AppCompatActivity) {
+    fun bind(itemClick: MyPageRecyclerViewAdapter.ItemChange?, activity: Activity) {
         binding.mypageIvCardAdd.setOnClickListener {
             activity.showAddCardDialog(itemClick)
         }
     }
 }
 
-fun AppCompatActivity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
+fun Activity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
     val builder = AlertDialog.Builder(this)
     val dialogBinding = DialogAddCardBinding.inflate(this.layoutInflater)
     println("${MyPageDataObj.getData().name} ㅇㅇㅇㅇ")

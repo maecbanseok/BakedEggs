@@ -18,9 +18,9 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
             name = this.name,
             phoneNum = this.phoneNum,
             email = this.email,
-            instagramId = this.instagramIds?.get(0) ?: "",
-            githubId = this.githubIds?.get(0) ?: "",
-            discordId = this.discordIds?.get(0) ?: "",
+            instagramId = this.instagramIds?.get(0)?.snsId ?: "",
+            githubId = this.githubIds?.get(0)?.snsId  ?: "",
+            discordId = this.discordIds?.get(0)?.snsId  ?: "",
         ),
     )
 
@@ -40,7 +40,7 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_insta,
-                    content = element,
+                    content = element.snsId,
                     type = 0,
                 )
             )
@@ -50,7 +50,7 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_github,
-                    content = element,
+                    content =element.snsId,
                     type = 1,
                 )
             )
@@ -60,7 +60,7 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 MyPageUIModel.ListModel(
                     id = idCount++,
                     iconId = R.drawable.mypage_icon_discord,
-                    content = element,
+                    content = element.snsId,
                     type = 2,
                 )
             )

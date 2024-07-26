@@ -8,12 +8,12 @@ data class MyPageDataModel (
     val phoneNum: String? = null,
     val email: String? = null,
     val photoId: Int? = R.drawable.mypage_base_photo_summer,
-    val instagramIds: List<String>? = null,
-    val githubIds: List<String>? = null,
-    val discordIds: List<String>? = null,
+    val instagramIds: List<MyPageListModel>? = null,
+    val githubIds: List<MyPageListModel>? = null,
+    val discordIds: List<MyPageListModel>? = null,
     val favoriteList: List<ContactEntity>? = null,
     val blackList: List<ContactEntity>? = null,
-    val uiModel: MyPageUIModel? = null,
+    val uiModelList: List<MyPageUIModel>? = null,
 ) {
     fun checkNull(): Boolean {
         var isNull: Boolean = false

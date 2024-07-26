@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemViewpagerBinding
@@ -9,7 +10,7 @@ import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class ViewPagerViewHolder(private val binding: MypageItemViewpagerBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(uiModel: MyPageUIModel.CardModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) {
+    fun bind(uiModel: MyPageUIModel.CardModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: Activity) {
         binding.mypageTvCardName.text = uiModel.name
         binding.mypageTvCardPhoneNum.text = uiModel.phoneNum
         if(!MyPageDataObj.getData().email.isNullOrEmpty())

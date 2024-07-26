@@ -31,6 +31,7 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
     MyPageDiffUtilCallback()
 ) {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageViewHolder {
         val binding: ViewBinding?
         lateinit var viewHolder: MyPageViewHolder
@@ -75,7 +76,7 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
             is TopBarViewHolder -> holder.bind(getItem(position), itemChange)
             is CardViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
-            is ListViewHolder -> holder.bind(getItem(position), itemChange)
+            is ListViewHolder -> holder.bind(screenType, getItem(position), itemChange, true)
             is UneditableListViewHolder -> holder.bind(getItem(position), itemChange)
             is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange)
         }
