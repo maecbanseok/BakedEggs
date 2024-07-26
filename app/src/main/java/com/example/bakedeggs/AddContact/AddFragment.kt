@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 
 import android.widget.DatePicker
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -98,6 +99,7 @@ class AddDialogFragment : DialogFragment() {
                     binding.addBtnGithub.visibility = View.VISIBLE
                     binding.addBtnDiscord.visibility = View.VISIBLE
                 }
+                binding.addLoScroll.fullScroll(ScrollView.FOCUS_DOWN);
             }
 
             binding.addIvProfile.setOnClickListener {
@@ -122,7 +124,7 @@ class AddDialogFragment : DialogFragment() {
                         addEtPhoneWarning.text = "번호를 입력해 주세요"
                         addEtPhoneWarning.setTextColor(Color.RED)
                     }else {
-                        if (!binding.addEtPhone.text.matches(phonePattern)){
+                        if (!phoneNumber.matches(phonePattern)){
                             addEtPhoneWarning.text = "입력 값을 확인해 주세요"
                             addEtPhoneWarning.setTextColor(Color.RED)
                         }else{
@@ -131,11 +133,23 @@ class AddDialogFragment : DialogFragment() {
                         }
                     }
                 }
+                addEtEmail.filters = arrayOf(filterAddEtEmail)
+                addEtEmail.doAfterTextChanged {
+                    val emailWords = addEtEmail.text.toString().trim()
+                    if (emailWords.isEmpty()) {
+                        addEtEmailWarning.text = "이메일을 입력해 주세요"
+                        addEtEmailWarning.setTextColor(Color.RED)
+                    }else {
+                        if (!emailWords.matches(emailPattern)){
+                            addEtEmailWarning.text = "입력 값을 확인해 주세요"
+                            addEtEmailWarning.setTextColor(Color.RED)
+                        }else{
+                            addEtEmailWarning.text = "입력 값을 확인 완료"
+                            addEtEmailWarning.setTextColor(Color.GREEN)
+                        }
+                    }
+                }
             }
-            binding.addEtPhone
-            binding.addEtPhoneWarning
-            binding.addEtEmail
-            binding.addEtEmailWarning
 
             val datePicker: DatePicker = binding.addDpBirthday
             val calendar: Calendar = Calendar.getInstance()
