@@ -37,6 +37,10 @@
             </intent-filter>
         </receiver>
         <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"
+            />
+        <activity
             android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>

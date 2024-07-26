@@ -27,7 +27,7 @@
                 android:layout_marginTop="18dp"
                 android:background="@drawable/add_businesscard_shape"
                 android:clipToOutline="true"
-                android:src="@drawable/dummy_business_card"
+                android:src="@drawable/img_add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -153,7 +153,7 @@
                     android:id="@+id/add_et_phoneWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="번호입력 오류경고"
+                    android:text="aa"
                     app:layout_constraintEnd_toEndOf="@+id/add_et_phone"
                     app:layout_constraintStart_toStartOf="@+id/add_et_phone"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -212,7 +212,7 @@
                     android:id="@+id/add_et_emailWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="이메일입력 오류경고"
+                    android:text="aa"
                     app:layout_constraintEnd_toEndOf="@+id/add_et_email"
                     app:layout_constraintStart_toStartOf="@+id/add_et_email"
                     app:layout_constraintTop_toTopOf="parent" />

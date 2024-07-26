@@ -16,11 +16,14 @@ import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.constraintlayout.widget.ConstraintSet.END
 import androidx.constraintlayout.widget.ConstraintSet.Motion
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.R
+import com.example.bakedeggs.ViewModel.ContactViewModel
+import com.example.bakedeggs.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.data.ContactDataSource
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
@@ -35,6 +38,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -46,20 +50,19 @@ import kotlinx.coroutines.runBlocking
  */
 class ListFragment : Fragment() {
 
+    private val contactViewModel: ContactViewModel by viewModels {
+        ContactViewModelFactory(requireActivity().application)
+    }
 
     var isGrid = true
-    private lateinit var listAdapter: ListAdapter
-    private lateinit var serviceLocator: ServiceLocator
-    private lateinit var contactRepository: ContactRepository
-    private lateinit var getData: ArrayList<ContactEntity>
+    private var getData = ArrayList<ContactEntity>()
+    private val listAdapter = ListAdapter(getData)
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -77,8 +80,6 @@ class ListFragment : Fragment() {
     }
 
     fun initView() {
-        serviceLocator = ServiceLocator(requireActivity().application)
-        getData = serviceLocator.contactRepositoryImpl.getContactList() //Data 가져온 것
 
         with(binding) {
             listLlGridlist.setOnClickListener {
@@ -120,10 +121,16 @@ class ListFragment : Fragment() {
                 })
             }
 
+
             //어댑터 초기화 및 설정
-            listAdapter = ListAdapter(serviceLocator.contactRepositoryImpl.getContactList())
+            lifecycleScope.launch {
+                contactViewModel.contacts.onCompletion{}.collect{
+                    listAdapter.getData = it
+                    listAdapter.notifyDataSetChanged()
+                }
+            }
+            listRecyclerview.adapter=listAdapter
             listRecyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
-            listRecyclerview.adapter = listAdapter
             listAdapter.listClick = object : ListAdapter.ListClick {
 
                 override fun onClick(view: View, position: Int) {
@@ -147,8 +154,7 @@ class ListFragment : Fragment() {
                     builder.setTitle("삭제하시겠습니까?")
                         .setNegativeButton("취소") { dialog, which -> return@setNegativeButton }
                         .setPositiveButton("확인") { dialog, which ->
-                            serviceLocator.contactRepositoryImpl.removeContact(position)
-                            listAdapter.notifyDataSetChanged()
+                            contactViewModel.removeContact(position)
                         }
                         .show()
                 }
@@ -162,8 +168,7 @@ class ListFragment : Fragment() {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     // 검색해서 나온 데이터들
-                    listAdapter.getData = serviceLocator.contactRepositoryImpl.search(newText?:"")
-                    listAdapter.notifyDataSetChanged()
+                    contactViewModel.search(newText?:"")
                     return true
                 }
             })

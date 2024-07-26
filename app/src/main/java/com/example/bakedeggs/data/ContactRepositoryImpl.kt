@@ -16,6 +16,10 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
 
     override fun getCallLogs(): Flow<ArrayList<CallLogEntity>> = callLogs
 
+    override suspend fun notNormal() {
+        _contacts.emit(contactDataSource.ContactEntities.filter { it.tag!=0 } as ArrayList<ContactEntity>)
+    }
+
     override suspend fun search(str: String) {
         val contacts = contactDataSource.ContactEntities
         val result=ArrayList<ContactEntity>()

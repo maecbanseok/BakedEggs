@@ -18,12 +18,18 @@ import kotlinx.coroutines.launch
 class ContactViewModel(application: Application): AndroidViewModel(application) {
 
     private val contactRepositoryImpl = ContactRepositoryImpl(ContactDataSource(application))
-    private val _contacts=contactRepositoryImpl.getContactList()
-    private val _callLogs=contactRepositoryImpl.getCallLogs()
+    val contacts=contactRepositoryImpl.getContactList()
+    val callLogs=contactRepositoryImpl.getCallLogs()
 
     init {
         viewModelScope.launch {
             contactRepositoryImpl.fetchData()
+        }
+    }
+
+    fun notNormalContact(){
+        viewModelScope.launch {
+            contactRepositoryImpl.notNormal()
         }
     }
 
@@ -49,6 +55,12 @@ class ContactViewModel(application: Application): AndroidViewModel(application) 
     fun search(str: String) {
         viewModelScope.launch {
             contactRepositoryImpl.search(str)
+        }
+    }
+
+    fun fetch(){
+        viewModelScope.launch {
+            contactRepositoryImpl.fetchData()
         }
     }
 }
