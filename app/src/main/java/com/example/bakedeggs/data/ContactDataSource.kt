@@ -3,9 +3,10 @@ package com.example.bakedeggs.data
 import android.app.Application
 
 class ContactDataSource(application: Application) {
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: ContactDataSource? = null
+
 
 
         fun getContactDataSource(application: Application): ContactDataSource {
@@ -18,4 +19,6 @@ class ContactDataSource(application: Application) {
     }
 
     val ContactEntities by lazy { contactList(application) }
+    val CallLogEntities by lazy { callHistory(application) }
+
 }

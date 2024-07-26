@@ -1,9 +1,15 @@
 package com.example.bakedeggs.data
 
+import kotlinx.coroutines.flow.Flow
+
 interface ContactRepository {
-    fun getContactList() : ArrayList<ContactEntity>
-    fun addContactList(contact: ContactEntity)
-    fun modifyContact(idx:Int, contact:ContactEntity)
-    fun removeContact(idx:Int)
-    fun search(str:String) :ArrayList<ContactEntity>
+    fun getContactList() : Flow<ArrayList<ContactEntity>>
+    fun getCallLogs():Flow<ArrayList<CallLogEntity>>
+    fun getMypageContact(): Flow<ArrayList<ContactEntity>>
+    suspend fun notNormal()
+    suspend fun search(str:String)
+    suspend fun addContact(contactEntity: ContactEntity)
+    suspend fun removeContact(position: Int)
+    suspend fun modifyContact(position: Int,contactEntity: ContactEntity)
+    suspend fun fetchData()
 }

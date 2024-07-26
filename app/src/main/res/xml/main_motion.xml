@@ -13,12 +13,12 @@
     </Transition>
 
     <Transition
-        motion:constraintSetStart="@+id/end"
-        motion:constraintSetEnd="@+id/start"
+        motion:constraintSetStart="@+id/start"
+        motion:constraintSetEnd="@+id/end"
         motion:duration="300">
         <OnClick
             motion:targetId="@id/main_view_whitebtn"
-            motion:clickAction="transitionToEnd"/>
+            motion:clickAction="transitionToStart"/>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".AddContact.AddDialogFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/add_lo_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_lo_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- 프로필 사진-->
+            <ImageView
+                android:id="@+id/add_iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/add_businesscard_shape"
+                android:clipToOutline="true"
+                android:src="@drawable/img_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo_16"
+                app:layout_constraintStart_toStartOf="@+id/add_iv_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/add_tbtn_like"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/add_like_selector"
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintEnd_toEndOf="@+id/add_iv_profile"
+                app:layout_constraintTop_toTopOf="@+id/add_iv_profile" />
+
+            <!--    이름 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_iv_profile">
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_nameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_name"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_name"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="이름"
+                    android:maxLength="12"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_nameTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_nameTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    번호 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_name">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_phoneTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_phone"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_phone"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="예: 010-0000-0000"
+                    android:inputType="phone"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_phoneTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_phoneTitle" />
+
+                <TextView
+                    android:id="@+id/add_et_phoneWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_phone"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_phone"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    E-mail 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_phone">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_emailTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_email"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_et_email"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
+                    android:background="@drawable/add_edittext_shape"
+                    android:gravity="center_horizontal"
+                    android:hint="예: userid@site.com"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_emailTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_emailTitle" />
+
+                <TextView
+                    android:id="@+id/add_et_emailWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_email"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_email"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    생일 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_email">
+
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_dp_birthday" />
+
+                <TextView
+                    android:id="@+id/add_tv_birthdayTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_birthday"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:layout_constraintVertical_bias="0.01" />
+
+                <DatePicker
+                    android:id="@+id/add_dp_birthday"
+                    android:layout_width="230dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="120dp"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--   SNS 입력    -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_lo_sns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_lo_birthday">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_snsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/add_SNSadd"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ToggleButton
+                    android:id="@+id/add_tbtn_foldbutton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/add_fold_button_selector"
+                    android:backgroundTint="@color/function"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tv_snsTitle"
+                    app:layout_constraintStart_toEndOf="@+id/add_tv_snsTitle"
+                    app:layout_constraintTop_toTopOf="@+id/add_tv_snsTitle" />
+
+                <Button
+                    android:id="@+id/add_btn_snsadd"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/add_snsadd_button_selector"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_tbtn_foldbutton"
+                    app:layout_constraintStart_toEndOf="@+id/add_tbtn_foldbutton"
+                    app:layout_constraintTop_toTopOf="@+id/add_tbtn_foldbutton" />
+
+                <Button
+                    android:id="@+id/add_btn_Instagram"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/instagram_24"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_btn_snsadd"
+                    app:layout_constraintStart_toEndOf="@+id/add_btn_snsadd"
+                    app:layout_constraintTop_toTopOf="@+id/add_btn_snsadd" />
+
+                <Button
+                    android:id="@+id/add_btn_github"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/github_24"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_btn_Instagram"
+                    app:layout_constraintStart_toEndOf="@+id/add_btn_Instagram"
+                    app:layout_constraintTop_toTopOf="@+id/add_btn_Instagram" />
+
+                <Button
+                    android:id="@+id/add_btn_discord"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/discord_24"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_btn_github"
+                    app:layout_constraintStart_toEndOf="@+id/add_btn_github"
+                    app:layout_constraintTop_toTopOf="@+id/add_btn_github" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/add_tv_snsTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/add_tv_snsTitle">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/add_rv_snsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:overScrollMode="never"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

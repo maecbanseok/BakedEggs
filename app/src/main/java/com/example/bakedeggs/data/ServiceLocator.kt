@@ -3,9 +3,9 @@ package com.example.bakedeggs.data
 import android.app.Application
 
 class ServiceLocator(application: Application) {
-    companion object{
-        private var INSTANCE:ServiceLocator? = null
-        fun getInstance(application: Application):ServiceLocator {
+    companion object {
+        private var INSTANCE: ServiceLocator? = null
+        fun getInstance(application: Application): ServiceLocator {
             return synchronized<ServiceLocator>(this) {
                 val newInstance = INSTANCE ?: ServiceLocator(application)
                 INSTANCE = newInstance
@@ -14,5 +14,6 @@ class ServiceLocator(application: Application) {
         }
     }
 
-    val contactDataSource by lazy { ContactDataSource.getContactDataSource(application) }
+    val contactRepositoryImpl by lazy { ContactRepositoryImpl(ContactDataSource.getContactDataSource(application)) }
+    //private val contactDataSource = ContactDataSource.getContactDataSource(application)
 }

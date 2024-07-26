@@ -14,8 +14,8 @@ data class ContactEntity(
     var birth: String?,
     var email: String?,
     var sns: SNS?
-){
+) {
     init {
-        sns=SNS()
+        sns = SNS()
     }
 }

@@ -5,14 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".List.ListFragment">
+    <FrameLayout
+        android:id="@+id/list_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/buttonBackground"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <SearchView
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/list_ml_gridlist"
+            app:layoutDescription="@xml/main_motion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/main_view_whitebtn"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:background="@drawable/gridlist_shape"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <LinearLayout
+            android:id="@+id/list_ll_gridlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/list_btn_grid"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="@string/main_gridviewbtn"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:clickable="false"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/list_btn_list"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/main_listviewbtn"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:clickable="false"/>
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/list_searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/list_framelayout" />
 
     <ImageView
         android:id="@+id/list_iv_profile"
