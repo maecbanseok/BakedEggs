@@ -13,7 +13,7 @@ object MyPageDataObj {
     fun initData(application: Application) {
 //        myPageData = data
         val serviceLocator = ServiceLocator(application)
-        serviceLocator.contactRepositoryImpl.getContactList().extractToMyPageDataObj()
+        //serviceLocator.contactRepositoryImpl.getContactList().extractToMyPageDataObj()
     }
 
     fun addFavorite(entity: ContactEntity) {
