@@ -25,6 +25,7 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -34,6 +35,9 @@ import com.canhub.cropper.CropImageOptions
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.SNS
+import com.example.bakedeggs.data.ViewModel.ContactViewModel
+import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
+import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
@@ -50,6 +54,11 @@ class AddDialogFragment : DialogFragment() {
 
     private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
     private lateinit var builder: AlertDialog.Builder
+    private var profileUri: Uri?=null
+
+    private val contactViewModel: ContactViewModel by viewModels {
+        ContactViewModelFactory(requireActivity().application)
+    }
     //이미지 자르기
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
@@ -58,6 +67,8 @@ class AddDialogFragment : DialogFragment() {
                 .load(result.uriContent)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
                 .into(binding.addIvProfile)
+
+            profileUri = result.uriContent
         } else {
             val exception = result.error
         }
@@ -230,21 +241,24 @@ class AddDialogFragment : DialogFragment() {
                     binding.addEtEmail.text.equals("")
                 ) {
                     Toast.makeText(this.requireContext(), "미입력된 항목이 있습니다.", Toast.LENGTH_SHORT)
-                } else {
-                    contact.apply {
-                        name = binding.addEtName.text.toString()
-                        convertedName = ""
-                        num = binding.addEtPhone.text.toString()
-                        email = binding.addEtEmail.text.toString()
-                        if (binding.addTbtnLike.isChecked) {
-                            tag = 1 // 즐겨찾기
-                        } else {
-                            tag = 0 // 일반저장
-                        }
-                        birth = binding.addDpBirthday.toString()
-                        val snsTmp = SNS()
 
-                    }
+                } else {
+                    contact = ContactEntity(
+                        binding.addEtName.text.toString(),
+                        convertString(binding.addEtName.text.toString()),
+                        binding.addEtPhone.text.toString(),
+                        if (binding.addTbtnLike.isChecked) {
+                            1 // 즐겨찾기
+                        } else {
+                            0 // 일반저장
+                        },
+                        profileUri,
+                        binding.addDpBirthday.toString(),
+                        binding.addEtEmail.text.toString(),
+                    )
+                    Log.d("dataFFFFF", "contact $contact")
+                    contactViewModel.addContact(contact)
+                    Log.d("dataFFFFF", contactViewModel.contacts.toString())
                 }
             }
 
