@@ -20,6 +20,7 @@ class ContactViewModel(application: Application): AndroidViewModel(application) 
     private val contactRepositoryImpl = ContactRepositoryImpl(ContactDataSource(application))
     val contacts=contactRepositoryImpl.getContactList()
     val callLogs=contactRepositoryImpl.getCallLogs()
+    val mypageContact=contactRepositoryImpl.getMypageContact()
 
     init {
         viewModelScope.launch {
