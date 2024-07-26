@@ -54,11 +54,12 @@ class AddDialogFragment : DialogFragment() {
 
     private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
     private lateinit var builder: AlertDialog.Builder
-    private var profileUri: Uri?=null
+    private var profileUri: Uri? = null
 
     private val contactViewModel: ContactViewModel by viewModels {
         ContactViewModelFactory(requireActivity().application)
     }
+
     //이미지 자르기
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
@@ -73,6 +74,7 @@ class AddDialogFragment : DialogFragment() {
             val exception = result.error
         }
     }
+
     //이미지 가져오기
     private val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -84,21 +86,21 @@ class AddDialogFragment : DialogFragment() {
                     CropImageContractOptions(
                         uri = uri, // 크롭할 이미지 uri
                         cropImageOptions = CropImageOptions(
-                            outputCompressFormat = Bitmap.CompressFormat.PNG
+                            outputCompressFormat = Bitmap.CompressFormat.PNG,//사진 확장자 변경
+                            minCropResultHeight = 50,//사진 최소 세로크기
+                            minCropResultWidth = 80,//사진 최소 가로크기
+                            aspectRatioY = 5,//세로 비율
+                            aspectRatioX = 8,//가로 비율
+                            fixAspectRatio = true,//커터? 크기 고정 여부
+                            borderLineColor = Color.GREEN//커터? 태두리 색
                             // 원하는 옵션 추가
                         )
                     )
                 )
-                cropImage
-
             } else {
                 Log.d("PhotoPicker", "No media selected")
             }
         }
-
-    public fun snsData(){
-
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -122,15 +124,17 @@ class AddDialogFragment : DialogFragment() {
                 //클릭하면 사진 가져오긔
                 // Registers a photo picker activity launcher in single-select mode.
                 pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-
             }
 
             val filterAddEtEmail = InputFilter { source, start, end, dest, dstart, dend ->
                 val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z0-9\\@\\.]+$")
-                if (!ps.matcher(source).matches()) { "" } else source
+                if (!ps.matcher(source).matches()) {
+                    ""
+                } else source
             }
             val phonePattern = Regex("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}\$")
-            val emailPattern = Regex("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)\$")
+            val emailPattern =
+                Regex("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)\$")
 
 
             binding.run {
@@ -139,12 +143,12 @@ class AddDialogFragment : DialogFragment() {
                     if (phoneNumber.isEmpty()) {
                         addEtPhoneWarning.text = "번호를 입력해 주세요"
                         addEtPhoneWarning.setTextColor(Color.RED)
-                    }else {
-                        if (!phoneNumber.matches(phonePattern)){
+                    } else {
+                        if (!phoneNumber.matches(phonePattern)) {
                             addEtPhoneWarning.text = "입력 값을 확인해 주세요"
                             addEtPhoneWarning.setTextColor(Color.RED)
-                        }else{
-                            addEtPhoneWarning.text = "입력 값을 확인 완료"
+                        } else {
+                            addEtPhoneWarning.text = "입력 값 확인 완료"
                             addEtPhoneWarning.setTextColor(Color.GREEN)
                         }
                     }
@@ -155,12 +159,12 @@ class AddDialogFragment : DialogFragment() {
                     if (emailWords.isEmpty()) {
                         addEtEmailWarning.text = "이메일을 입력해 주세요"
                         addEtEmailWarning.setTextColor(Color.RED)
-                    }else {
-                        if (!emailWords.matches(emailPattern)){
+                    } else {
+                        if (!emailWords.matches(emailPattern)) {
                             addEtEmailWarning.text = "입력 값을 확인해 주세요"
                             addEtEmailWarning.setTextColor(Color.RED)
-                        }else{
-                            addEtEmailWarning.text = "입력 값을 확인 완료"
+                        } else {
+                            addEtEmailWarning.text = "입력 값 확인 완료"
                             addEtEmailWarning.setTextColor(Color.GREEN)
                         }
                     }
