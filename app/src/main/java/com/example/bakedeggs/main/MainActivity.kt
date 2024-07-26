@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.AddContact.AddDialogFragment
 import com.example.bakedeggs.R
@@ -25,6 +26,8 @@ import com.example.bakedeggs.alarm.AlarmEntity
 import com.example.bakedeggs.alarm.ViewModel.AlarmViewModel
 import com.example.bakedeggs.alarm.ViewModel.AlarmViewModelFactory
 import com.example.bakedeggs.data.ServiceLocator
+import com.example.bakedeggs.data.ViewModel.ContactViewModel
+import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,6 +40,10 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
+
+    private val contactViewModel: ContactViewModel by viewModels {
+        ContactViewModelFactory(application)
+    }
 
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
