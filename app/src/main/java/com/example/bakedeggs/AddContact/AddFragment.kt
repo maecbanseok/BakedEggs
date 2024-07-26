@@ -1,26 +1,44 @@
 package com.example.bakedeggs.AddContact
 
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
-import android.view.LayoutInflater
+
 import android.view.View
-import android.view.ViewGroup
+
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.green
 import androidx.core.graphics.red
+import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
+import com.google.android.material.shape.RoundedCornerTreatment
 import java.util.Calendar
+import java.util.regex.Pattern
 
 class AddDialogFragment : DialogFragment() {
 
@@ -30,13 +48,47 @@ class AddDialogFragment : DialogFragment() {
 
     private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
     private lateinit var builder: AlertDialog.Builder
+    //이미지 자르기
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            // returned uri 사용
+            Glide.with(this)
+                .load(result.uriContent)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                .into(binding.addIvProfile)
+        } else {
+            // An error occurred.
+            val exception = result.error
+        }
+    }
+    //이미지 가져오기
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                Log.d("PhotoPicker", "Selected URI: $uri")
+                cropImage.launch(
+                    CropImageContractOptions(
+                        uri = uri, // 크롭할 이미지 uri
+                        cropImageOptions = CropImageOptions(
+                            outputCompressFormat = Bitmap.CompressFormat.PNG
+                            // 원하는 옵션 추가
+                        )
+                    )
+                )
+
+            } else {
+                Log.d("PhotoPicker", "No media selected")
+            }
+        }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             builder = AlertDialog.Builder(it)
 
             fun snsButtonVisibility() {
-                adapter.notifyDataSetChanged()// 임시로 해두
+                adapter.notifyDataSetChanged()// 임시로 해둠
                 if (binding.addBtnInstagram.isVisible) {
                     binding.addBtnInstagram.visibility = View.INVISIBLE
                     binding.addBtnGithub.visibility = View.INVISIBLE
@@ -50,10 +102,34 @@ class AddDialogFragment : DialogFragment() {
 
             binding.addIvProfile.setOnClickListener {
                 //클릭하면 사진 가져오긔
+                // Registers a photo picker activity launcher in single-select mode.
+                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
             }
-            binding.addTbtnLike.apply {
-                if (isChecked) {
-                    background.setTint(R.color.red.red)
+
+            val filterAddEtEmail = InputFilter { source, start, end, dest, dstart, dend ->
+                val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z0-9\\@\\.]+$")
+                if (!ps.matcher(source).matches()) { "" } else source
+            }
+            val phonePattern = Regex("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}\$")
+            val emailPattern = Regex("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)\$")
+
+
+            binding.run {
+                addEtPhone.doAfterTextChanged {
+                    val phoneNumber = addEtPhone.text.toString().trim()
+                    if (phoneNumber.isEmpty()) {
+                        addEtPhoneWarning.text = "번호를 입력해 주세요"
+                        addEtPhoneWarning.setTextColor(Color.RED)
+                    }else {
+                        if (!binding.addEtPhone.text.matches(phonePattern)){
+                            addEtPhoneWarning.text = "입력 값을 확인해 주세요"
+                            addEtPhoneWarning.setTextColor(Color.RED)
+                        }else{
+                            addEtPhoneWarning.text = "입력 값을 확인 완료"
+                            addEtPhoneWarning.setTextColor(Color.GREEN)
+                        }
+                    }
                 }
             }
             binding.addEtPhone
@@ -68,7 +144,7 @@ class AddDialogFragment : DialogFragment() {
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             datePicker.init(year, month, day, null) // DatePicker 초기화
             datePicker.maxDate = calendar.timeInMillis // 최대 날짜를 오늘로 설정
-            datePicker.updateDate(year,month, day)
+            datePicker.updateDate(year, month, day)
 
             binding.addTbtnFoldbutton.setOnClickListener {
                 if (binding.addRvSnsList.isVisible) {
@@ -158,33 +234,5 @@ class AddDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("cycle", "onCreate")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.d("cycle", "onViewCreated")
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        Log.d("cycle", "onCreateView")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("cycle", "onPause")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("cycle", "onStart")
-    }
 
 }
