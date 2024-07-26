@@ -9,6 +9,7 @@
     tools:context=".AddContact.AddDialogFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/add_lo_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -138,7 +139,7 @@
                     android:layout_marginStart="120dp"
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
-                    android:hint="010-0000-0000"
+                    android:hint="예: 010-0000-0000"
                     android:inputType="phone"
                     android:maxLength="30"
                     android:maxLines="1"
@@ -153,7 +154,6 @@
                     android:id="@+id/add_et_phoneWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="aa"
                     app:layout_constraintEnd_toEndOf="@+id/add_et_phone"
                     app:layout_constraintStart_toStartOf="@+id/add_et_phone"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -197,7 +197,7 @@
                     android:layout_marginStart="120dp"
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
-                    android:hint="이메일"
+                    android:hint="예: userid@site.com"
                     android:inputType="textEmailAddress"
                     android:maxLength="30"
                     android:maxLines="1"
@@ -212,7 +212,6 @@
                     android:id="@+id/add_et_emailWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="aa"
                     app:layout_constraintEnd_toEndOf="@+id/add_et_email"
                     app:layout_constraintStart_toStartOf="@+id/add_et_email"
                     app:layout_constraintTop_toTopOf="parent" />
