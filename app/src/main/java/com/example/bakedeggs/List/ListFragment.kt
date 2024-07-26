@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,11 @@ import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.constraintlayout.widget.ConstraintSet.END
 import androidx.constraintlayout.widget.ConstraintSet.Motion
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +42,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -50,7 +55,7 @@ import kotlinx.coroutines.runBlocking
  */
 class ListFragment : Fragment() {
 
-    private val contactViewModel: ContactViewModel by viewModels {
+    private val contactViewModel: ContactViewModel by activityViewModels {
         ContactViewModelFactory(requireActivity().application)
     }
 
@@ -123,10 +128,13 @@ class ListFragment : Fragment() {
 
 
             //어댑터 초기화 및 설정
-            lifecycleScope.launch {
-                contactViewModel.contacts.onCompletion{}.collect{
-                    listAdapter.getData = it
-                    listAdapter.notifyDataSetChanged()
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    contactViewModel.contacts.collect {
+                        listAdapter.getData = it
+                        listAdapter.notifyDataSetChanged()
+                    }
                 }
             }
             listRecyclerview.adapter=listAdapter
@@ -175,9 +183,6 @@ class ListFragment : Fragment() {
 
         }
     }
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

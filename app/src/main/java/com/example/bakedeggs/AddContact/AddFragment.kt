@@ -25,6 +25,9 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -33,22 +36,35 @@ import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
+import com.example.bakedeggs.data.SNS
+import com.example.bakedeggs.data.ViewModel.ContactViewModel
+import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
+import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.google.android.material.shape.RoundedCornerTreatment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.regex.Pattern
 
 class AddDialogFragment : DialogFragment() {
 
     private lateinit var contact: ContactEntity
-    private lateinit var adapter: MyPageRecyclerViewAdapter
+    private lateinit var snsAdapter: MyPageRecyclerViewAdapter
     private val snsList: MutableList<MyPageUIModel> = mutableListOf()
 
     private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
     private lateinit var builder: AlertDialog.Builder
+    private var profileUri: Uri?=null
+
+    private val contactViewModel: ContactViewModel by activityViewModels {
+        ContactViewModelFactory(requireActivity().application)
+    }
     //이미지 자르기
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
@@ -57,8 +73,9 @@ class AddDialogFragment : DialogFragment() {
                 .load(result.uriContent)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
                 .into(binding.addIvProfile)
+
+            profileUri = result.uriContent
         } else {
-            // An error occurred.
             val exception = result.error
         }
     }
@@ -78,18 +95,23 @@ class AddDialogFragment : DialogFragment() {
                         )
                     )
                 )
+                cropImage
 
             } else {
                 Log.d("PhotoPicker", "No media selected")
             }
         }
 
+    public fun snsData(){
+
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             builder = AlertDialog.Builder(it)
 
             fun snsButtonVisibility() {
-                adapter.notifyDataSetChanged()// 임시로 해둠
+                snsAdapter.notifyDataSetChanged()
                 if (binding.addBtnInstagram.isVisible) {
                     binding.addBtnInstagram.visibility = View.INVISIBLE
                     binding.addBtnGithub.visibility = View.INVISIBLE
@@ -168,23 +190,24 @@ class AddDialogFragment : DialogFragment() {
                 }
             }
 
-            adapter = MyPageRecyclerViewAdapter(activity as MainActivity)
-            adapter.submitList(listOf())
+            snsAdapter = MyPageRecyclerViewAdapter(activity as MainActivity)
+            snsAdapter.submitList(listOf())
 
-            binding.addRvSnsList.adapter = adapter
+            binding.addRvSnsList.adapter = snsAdapter
 
             binding.addBtnSnsadd.setOnClickListener {
                 snsButtonVisibility()
-                binding.addBtnInstagram.apply {
+                binding.addBtnInstagram.apply { // add 대신 detail로 바꾸시면 되요
                     setOnClickListener {
                         snsList.add(
                             MyPageUIModel.ListModel(
-                                adapter.itemCount + 1,
+                                snsAdapter.itemCount + 1,
                                 R.drawable.instagram_24,
-                                ""
+                                "",
+                                0
                             )
                         )
-                        adapter.submitList(snsList)
+                        snsAdapter.submitList(snsList)
                         snsButtonVisibility()
                     }
                 }
@@ -192,12 +215,13 @@ class AddDialogFragment : DialogFragment() {
                     setOnClickListener {
                         snsList.add(
                             MyPageUIModel.ListModel(
-                                adapter.itemCount + 1,
+                                snsAdapter.itemCount + 1,
                                 R.drawable.github_24,
-                                ""
+                                "",
+                                1
                             )
                         )
-                        adapter.submitList(snsList)
+                        snsAdapter.submitList(snsList)
                         snsButtonVisibility()
                     }
                 }
@@ -205,18 +229,17 @@ class AddDialogFragment : DialogFragment() {
                     setOnClickListener {
                         snsList.add(
                             MyPageUIModel.ListModel(
-                                adapter.itemCount + 1,
+                                snsAdapter.itemCount + 1,
                                 R.drawable.discord_24,
-                                ""
+                                "",
+                                2
                             )
                         )
-                        adapter.submitList(snsList)
+                        snsAdapter.submitList(snsList)
                         snsButtonVisibility()
                     }
                 }
             }
-
-            binding.addRvSnsList
 
             val listener = DialogInterface.OnClickListener { _, _ ->
                 if (binding.addEtName.text.equals("") ||
@@ -224,22 +247,25 @@ class AddDialogFragment : DialogFragment() {
                     binding.addEtEmail.text.equals("")
                 ) {
                     Toast.makeText(this.requireContext(), "미입력된 항목이 있습니다.", Toast.LENGTH_SHORT)
+
                 } else {
-                    contact.apply {
-                        name = binding.addEtName.text.toString()
-                        convertedName = ""
-                        num = binding.addEtPhone.text.toString()
-                        email = binding.addEtEmail.text.toString()
+                    contact = ContactEntity(
+                        binding.addEtName.text.toString(),
+                        convertString(binding.addEtName.text.toString()),
+                        binding.addEtPhone.text.toString(),
                         if (binding.addTbtnLike.isChecked) {
-                            tag = 1 // 즐겨찾기
+                            1 // 즐겨찾기
                         } else {
-                            tag = 0 // 일반저장
-                        }
-                        birth = binding.addDpBirthday.toString()
-                    }
+                            0 // 일반저장
+                        },
+                        profileUri,
+                        binding.addDpBirthday.toString(),
+                        binding.addEtEmail.text.toString(),
+                    )
+                    Log.d("dataFFFFF", "contact $contact")
+                    contactViewModel.addContact(contact)
                 }
             }
-            builder.create().set
 
             builder.setView(binding.root)
                 .setPositiveButton("저장", listener)

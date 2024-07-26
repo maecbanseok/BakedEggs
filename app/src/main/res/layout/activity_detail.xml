@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".DetailActivity"
+    android:padding="24dp">
+
+
+    <ImageView
+        android:id="@+id/detail_iv_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/detail_image_shape"
+        android:scaleType="centerCrop"
+        app:layout_constraintCircleRadius="300dip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/zzang_gu"/>
+
+    <TextView
+        android:id="@+id/detail_tv_name"
+        android:layout_width="74dp"
+        android:layout_height="39dp"
+        android:background="#dedcee"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="신짱구"
+        android:textColorLink="@color/point"
+        app:layout_constraintEnd_toEndOf="@+id/detail_iv_profile"
+        app:layout_constraintStart_toStartOf="@+id/detail_iv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/detail_iv_profile" />
+
+    <EditText
+        android:id="@+id/detail_tv_Phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="휴대폰"
+        android:background="#dedcee"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/detail_tv_name"
+        app:layout_constraintStart_toStartOf="@+id/detail_tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/detail_tv_name"
+        />
+
+    <ImageView
+        android:id="@+id/detail_iv_message"
+        android:layout_width="41dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#6a60a9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_iv_call"
+        app:layout_constraintTop_toBottomOf="@+id/detail_tv_Phone"
+        app:srcCompat="@drawable/detail_message_icon" />
+
+    <ImageView
+        android:id="@+id/detail_iv_call"
+        android:layout_width="49dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#6a60a9"
+        app:layout_constraintEnd_toStartOf="@+id/detail_iv_message"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_tv_Phone"
+        app:srcCompat="@drawable/deatil_call_img" />
+
+
+<!--    옆 화살표 누르면 리스트 나오고 수정가능하도록-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Detail_rv_smsList"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#dedcee"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/Detail_vv_ad"
+        app:layout_constraintEnd_toEndOf="@+id/Detail_vv_ad"
+        app:layout_constraintStart_toStartOf="@+id/Detail_vv_ad">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+    <VideoView
+        android:id="@+id/Detail_vv_ad"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:padding="-30dp"
+        app:layout_constraintBottom_toTopOf="@+id/Detail_rv_callList"
+        app:layout_constraintEnd_toEndOf="@+id/Detail_rv_callList"
+        app:layout_constraintStart_toStartOf="@+id/Detail_rv_callList"
+        app:srcCompat="@drawable/maketing" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Detail_rv_callList"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#dedcee"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+<!--    //동영상 광고-->
+
+<!--    //길게 클릭했을 때 삭제-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
