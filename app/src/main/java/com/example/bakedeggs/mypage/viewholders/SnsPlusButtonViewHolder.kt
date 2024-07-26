@@ -7,7 +7,7 @@ import androidx.transition.Visibility
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.mypage.MyPageDataObj
-import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBinding) : MyPageViewHolder(binding){

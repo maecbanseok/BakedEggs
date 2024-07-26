@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bakedeggs.MainActivity
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
-import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 
@@ -54,7 +53,6 @@ class MyPageFragment : Fragment() {
                 MyPageUIModel.SnsPlusButtonModel()
             )
         )
-        mainActivity.binding.mainFramelayout.isVisible = false
 
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {

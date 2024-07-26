@@ -9,7 +9,7 @@ import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.DialogAddCardBinding
 import com.example.bakedeggs.databinding.MypageItemCardEmptyBinding
 import com.example.bakedeggs.mypage.MyPageDataObj
-import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : RecyclerView.ViewHolder(binding.root) {

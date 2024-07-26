@@ -3,7 +3,7 @@ package com.example.bakedeggs.mypage.viewholders
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.mypage.MyPageFlagObj
-import com.example.bakedeggs.mypage.adapter.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class HeaderViewHolder (private val binding: MypageItemHeaderBinding) : MyPageViewHolder(binding){

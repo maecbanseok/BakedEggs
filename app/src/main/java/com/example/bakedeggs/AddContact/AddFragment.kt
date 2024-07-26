@@ -14,20 +14,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.red
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
-import androidx.transition.Visibility
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.FragmentAddBinding
-import com.example.bakedeggs.mypage.MyPageRecyclerView
-import com.example.bakedeggs.mypage.MyPageUIModel
-import java.time.LocalDateTime
+import com.example.bakedeggs.main.MainActivity
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import java.util.Calendar
-import java.util.Date
 
 class AddDialogFragment : DialogFragment() {
 
     private lateinit var contact: ContactEntity
-    private lateinit var adapter: MyPageRecyclerView
+    private lateinit var adapter: MyPageRecyclerViewAdapter
     private val snsList: MutableList<MyPageUIModel> = mutableListOf()
 
     private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
@@ -80,7 +78,7 @@ class AddDialogFragment : DialogFragment() {
                 }
             }
 
-            adapter = MyPageRecyclerView()
+            adapter = MyPageRecyclerViewAdapter(activity as MainActivity)
             adapter.submitList(listOf())
 
             binding.addRvSnsList.adapter = adapter
