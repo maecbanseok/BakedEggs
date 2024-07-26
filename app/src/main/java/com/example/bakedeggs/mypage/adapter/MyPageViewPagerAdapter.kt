@@ -1,17 +1,16 @@
 package com.example.bakedeggs.mypage.adapter
 
-import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardEmptyBinding
 import com.example.bakedeggs.databinding.MypageItemViewpagerBinding
+import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageDataObj
-import com.example.bakedeggs.mypage.data.MyPageViewPagerUIModel
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageViewPagerUIModel
 import com.example.bakedeggs.mypage.diffutil.MyPageViewPagerDiffUtilCallback
 import com.example.bakedeggs.mypage.viewholders.CardEmptyViewHolder
 import com.example.bakedeggs.mypage.viewholders.ViewPagerViewHolder
@@ -19,7 +18,7 @@ import com.example.bakedeggs.mypage.viewholders.ViewPagerViewHolder
 const val CARD_EMPTY = 0
 const val CARD_NOT_EMPTY = 1
 
-class MyPageViewPagerAdapter(private val activity: MainActivity) : ListAdapter<MyPageViewPagerUIModel, RecyclerView.ViewHolder>(
+class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel, private val itemChange: MyPageRecyclerViewAdapter.ItemChange?, private val activity: MainActivity) : ListAdapter<MyPageViewPagerUIModel, RecyclerView.ViewHolder>(
     MyPageViewPagerDiffUtilCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -35,8 +34,8 @@ class MyPageViewPagerAdapter(private val activity: MainActivity) : ListAdapter<M
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is ViewPagerViewHolder) holder.bind()
-        else if(holder is CardEmptyViewHolder) holder.bind(activity)
+        if(holder is ViewPagerViewHolder) holder.bind(uiModel, itemChange, activity)
+        else if(holder is CardEmptyViewHolder) holder.bind(itemChange, activity)
     }
 
     override fun getItemCount(): Int = 1

@@ -35,7 +35,7 @@ import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
-import com.example.bakedeggs.mypage.data.MyPageUIModel
+import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.google.android.material.shape.RoundedCornerTreatment
 import java.util.Calendar
 import java.util.regex.Pattern
@@ -83,13 +83,7 @@ class AddDialogFragment : DialogFragment() {
             }
         }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("lifecycle", "onAttach")
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        Log.d("lifecycle", "onCreateDialog")
         return activity?.let {
             builder = AlertDialog.Builder(it)
 
@@ -137,24 +131,11 @@ class AddDialogFragment : DialogFragment() {
                         }
                     }
                 }
-
-                addEtEmail.filters = arrayOf(filterAddEtEmail)
-                addEtEmail.doAfterTextChanged {
-                    val emailWords = addEtEmail.text.toString().trim()
-                    if (emailWords.isEmpty()) {
-                        addEtEmailWarning.text = "이메일을 입력해 주세요"
-                        addEtEmailWarning.setTextColor(Color.RED)
-                    }else {
-                        if (!binding.addEtPhone.text.matches(phonePattern)){
-                            addEtEmailWarning.text = "입력 값을 확인해 주세요"
-                            addEtEmailWarning.setTextColor(Color.RED)
-                        }else{
-                            addEtEmailWarning.text = "입력 값을 확인 완료"
-                            addEtEmailWarning.setTextColor(Color.GREEN)
-                        }
-                    }
-                }
             }
+            binding.addEtPhone
+            binding.addEtPhoneWarning
+            binding.addEtEmail
+            binding.addEtEmailWarning
 
             val datePicker: DatePicker = binding.addDpBirthday
             val calendar: Calendar = Calendar.getInstance()
@@ -172,8 +153,8 @@ class AddDialogFragment : DialogFragment() {
                     binding.addRvSnsList.visibility = View.VISIBLE
                 }
             }
-            val mainActivity: MainActivity = activity as MainActivity
-            adapter = MyPageRecyclerViewAdapter(mainActivity)
+
+            adapter = MyPageRecyclerViewAdapter(activity as MainActivity)
             adapter.submitList(listOf())
 
             binding.addRvSnsList.adapter = adapter

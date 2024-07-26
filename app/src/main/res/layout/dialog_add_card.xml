@@ -70,4 +70,13 @@
         app:layout_constraintStart_toStartOf="@id/mypage_et_add_card_name"
         app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_name" />
 
+    <EditText
+        android:id="@+id/mypage_et_add_card_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="이메일(선택)"
+        app:layout_constraintStart_toStartOf="@id/mypage_et_add_card_name"
+        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_phone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

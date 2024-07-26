@@ -27,7 +27,7 @@
                 android:layout_marginTop="18dp"
                 android:background="@drawable/add_businesscard_shape"
                 android:clipToOutline="true"
-                android:src="@drawable/dummy_business_card"
+                android:src="@drawable/img_add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
