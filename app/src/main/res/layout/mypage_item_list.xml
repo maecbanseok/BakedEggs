@@ -19,16 +19,16 @@
 
     <EditText
         android:id="@+id/mypage_et_list_sns"
+        style="@style/listView_myCard_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_marginHorizontal="16dp"
         android:text="SNS 아이디"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
         app:layout_constraintStart_toEndOf="@id/mypage_iv_list_sns"
         app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
-        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        app:layout_constraintEnd_toStartOf="@id/mypage_iv_list_save"
-        android:layout_marginHorizontal="16dp"
-        style="@style/listView_myCard_14"
+        app:layout_constraintEnd_toStartOf="@id/mypage_iv_list_delete"
         />
 
     <ImageView
@@ -40,18 +40,6 @@
         app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
         android:padding="8dp"
         android:src="@drawable/mypage_icon_delete"
-        app:tint="@color/function"
-        />
-
-    <ImageView
-        android:id="@+id/mypage_iv_list_save"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toStartOf="@id/mypage_iv_list_delete"
-        app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
-        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        android:padding="6dp"
-        android:src="@drawable/mypage_baseline_save_24"
         app:tint="@color/function"
         />
 

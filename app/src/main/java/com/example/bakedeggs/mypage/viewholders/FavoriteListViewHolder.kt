@@ -6,6 +6,6 @@ import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class FavoriteListViewHolder(binding: MypageItemFavoriteListBinding): MyPageViewHolder(binding) {
     override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
-        TODO("Not yet implemented")
+        
     }
 }
