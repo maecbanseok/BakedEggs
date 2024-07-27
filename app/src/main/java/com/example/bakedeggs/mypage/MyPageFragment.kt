@@ -60,7 +60,7 @@ class MyPageFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                contactViewModel.notNormal()
+                contactViewModel.notNormal(adapter)
             }
         }
 
