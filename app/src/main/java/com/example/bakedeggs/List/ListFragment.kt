@@ -60,8 +60,7 @@ class ListFragment : Fragment() {
     }
 
     var isGrid = true
-    private var getData = ArrayList<ContactEntity>()
-    private val listAdapter = ListAdapter(getData)
+    private val listAdapter = ListAdapter(ArrayList())
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -85,6 +84,8 @@ class ListFragment : Fragment() {
     }
 
     fun initView() {
+
+
 
         with(binding) {
             listLlGridlist.setOnClickListener {
@@ -131,10 +132,7 @@ class ListFragment : Fragment() {
 
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    contactViewModel.contacts.collect {
-                        listAdapter.getData = it
-                        listAdapter.notifyDataSetChanged()
-                    }
+                    contactViewModel.search(listAdapter)
                 }
             }
             listRecyclerview.adapter=listAdapter
@@ -157,12 +155,12 @@ class ListFragment : Fragment() {
                 }
 
 
-                override fun onLongClick(view: View, position: Int) {
+                override fun onLongClick(view: View, contactEntity: ContactEntity) {
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("삭제하시겠습니까?")
                         .setNegativeButton("취소") { dialog, which -> return@setNegativeButton }
                         .setPositiveButton("확인") { dialog, which ->
-                            contactViewModel.removeContact(position)
+                            contactViewModel.removeContact(contactEntity)
                         }
                         .show()
                 }
@@ -176,7 +174,8 @@ class ListFragment : Fragment() {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     // 검색해서 나온 데이터들
-                    contactViewModel.search(newText?:"")
+                    contactViewModel.str=newText?:""
+                    contactViewModel.fetch()
                     return true
                 }
             })
@@ -193,6 +192,8 @@ class ListFragment : Fragment() {
         @JvmStatic
         fun newInstance() = ListFragment()
     }
+
+
 
 
 }
