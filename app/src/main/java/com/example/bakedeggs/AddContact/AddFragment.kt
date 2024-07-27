@@ -9,8 +9,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.util.Log
+import android.view.Gravity
 
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 
 import android.widget.DatePicker
 import android.widget.ScrollView
@@ -114,7 +117,6 @@ class AddDialogFragment : DialogFragment() {
             builder = AlertDialog.Builder(it)
 
             fun snsButtonVisibility() {
-                snsAdapter.notifyDataSetChanged()
                 if (binding.addBtnInstagram.isVisible) {
                     binding.addBtnInstagram.visibility = View.INVISIBLE
                     binding.addBtnGithub.visibility = View.INVISIBLE
@@ -215,6 +217,7 @@ class AddDialogFragment : DialogFragment() {
                             )
                         )
                         snsAdapter.submitList(snsList)
+                        snsAdapter.notifyItemInserted(snsList.size-1)
                         snsButtonVisibility()
                     }
                 }
@@ -229,6 +232,7 @@ class AddDialogFragment : DialogFragment() {
                             )
                         )
                         snsAdapter.submitList(snsList)
+                        snsAdapter.notifyItemInserted(snsList.size-1)
                         snsButtonVisibility()
                     }
                 }
@@ -243,6 +247,7 @@ class AddDialogFragment : DialogFragment() {
                             )
                         )
                         snsAdapter.submitList(snsList)
+                        snsAdapter.notifyItemInserted(snsList.size-1)
                         snsButtonVisibility()
                     }
                 }
@@ -269,7 +274,6 @@ class AddDialogFragment : DialogFragment() {
                         binding.addDpBirthday.toString(),
                         binding.addEtEmail.text.toString(),
                     )
-                    Log.d("dataFFFFF", "contact $contact")
                     contactViewModel.addContact(contact)
                 }
             }

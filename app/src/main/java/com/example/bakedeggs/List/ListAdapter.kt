@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
-import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
 class ListAdapter(var getData : ArrayList<ContactEntity>) :

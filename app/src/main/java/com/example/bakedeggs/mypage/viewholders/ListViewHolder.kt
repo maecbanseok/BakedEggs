@@ -41,4 +41,10 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
     ) {
 
     }
+
+    var idx=0
+
+    companion object{
+        val list=ArrayList<String>()
+    }
 }
