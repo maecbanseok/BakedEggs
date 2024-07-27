@@ -3,6 +3,7 @@ package com.example.bakedeggs.mypage.viewholders
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.databinding.MypageItemUneditableListBinding
+import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
@@ -14,10 +15,11 @@ class UneditableListViewHolder (private val binding: MypageItemUneditableListBin
     }
 
     override fun bind(
-        screenType: Int,
+        data: MyPageData?,
         uiModel: MyPageUIModel,
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
-        isEditable: Boolean
+        isEditable: Boolean,
+        position: Int
     ) {
 
     }

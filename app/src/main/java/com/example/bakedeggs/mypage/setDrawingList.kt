@@ -52,7 +52,7 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                         MyPageUIModel.ListModel(
                             id = idCount++,
                             iconId = R.drawable.mypage_icon_github,
-                            content =element.snsId,
+                            content = element.snsId,
                             type = 1,
                         )
                     )

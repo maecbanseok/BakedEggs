@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
+import com.example.bakedeggs.databinding.MypageItemBlockListBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardBinding
 import com.example.bakedeggs.databinding.MypageItemEmptyBinding
+import com.example.bakedeggs.databinding.MypageItemFavoriteListBinding
 import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
@@ -14,8 +16,10 @@ import com.example.bakedeggs.databinding.MypageItemTopBarBinding
 import com.example.bakedeggs.databinding.MypageItemUneditableListBinding
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.example.bakedeggs.mypage.diffutil.MyPageDiffUtilCallback
+import com.example.bakedeggs.mypage.viewholders.BlockListViewHolder
 import com.example.bakedeggs.mypage.viewholders.CardViewHolder
 import com.example.bakedeggs.mypage.viewholders.EmptyViewHolder
+import com.example.bakedeggs.mypage.viewholders.FavoriteListViewHolder
 import com.example.bakedeggs.mypage.viewholders.HeaderViewHolder
 import com.example.bakedeggs.mypage.viewholders.ListViewHolder
 import com.example.bakedeggs.mypage.viewholders.MyPageViewHolder
@@ -24,10 +28,18 @@ import com.example.bakedeggs.mypage.viewholders.TopBarViewHolder
 import com.example.bakedeggs.mypage.viewholders.UneditableListViewHolder
 
 enum class ItemViewType(val viewType: Int) {
-    TOP_BAR(0), CARD(1), HEADER(2), LIST_EDITABLE(3), LIST_UNEDITABLE(4), SNS_PLUS_BUTTON(5), EMPTY(6)
+    EMPTY(-1),
+    TOP_BAR(0),
+    CARD(1),
+    HEADER(2),
+    LIST_EDITABLE(3),
+    LIST_UNEDITABLE(4),
+    SNS_PLUS_BUTTON(5),
+    LIST_FAVORITE(6),
+    LIST_BLOCK(7),
 }
 
-class MyPageRecyclerViewAdapter(private val screenType: Int, private val activity: MainActivity) : ListAdapter<MyPageUIModel, MyPageViewHolder>(
+class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activity: MainActivity) : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     MyPageDiffUtilCallback()
 ) {
 
@@ -39,6 +51,10 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
             it.viewType == viewType
         } ?: ItemViewType.EMPTY
         when(entry) {
+            ItemViewType.EMPTY -> {
+                binding = MypageItemEmptyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                viewHolder = EmptyViewHolder(binding)
+            }
             ItemViewType.TOP_BAR -> {
                 binding = MypageItemTopBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 viewHolder = TopBarViewHolder(binding)
@@ -63,9 +79,13 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
                 binding = MypageItemSnsPlusButtonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 viewHolder = SnsPlusButtonViewHolder(binding)
             }
-            ItemViewType.EMPTY -> {
-                binding = MypageItemEmptyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                viewHolder = EmptyViewHolder(binding)
+            ItemViewType.LIST_FAVORITE -> {
+                binding = MypageItemFavoriteListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                viewHolder = FavoriteListViewHolder(binding)
+            }
+            ItemViewType.LIST_BLOCK -> {
+                binding = MypageItemBlockListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                viewHolder = BlockListViewHolder(binding)
             }
         }
         return viewHolder
@@ -76,9 +96,11 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
             is TopBarViewHolder -> holder.bind(getItem(position), itemChange)
             is CardViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
-            is ListViewHolder -> holder.bind(screenType, getItem(position), itemChange, true)
+            is ListViewHolder -> holder.bind(data, getItem(position), itemChange, true, position)
             is UneditableListViewHolder -> holder.bind(getItem(position), itemChange)
             is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange, position)
+            is FavoriteListViewHolder -> holder.bind(getItem(position), itemChange)
+            is BlockListViewHolder -> holder.bind(getItem(position), itemChange)
         }
     }
 
@@ -88,15 +110,17 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
 
     override fun getItemViewType(position: Int): Int {
         val viewType:Int = when(currentList[position]) {
-            is MyPageUIModel.TopBarModel -> ItemViewType.TOP_BAR.ordinal
-            is MyPageUIModel.CardModel -> ItemViewType.CARD.ordinal
+            is MyPageUIModel.TopBarModel -> ItemViewType.TOP_BAR.viewType
+            is MyPageUIModel.CardModel -> ItemViewType.CARD.viewType
             is MyPageUIModel.ListModel -> {
-                if((currentList[position] as MyPageUIModel.ListModel).isEditable) ItemViewType.LIST_EDITABLE.ordinal
-                else ItemViewType.LIST_UNEDITABLE.ordinal
+                if((currentList[position] as MyPageUIModel.ListModel).isEditable) ItemViewType.LIST_EDITABLE.viewType
+                else ItemViewType.LIST_UNEDITABLE.viewType
             }
-            is MyPageUIModel.HeaderModel -> ItemViewType.HEADER.ordinal
-            is MyPageUIModel.SnsPlusButtonModel -> ItemViewType.SNS_PLUS_BUTTON.ordinal
-            is MyPageUIModel.EmptyModel -> ItemViewType.EMPTY.ordinal
+            is MyPageUIModel.HeaderModel -> ItemViewType.HEADER.viewType
+            is MyPageUIModel.SnsPlusButtonModel -> ItemViewType.SNS_PLUS_BUTTON.viewType
+            is MyPageUIModel.EmptyModel -> ItemViewType.EMPTY.viewType
+            is MyPageUIModel.FavoriteListModel -> ItemViewType.LIST_FAVORITE.viewType
+            is MyPageUIModel.BlockListModel -> ItemViewType.LIST_BLOCK.viewType
         }
         return viewType
     }

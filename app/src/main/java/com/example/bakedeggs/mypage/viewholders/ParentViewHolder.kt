@@ -4,13 +4,12 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.bakedeggs.main.MainActivity
+import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 abstract class MyPageViewHolder(binding: ViewBinding): RecyclerView.ViewHolder(binding.root), ViewBinding by binding {
     abstract fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, )
-    // 이거 나중에 abstract로 바꿔야 함
-//    open fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) { }
 }
 
 interface CardSticker {
@@ -18,7 +17,7 @@ interface CardSticker {
 }
 
 interface ListSticker {
-    fun bind(screenType: Int, uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, isEditable: Boolean)
+    fun bind(data: MyPageData?, uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, isEditable: Boolean, position: Int)
 }
 
 interface EditableListAddSticker {

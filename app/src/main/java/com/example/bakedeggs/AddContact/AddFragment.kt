@@ -42,6 +42,7 @@ import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
+import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.google.android.material.shape.RoundedCornerTreatment
@@ -194,7 +195,9 @@ class AddDialogFragment : DialogFragment() {
                 }
             }
 
-            snsAdapter = MyPageRecyclerViewAdapter(activity as MainActivity)
+            val a = MyPageData()
+
+            snsAdapter = MyPageRecyclerViewAdapter(a, activity as MainActivity)
             snsAdapter.submitList(listOf())
 
             binding.addRvSnsList.adapter = snsAdapter

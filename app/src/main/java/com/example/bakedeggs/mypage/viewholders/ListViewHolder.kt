@@ -3,6 +3,7 @@ package com.example.bakedeggs.mypage.viewholders
 import androidx.core.widget.doAfterTextChanged
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemListBinding
+import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageDataObj
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.SNSListTypeEnum
@@ -19,27 +20,21 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
     }
 
     override fun bind(
-        screenType: Int,
+        data: MyPageData?,
         uiModel: MyPageUIModel,
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
-        isEditable: Boolean
+        isEditable: Boolean,
+        position: Int
     ) {
         uiModel as MyPageUIModel.ListModel
-        val screen = SNSListTypeEnum.entries.find {
-            it.screenType == screenType
+        binding.mypageIvListSns.setImageResource(uiModel.iconId ?: R.drawable.mypage_base_photo_summer)
+        binding.mypageEtListSns.setText(uiModel.content)
+        binding.mypageIvListSave.setOnClickListener {
+
         }
-        when(screen) {
-            SNSListTypeEnum.MY_PAGE -> {
-                binding.mypageIvListSns.setImageResource(uiModel.iconId ?: R.drawable.mypage_base_photo_summer)
-                binding.mypageEtListSns.setText(uiModel.content)
-                binding.mypageIvListSave.setOnClickListener {
-
-                }
-            }
-            SNSListTypeEnum.ADD_CONTACT -> {
-
-            }
-            null -> TODO()
+        binding.mypageIvListDelete.setOnClickListener {
+            data?.deleteSns(position = position)
+            itemChange?.onChangeData()
         }
     }
 

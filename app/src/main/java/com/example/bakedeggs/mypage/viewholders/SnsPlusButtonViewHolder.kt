@@ -35,15 +35,15 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
             }
         }
         binding.mypageIvSnsInsta.setOnClickListener {
-            MyPageDataObj.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.INSTAGRAM.viewType, snsId = "", position = position))
+            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.INSTAGRAM.viewType, snsId = "", position = position), position)
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsGithub.setOnClickListener {
-            MyPageDataObj.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.GITHUB.viewType, snsId = "", position = position))
+            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.GITHUB.viewType, snsId = "", position = position), position)
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsDiscord.setOnClickListener {
-            MyPageDataObj.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position))
+            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position), position)
             itemChange?.onChangeData()
         }
     }

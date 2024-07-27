@@ -27,11 +27,11 @@ class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : Rec
 fun Activity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
     val builder = AlertDialog.Builder(this)
     val dialogBinding = DialogAddCardBinding.inflate(this.layoutInflater)
-    println("${MyPageDataObj.getData().name} ㅇㅇㅇㅇ")
-    dialogBinding.mypageEtAddCardName.setText(MyPageDataObj.getData().name ?: "")
-    dialogBinding.mypageEtAddCardPhone.setText(MyPageDataObj.getData().phoneNum ?: "")
-    dialogBinding.mypageEtAddCardEmail.setText(MyPageDataObj.getData().email ?: "")
-    dialogBinding.mypageIvAddCardProfile.setImageResource(MyPageDataObj.getData().photoId ?: R.drawable.mypage_base_photo_summer)
+    println("${MyPageDataObj.getDataSource()?.getData()?.name} ㅇㅇㅇㅇ")
+    dialogBinding.mypageEtAddCardName.setText(MyPageDataObj.getDataSource()?.getData()?.name ?: "")
+    dialogBinding.mypageEtAddCardPhone.setText(MyPageDataObj.getDataSource()?.getData()?.phoneNum ?: "")
+    dialogBinding.mypageEtAddCardEmail.setText(MyPageDataObj.getDataSource()?.getData()?.email ?: "")
+    dialogBinding.mypageIvAddCardProfile.setImageResource(MyPageDataObj.getDataSource()?.getData()?.photoId ?: R.drawable.mypage_base_photo_summer)
     builder.setView(layoutInflater.inflate(R.layout.dialog_add_card, null))
     val listener = DialogInterface.OnClickListener { dialogP, which ->
         val dialog = dialogP as AlertDialog
@@ -54,7 +54,7 @@ fun Activity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?
 }
 
 fun saveData(name: String?, phoneNum: String?, email: String? = null, photoId: Int? = null) {
-    MyPageDataObj.addNewProfile(
+    MyPageDataObj.getDataSource()?.addNewProfile(
         MyPageUIModel.CardModel(
             name = name,
             phoneNum = phoneNum,
