@@ -2,6 +2,7 @@ package com.example.bakedeggs.data.ViewModel
 
 import android.app.Application
 import android.telecom.Call
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -38,11 +39,13 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
         }
     }
 
+
     suspend fun search(listAdapter: ListAdapter){
         contacts.map { contacts -> contacts.filter { it.tag!=2&&(str.equals(it.name.slice(0..minOf(str.length-1,it.name.length-1)))
                 || str.equals((it.convertedName.slice(0..minOf(str.length-1,it.convertedName.length-1))))) } }.collect{
                     listAdapter.getData=it as ArrayList<ContactEntity>
                     listAdapter.notifyDataSetChanged()
+                    Log.d("마이페이지 비교","ㅇ")
         }
     }
 
