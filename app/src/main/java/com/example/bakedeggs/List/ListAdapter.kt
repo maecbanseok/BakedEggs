@@ -46,7 +46,10 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
                 MediaStore.Images.Media.getBitmap(holder.binding.root.context.contentResolver, it)
             }
         }
-        holder.img.setImageBitmap(img)
+        img?.let { holder.img.setImageBitmap(it) }
+
+        if(getData[position].tag==0) holder.binding.listIvStar.visibility=View.INVISIBLE
+        else holder.binding.listIvStar.visibility=View.VISIBLE
     }
 
     override fun getItemCount(): Int {

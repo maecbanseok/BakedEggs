@@ -2,13 +2,15 @@ package com.example.bakedeggs.data
 
 import android.content.Context
 import android.database.Cursor
+import android.provider.BlockedNumberContract
+import android.provider.BlockedNumberContract.BlockedNumbers
 import android.provider.CallLog
 import android.provider.ContactsContract
 import androidx.core.net.toUri
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.regex.Pattern
+
 
 fun contactList(context: Context):ArrayList<ContactEntity>{
     val list = ArrayList<ContactEntity>()
