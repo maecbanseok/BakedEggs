@@ -28,7 +28,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
         holder.itemView.setOnClickListener { listClick?.onClick(it, position) }
-        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, position)
+        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, getData[position])
             true }
 
         holder.name.text = getData[position].name
@@ -56,7 +56,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
 
     interface ListClick {
         fun onClick(view: View, position: Int)
-        fun onLongClick(view: View, position: Int)
+        fun onLongClick(view: View, contactEntity: ContactEntity)
     }
 
     var listClick: ListClick? = null
