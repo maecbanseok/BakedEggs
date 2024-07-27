@@ -30,6 +30,7 @@ class ContactViewModel(application: Application): AndroidViewModel(application) 
     fun addContact(contact: ContactEntity) {
         viewModelScope.launch {
             contactRepositoryImpl.addContact(contact)
+            contactRepositoryImpl.fetchData()
         }
 
     }
@@ -37,12 +38,14 @@ class ContactViewModel(application: Application): AndroidViewModel(application) 
     fun modifyContact(idx:Int, contact:ContactEntity) {
         viewModelScope.launch {
             contactRepositoryImpl.modifyContact(idx,contact)
+            contactRepositoryImpl.fetchData()
         }
     }
 
     fun removeContact(idx:Int){
         viewModelScope.launch {
             contactRepositoryImpl.removeContact(idx)
+            contactRepositoryImpl.fetchData()
         }
     }
 

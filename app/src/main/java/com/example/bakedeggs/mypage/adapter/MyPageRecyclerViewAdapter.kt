@@ -78,7 +78,7 @@ class MyPageRecyclerViewAdapter(private val screenType: Int, private val activit
             is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
             is ListViewHolder -> holder.bind(screenType, getItem(position), itemChange, true)
             is UneditableListViewHolder -> holder.bind(getItem(position), itemChange)
-            is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange)
+            is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange, position)
         }
     }
 

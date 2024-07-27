@@ -24,3 +24,7 @@ interface ListSticker {
 interface EditableListAddSticker {
     fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, index: Int)
 }
+
+interface SnsPlusButtonSticker {
+    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, position: Int)
+}

@@ -8,10 +8,18 @@ import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.mypage.MyPageDataObj
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.model.MyPageSNSListEnum
+import com.example.bakedeggs.mypage.data.model.MyPageSNSListModel
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBinding) : MyPageViewHolder(binding){
-    override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
+class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBinding) : MyPageViewHolder(binding), SnsPlusButtonSticker{
+    override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {}
+
+    override fun bind(
+        uiModel: MyPageUIModel,
+        itemChange: MyPageRecyclerViewAdapter.ItemChange?,
+        position: Int
+    ) {
         uiModel as MyPageUIModel.SnsPlusButtonModel
         binding.mypageIvSnsFunction.setOnClickListener {
             if(binding.mypageIvSnsInsta.isVisible) {
@@ -27,15 +35,15 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
             }
         }
         binding.mypageIvSnsInsta.setOnClickListener {
-            MyPageDataObj.addInsta("")
+            MyPageDataObj.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.INSTAGRAM.viewType, snsId = "", position = position))
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsGithub.setOnClickListener {
-            MyPageDataObj.addGithub("")
+            MyPageDataObj.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.GITHUB.viewType, snsId = "", position = position))
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsDiscord.setOnClickListener {
-            MyPageDataObj.addDiscord("")
+            MyPageDataObj.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position))
             itemChange?.onChangeData()
         }
     }
