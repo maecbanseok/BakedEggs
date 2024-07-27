@@ -53,9 +53,9 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
 
     }
 
-    fun modifyContact(idx:Int, contact:ContactEntity) {
+    fun modifyContact(prev:ContactEntity, contact:ContactEntity) {
         viewModelScope.launch {
-            contactRepositoryImpl.modifyContact(idx,contact)
+            contactRepositoryImpl.modifyContact(prev,contact)
         }
     }
 

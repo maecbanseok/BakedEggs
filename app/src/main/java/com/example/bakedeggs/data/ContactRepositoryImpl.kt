@@ -27,9 +27,9 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
         _contacts.emit(contactDataSource.ContactEntities)
     }
 
-    override suspend fun modifyContact(position: Int, contactEntity: ContactEntity) {
-        contactDataSource.ContactEntities[position] = contactEntity
-        contactDataSource.ContactEntities.sortBy { it.name }
+    override suspend fun modifyContact(prev: ContactEntity, contactEntity: ContactEntity) {
+        contactDataSource.ContactEntities[contactDataSource.ContactEntities.indexOf(prev)] = contactEntity
+        contactDataSource.ContactEntities.sortWith(compareBy<ContactEntity> {-it.tag}.thenBy { it.name })
         _contacts.emit(contactDataSource.ContactEntities)
     }
 
