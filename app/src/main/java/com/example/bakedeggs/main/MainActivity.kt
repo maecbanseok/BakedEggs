@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity() {
 
             mainFbtnAdd.setOnClickListener{
                 AddDialogFragment().show(supportFragmentManager,"Add Contact")
+
             }
 
             mainFbtnAddalarm.setOnClickListener {
