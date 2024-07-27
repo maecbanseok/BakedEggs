@@ -8,6 +8,9 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
 
     var idCount = 0
 
+    println("카드 모델 ${this.snsIds}")
+    println("카드 모델 ${this.snsIds?.find { it.type == 0 }?.snsId ?: ""}")
+
     val list: MutableList<MyPageUIModel> = mutableListOf(
         MyPageUIModel.TopBarModel(
             id = idCount++
@@ -18,13 +21,13 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
             name = this.name,
             phoneNum = this.phoneNum,
             email = this.email,
-            instagramId = this.instagramIds?.get(0) ?: "",
-            githubId = this.githubIds?.get(0) ?: "",
-            discordId = this.discordIds?.get(0) ?: "",
+            instagramId = this.snsIds?.find { it.type == 0 }?.snsId ?: "",
+            githubId = this.snsIds?.find { it.type == 1 }?.snsId  ?: "",
+            discordId = this.snsIds?.find { it.type == 2 }?.snsId  ?: "",
         ),
     )
 
-    val snsListSize = (this.instagramIds?.size ?: 0 )+ (this.githubIds?.size ?: 0) + (this.discordIds?.size ?: 0)
+    val snsListSize = this.snsIds?.size ?: 0
 
     if (MyPageFlagObj.getFlag().isOpenSNS) {
         list.add(
@@ -35,35 +38,43 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 isFold = false
             )
         )
-        for (element in this.instagramIds ?: listOf()) {
-            list.add(
-                MyPageUIModel.ListModel(
-                    id = idCount++,
-                    iconId = R.drawable.mypage_icon_insta,
-                    content = element,
-                    type = 0,
-                )
-            )
-        }
-        for (element in this.githubIds ?: listOf()) {
-            list.add(
-                MyPageUIModel.ListModel(
-                    id = idCount++,
-                    iconId = R.drawable.mypage_icon_github,
-                    content = element,
-                    type = 1,
-                )
-            )
-        }
-        for (element in this.discordIds ?: listOf()) {
-            list.add(
-                MyPageUIModel.ListModel(
-                    id = idCount++,
-                    iconId = R.drawable.mypage_icon_discord,
-                    content = element,
-                    type = 2,
-                )
-            )
+        for (element in this.snsIds ?: listOf()) {
+            when(element.type) {
+                0 -> {
+                    list.add(
+                        MyPageUIModel.ListModel(
+                            id = idCount++,
+                            iconId = R.drawable.mypage_icon_insta,
+                            content = element.snsId,
+                            type = 0,
+                        )
+                    )
+                }
+                1 -> {
+                    list.add(
+                        MyPageUIModel.ListModel(
+                            id = idCount++,
+                            iconId = R.drawable.mypage_icon_github,
+                            content = element.snsId,
+                            type = 1,
+                        )
+                    )
+                }
+                2 -> {
+                    list.add(
+                        MyPageUIModel.ListModel(
+                            id = idCount++,
+                            iconId = R.drawable.mypage_icon_discord,
+                            content = element.snsId,
+                            type = 2,
+                        )
+                    )
+                }
+                else -> {
+
+                }
+            }
+
         }
         if (snsListSize < 9) {
             list.add(
@@ -92,6 +103,7 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 isFold = false,
             )
         )
+        println("얘맞지 ${this.favoriteList}")
         for (element in this.favoriteList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(
@@ -143,26 +155,3 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
 
     return list
 }
-
-
-
-//    val snsAccountList: List<ListElement> = listOf()
-//    val favoriteList: List<ListElement> = listOf()
-//    val blackList: List<ListElement> = listOf()
-//
-//    fun getSnsListRange(): IntRange {
-//        val start = 3
-//        return getListRange(start, snsAccountList)
-//    }
-//
-//    fun getFavoriteListRange(): IntRange {
-//        val start = getSnsListRange().last + 2
-//        return getListRange(start, favoriteList)
-//    }
-//
-//    fun getBlackListRange(): IntRange {
-//        val start = getFavoriteListRange().last + 2
-//        return getListRange(start, blackList)
-//    }
-//
-//    fun getListRange(start: Int, list: List<ListElement>): IntRange = (start..<list.size + start)

@@ -41,7 +41,7 @@ class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel, priva
     override fun getItemCount(): Int = 1
 
     override fun getItemViewType(position: Int): Int {
-        return if(MyPageDataObj.checkNull()) {
+        return if(MyPageDataObj.getDataSource()?.checkNull() == true) {
             CARD_EMPTY
         } else {
             CARD_NOT_EMPTY

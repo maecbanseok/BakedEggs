@@ -33,7 +33,6 @@ import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.data.EventBus
-import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.FragmentListBinding
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 import kotlinx.coroutines.CoroutineScope
@@ -60,8 +59,7 @@ class ListFragment : Fragment() {
     }
 
     var isGrid = true
-    private var getData = ArrayList<ContactEntity>()
-    private val listAdapter = ListAdapter(getData)
+    private val listAdapter = ListAdapter(ArrayList())
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -85,6 +83,8 @@ class ListFragment : Fragment() {
     }
 
     fun initView() {
+
+
 
         with(binding) {
             listLlGridlist.setOnClickListener {
@@ -131,10 +131,7 @@ class ListFragment : Fragment() {
 
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    contactViewModel.contacts.collect {
-                        listAdapter.getData = it
-                        listAdapter.notifyDataSetChanged()
-                    }
+                    contactViewModel.search(listAdapter)
                 }
             }
             listRecyclerview.adapter=listAdapter
@@ -157,12 +154,15 @@ class ListFragment : Fragment() {
                 }
 
 
-                override fun onLongClick(view: View, position: Int) {
+                override fun onLongClick(view: View, contactEntity: ContactEntity) {
                     val builder = AlertDialog.Builder(requireContext())
-                    builder.setTitle("삭제하시겠습니까?")
-                        .setNegativeButton("취소") { dialog, which -> return@setNegativeButton }
-                        .setPositiveButton("확인") { dialog, which ->
-                            contactViewModel.removeContact(position)
+                    builder.setTitle("삭제 혹은 차단하시겠습니까?")
+                        .setNeutralButton("취소") { dialog, which -> return@setNeutralButton}
+                        .setNegativeButton("차단") { dialog, which ->
+                            contactViewModel.modifyContact(contactEntity,contactEntity.copy(tag = 2))
+                        }
+                        .setPositiveButton("삭제") { dialog, which ->
+                            contactViewModel.removeContact(contactEntity)
                         }
                         .show()
                 }
@@ -176,7 +176,8 @@ class ListFragment : Fragment() {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     // 검색해서 나온 데이터들
-                    contactViewModel.search(newText?:"")
+                    contactViewModel.str=newText?:""
+                    contactViewModel.fetch()
                     return true
                 }
             })
@@ -193,6 +194,7 @@ class ListFragment : Fragment() {
         @JvmStatic
         fun newInstance() = ListFragment()
     }
+
 
 
 }

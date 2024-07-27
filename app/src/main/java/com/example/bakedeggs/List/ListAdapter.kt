@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
-import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
 class ListAdapter(var getData : ArrayList<ContactEntity>) :
@@ -28,7 +27,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
         holder.itemView.setOnClickListener { listClick?.onClick(it, position) }
-        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, position)
+        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, getData[position])
             true }
 
         holder.name.text = getData[position].name
@@ -56,7 +55,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
 
     interface ListClick {
         fun onClick(view: View, position: Int)
-        fun onLongClick(view: View, position: Int)
+        fun onLongClick(view: View, contactEntity: ContactEntity)
     }
 
     var listClick: ListClick? = null

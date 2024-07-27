@@ -1,8 +1,12 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.R
@@ -13,19 +17,22 @@ import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(itemClick: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) {
+    fun bind(itemClick: MyPageRecyclerViewAdapter.ItemChange?, activity: Activity) {
         binding.mypageIvCardAdd.setOnClickListener {
             activity.showAddCardDialog(itemClick)
         }
     }
 }
 
-fun MainActivity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
+fun Activity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
     val builder = AlertDialog.Builder(this)
+    val dialogBinding = DialogAddCardBinding.inflate(this.layoutInflater)
+    println("${MyPageDataObj.getDataSource()?.getData()?.name} ㅇㅇㅇㅇ")
+    dialogBinding.mypageEtAddCardName.setText(MyPageDataObj.getDataSource()?.getData()?.name ?: "")
+    dialogBinding.mypageEtAddCardPhone.setText(MyPageDataObj.getDataSource()?.getData()?.phoneNum ?: "")
+    dialogBinding.mypageEtAddCardEmail.setText(MyPageDataObj.getDataSource()?.getData()?.email ?: "")
+    dialogBinding.mypageIvAddCardProfile.setImageResource(MyPageDataObj.getDataSource()?.getData()?.photoId ?: R.drawable.mypage_base_photo_summer)
     builder.setView(layoutInflater.inflate(R.layout.dialog_add_card, null))
-    //etName.setText(MyPageDataObj.getData().name ?: "이름")
-    //etNum.setText(MyPageDataObj.getData().phoneNum ?: "전화번호")
-    //etEmail.setText(MyPageDataObj.getData().email ?: "이메일(선택)")
     val listener = DialogInterface.OnClickListener { dialogP, which ->
         val dialog = dialogP as AlertDialog
         if(which == DialogInterface.BUTTON_POSITIVE) {
@@ -36,7 +43,6 @@ fun MainActivity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemCha
             //TODO 이미지 추가
             val profile = R.drawable.mypage_base_photo_summer
             if(validationAddCard(name, num)) {
-                println("$name,$num 인데")
                 saveData(name, num, email, profile)
                 itemChange?.onChangeData()
             }
@@ -48,7 +54,7 @@ fun MainActivity.showAddCardDialog(itemChange: MyPageRecyclerViewAdapter.ItemCha
 }
 
 fun saveData(name: String?, phoneNum: String?, email: String? = null, photoId: Int? = null) {
-    MyPageDataObj.addNewProfile(
+    MyPageDataObj.getDataSource()?.addNewProfile(
         MyPageUIModel.CardModel(
             name = name,
             phoneNum = phoneNum,

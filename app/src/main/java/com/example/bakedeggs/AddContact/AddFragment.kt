@@ -11,7 +11,6 @@ import android.text.InputFilter
 import android.util.Log
 
 import android.view.View
-import android.view.View.FOCUSABLE_AUTO
 
 import android.widget.DatePicker
 import android.widget.ScrollView
@@ -20,9 +19,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.green
-import androidx.core.graphics.red
-import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
@@ -43,6 +39,7 @@ import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
+import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.google.android.material.shape.RoundedCornerTreatment
@@ -130,7 +127,7 @@ class AddDialogFragment : DialogFragment() {
             contactViewModel.addContact(contact)
         }
 
-        builder.setView(binding.root).setOnCancelListener { }
+        builder.setView(binding.root)
             .setPositiveButton("저장", listener)
             .setNegativeButton("취소", null)
 
@@ -140,7 +137,6 @@ class AddDialogFragment : DialogFragment() {
         }
 
         fun snsButtonVisibility() {
-            snsAdapter.notifyDataSetChanged()
             if (binding.addBtnInstagram.isVisible) {
                 binding.addBtnInstagram.visibility = View.INVISIBLE
                 binding.addBtnGithub.visibility = View.INVISIBLE
@@ -174,7 +170,10 @@ class AddDialogFragment : DialogFragment() {
                 val email = addEtEmail.text.toString().trim()
                 var emailWarning = addTvEmailWarning
 
-                if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || !phone.matches(phonePattern) || !email.matches(emailPattern)) {
+                if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || !phone.matches(
+                        phonePattern
+                    ) || !email.matches(emailPattern)
+                ) {
                     if (name.isEmpty()) {
                         nameWarning.apply { text = "이름을 입력해 주세요" }.setTextColor(Color.RED)
                     } else {
@@ -234,7 +233,9 @@ class AddDialogFragment : DialogFragment() {
             }
         }
 
-        snsAdapter = MyPageRecyclerViewAdapter(activity as MainActivity)
+        val a = MyPageData()
+
+        snsAdapter = MyPageRecyclerViewAdapter(a, activity as MainActivity)
         snsAdapter.submitList(listOf())
 
         binding.addRvSnsList.adapter = snsAdapter
@@ -281,6 +282,54 @@ class AddDialogFragment : DialogFragment() {
                     )
                     snsAdapter.submitList(snsList)
                     snsButtonVisibility()
+                    binding.addBtnSnsadd.setOnClickListener {
+                        snsButtonVisibility()
+                        binding.addBtnInstagram.apply { // add 대신 detail로 바꾸시면 되요
+                            setOnClickListener {
+                                snsList.add(
+                                    MyPageUIModel.ListModel(
+                                        snsAdapter.itemCount + 1,
+                                        R.drawable.instagram_24,
+                                        "",
+                                        0
+                                    )
+                                )
+                                snsAdapter.submitList(snsList)
+                                snsAdapter.notifyItemInserted(snsList.size - 1)
+                                snsButtonVisibility()
+                            }
+                        }
+                        binding.addBtnGithub.apply {
+                            setOnClickListener {
+                                snsList.add(
+                                    MyPageUIModel.ListModel(
+                                        snsAdapter.itemCount + 1,
+                                        R.drawable.github_24,
+                                        "",
+                                        1
+                                    )
+                                )
+                                snsAdapter.submitList(snsList)
+                                snsAdapter.notifyItemInserted(snsList.size - 1)
+                                snsButtonVisibility()
+                            }
+                        }
+                        binding.addBtnDiscord.apply {
+                            setOnClickListener {
+                                snsList.add(
+                                    MyPageUIModel.ListModel(
+                                        snsAdapter.itemCount + 1,
+                                        R.drawable.discord_24,
+                                        "",
+                                        2
+                                    )
+                                )
+                                snsAdapter.submitList(snsList)
+                                snsAdapter.notifyItemInserted(snsList.size - 1)
+                                snsButtonVisibility()
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -4,48 +4,33 @@ import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.filter
 
 class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):ContactRepository {
 
-    private val _contacts = MutableSharedFlow<ArrayList<ContactEntity>>()
+    private val _contacts = MutableSharedFlow<ArrayList<ContactEntity>>(replay = 1)
     private val _callLogs = MutableSharedFlow<ArrayList<CallLogEntity>>()
-    private val _mypageContact = MutableSharedFlow<ArrayList<ContactEntity>>()
     private val contacts = _contacts.asSharedFlow()
     private val callLogs = _callLogs.asSharedFlow()
-    private val mypageContact = _mypageContact.asSharedFlow()
 
     override fun getContactList(): Flow<ArrayList<ContactEntity>> = contacts
 
     override fun getCallLogs(): Flow<ArrayList<CallLogEntity>> = callLogs
 
-    override fun getMypageContact(): Flow<ArrayList<ContactEntity>> =mypageContact
-
-    override suspend fun notNormal() {
-        _mypageContact.emit(contactDataSource.ContactEntities.filter { it.tag!=0 } as ArrayList<ContactEntity>)
-    }
-
-    override suspend fun search(str: String) {
-        val contacts = contactDataSource.ContactEntities
-        val result=ArrayList<ContactEntity>()
-        for(i in contacts){
-            if(str.equals(i.name.slice(0..minOf(str.length-1,i.name.length-1)))
-                ||str.equals(i.convertedName.slice(0..minOf(str.length-1,i.name.length-1)))){
-                result+=i
-            }
-        }
-        _contacts.emit(result)
-    }
-
     override suspend fun addContact(contactEntity: ContactEntity) {
         contactDataSource.ContactEntities.add(contactEntity)
-        contactDataSource.ContactEntities.sortBy { it.name }
+        contactDataSource.ContactEntities.sortWith(compareBy<ContactEntity> {-it.tag}.thenBy { it.name })
+        _contacts.emit(contactDataSource.ContactEntities)
     }
-    override suspend fun removeContact(position:Int) {
-        contactDataSource.ContactEntities.removeAt(position)
+    override suspend fun removeContact(contactEntity: ContactEntity) {
+        contactDataSource.ContactEntities.remove(contactEntity)
+        _contacts.emit(contactDataSource.ContactEntities)
     }
 
-    override suspend fun modifyContact(position: Int, contactEntity: ContactEntity) {
-        contactDataSource.ContactEntities[position] = contactEntity
+    override suspend fun modifyContact(prev: ContactEntity, contactEntity: ContactEntity) {
+        contactDataSource.ContactEntities[contactDataSource.ContactEntities.indexOf(prev)] = contactEntity
+        contactDataSource.ContactEntities.sortWith(compareBy<ContactEntity> {-it.tag}.thenBy { it.name })
+        _contacts.emit(contactDataSource.ContactEntities)
     }
 
     override suspend fun fetchData() {
