@@ -66,10 +66,12 @@ class MyPageData {
     fun deleteSns(position: Int) {
         val list: MutableList<MyPageSNSListModel> = mutableListOf()
         list.addAll(myPageData.snsIds ?: listOf())
-        list.removeAt(position - mySnsListFirst)
-        myPageData = myPageData.copy(
-            snsIds = list
-        )
+        if(list.size - 1 >= position - mySnsListFirst) {
+            list.removeAt(position - mySnsListFirst)
+            myPageData = myPageData.copy(
+                snsIds = list
+            )
+        }
         println(myPageData.snsIds)
     }
 
@@ -92,12 +94,23 @@ class MyPageData {
         myPageData = myPageData.copy(
             favoriteList = list
         )
+        println("귀로 ${myPageData.favoriteList}")
     }
 
     fun setBlock(list: List<ContactEntity>) {
         myPageData = myPageData.copy(
             blackList = list
         )
+    }
+
+    fun setSnsId(position: Int, id: String, ) {
+        val list: MutableList<MyPageSNSListModel> = mutableListOf()
+        list.addAll(myPageData.snsIds ?: listOf())
+        if(list.size - 1 >= position - mySnsListFirst) {
+            if(myPageData.snsIds != null)
+            list.set(position - mySnsListFirst, myPageData.snsIds!!.get(position - mySnsListFirst).copy(snsId = id))
+        }
+        myPageData = myPageData.copy(snsIds = list)
     }
 
     fun checkNull(): Boolean = myPageData.checkNull()

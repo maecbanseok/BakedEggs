@@ -19,16 +19,17 @@
 
     <EditText
         android:id="@+id/mypage_et_list_sns"
+        style="@style/listView_myCard_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:text="SNS 아이디"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        app:layout_constraintEnd_toStartOf="@id/mypage_iv_list_save"
-        app:layout_constraintHorizontal_bias="0.394"
         app:layout_constraintStart_toEndOf="@id/mypage_iv_list_sns"
-        app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns" />
+        app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
+        app:layout_constraintEnd_toStartOf="@id/mypage_iv_list_delete"
+        />
 
     <ImageView
         android:id="@+id/mypage_iv_list_delete"

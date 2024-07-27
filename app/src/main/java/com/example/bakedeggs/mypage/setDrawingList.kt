@@ -8,6 +8,9 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
 
     var idCount = 0
 
+    println("카드 모델 ${this.snsIds}")
+    println("카드 모델 ${this.snsIds?.find { it.type == 0 }?.snsId ?: ""}")
+
     val list: MutableList<MyPageUIModel> = mutableListOf(
         MyPageUIModel.TopBarModel(
             id = idCount++
@@ -100,6 +103,7 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
                 isFold = false,
             )
         )
+        println("얘맞지 ${this.favoriteList}")
         for (element in this.favoriteList ?: listOf()) {
             list.add(
                 MyPageUIModel.ListModel(

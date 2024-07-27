@@ -1,7 +1,6 @@
 package com.example.bakedeggs.mypage
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,14 +28,14 @@ class MyPageFragment : Fragment() {
         MyPageViewModelFactory()
     }
 
-    private val contactViewModel: ContactViewModel by activityViewModels<ContactViewModel> {
+    private val contactViewModel: ContactViewModel by activityViewModels {
         ContactViewModelFactory(application = requireActivity().application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MyPageFlagObj.initData()
-        MyPageDataObj.initData()
+//        MyPageDataObj.initData()
         viewModel.initData()
         arguments?.let {}
     }
@@ -57,10 +56,10 @@ class MyPageFragment : Fragment() {
         val mainActivity: MainActivity = activity as MainActivity
         val adapter = MyPageRecyclerViewAdapter(MyPageDataObj.getDataSource(), mainActivity)
 
-        Log.d("마이페이지","init")
+        println("뷰크리")
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("마이페이지","0")
                 contactViewModel.notNormal()
             }
         }
