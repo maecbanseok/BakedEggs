@@ -7,6 +7,6 @@ interface ContactRepository {
     fun getCallLogs():Flow<ArrayList<CallLogEntity>>
     suspend fun addContact(contactEntity: ContactEntity)
     suspend fun removeContact(contactEntity: ContactEntity)
-    suspend fun modifyContact(position: Int,contactEntity: ContactEntity)
+    suspend fun modifyContact(prev: ContactEntity,contactEntity: ContactEntity)
     suspend fun fetchData()
 }

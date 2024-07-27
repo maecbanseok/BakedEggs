@@ -157,9 +157,12 @@ class ListFragment : Fragment() {
 
                 override fun onLongClick(view: View, contactEntity: ContactEntity) {
                     val builder = AlertDialog.Builder(requireContext())
-                    builder.setTitle("삭제하시겠습니까?")
-                        .setNegativeButton("취소") { dialog, which -> return@setNegativeButton }
-                        .setPositiveButton("확인") { dialog, which ->
+                    builder.setTitle("삭제 혹은 차단하시겠습니까?")
+                        .setNeutralButton("취소") { dialog, which -> return@setNeutralButton}
+                        .setNegativeButton("차단") { dialog, which ->
+                            contactViewModel.modifyContact(contactEntity,contactEntity.copy(tag = 2))
+                        }
+                        .setPositiveButton("삭제") { dialog, which ->
                             contactViewModel.removeContact(contactEntity)
                         }
                         .show()
