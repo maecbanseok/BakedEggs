@@ -32,7 +32,7 @@ fun contactList(context: Context):ArrayList<ContactEntity>{
 
         list+=ContactEntity(name, convertString(name),number,starred,photoUri,null,null)
     }
-    return ArrayList(list.sortedBy{it.name})
+    return ArrayList(list.sortedWith(compareBy<ContactEntity> {-it.tag}.thenBy { it.name }))
 }
 
 fun callHistory(context: Context):ArrayList<CallLogEntity>{

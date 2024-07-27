@@ -19,7 +19,7 @@ class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):Co
 
     override suspend fun addContact(contactEntity: ContactEntity) {
         contactDataSource.ContactEntities.add(contactEntity)
-        contactDataSource.ContactEntities.sortBy { it.name }
+        contactDataSource.ContactEntities.sortWith(compareBy<ContactEntity> {-it.tag}.thenBy { it.name })
         _contacts.emit(contactDataSource.ContactEntities)
     }
     override suspend fun removeContact(contactEntity: ContactEntity) {

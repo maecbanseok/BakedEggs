@@ -14,6 +14,7 @@ import com.example.bakedeggs.data.ContactDataSource
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ContactRepositoryImpl
+import com.example.bakedeggs.mypage.MyPageDataObj
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,9 +32,6 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
 
     var str=""
 
-    private val _notNormal = MutableSharedFlow<Pair<List<ContactEntity>,List<ContactEntity>>>()
-    val notNormal = _notNormal.asSharedFlow()
-
     init {
         viewModelScope.launch {
             contactRepositoryImpl.fetchData()
@@ -41,8 +39,8 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
     }
 
     suspend fun search(listAdapter: ListAdapter){
-        contacts.map { contacts -> contacts.filter { str.equals(it.name.slice(0..minOf(str.length-1,it.name.length-1)))
-                || str.equals((it.convertedName.slice(0..minOf(str.length-1,it.convertedName.length-1)))) } }.collect{
+        contacts.map { contacts -> contacts.filter { it.tag!=2&&(str.equals(it.name.slice(0..minOf(str.length-1,it.name.length-1)))
+                || str.equals((it.convertedName.slice(0..minOf(str.length-1,it.convertedName.length-1))))) } }.collect{
                     listAdapter.getData=it as ArrayList<ContactEntity>
                     listAdapter.notifyDataSetChanged()
         }
