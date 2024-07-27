@@ -6,11 +6,20 @@ import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.adapter.MyPageViewPagerAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-class CardViewHolder (val binding: MypageItemCardBinding) : MyPageViewHolder(binding){
-    override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, ) { }
+class CardViewHolder (val binding: MypageItemCardBinding) : MyPageViewHolder(binding), CardSticker {
+    override fun bind(
+        uiModel: MyPageUIModel,
+        itemChange: MyPageRecyclerViewAdapter.ItemChange?, ) {
+    }
 
-    override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity) {
-        val adapter = MyPageViewPagerAdapter(uiModel as MyPageUIModel.CardModel, itemChange, activity)
+    override fun bind(
+        uiModel: MyPageUIModel,
+        itemChange: MyPageRecyclerViewAdapter.ItemChange?,
+        activity: MainActivity
+    ) {
+        val adapter =
+            MyPageViewPagerAdapter(uiModel as MyPageUIModel.CardModel, itemChange, activity)
         binding.mypageVpProfile.adapter = adapter
     }
+
 }

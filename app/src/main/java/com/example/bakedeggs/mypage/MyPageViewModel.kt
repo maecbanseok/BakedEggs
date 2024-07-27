@@ -19,7 +19,7 @@ class MyPageViewModel: ViewModel() {
     fun initData() = setData()
 
     fun setData() {
-        _liveData.value = MyPageDataObj.getData()
+        _liveData.value = MyPageDataObj.getDataSource()?.getData()
     }
 
     fun getData(): MyPageDataModel? = liveData.value
