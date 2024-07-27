@@ -9,11 +9,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.util.Log
-import android.view.Gravity
 
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 
 import android.widget.DatePicker
 import android.widget.ScrollView
@@ -22,9 +19,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.green
-import androidx.core.graphics.red
-import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
@@ -113,178 +107,184 @@ class AddDialogFragment : DialogFragment() {
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            builder = AlertDialog.Builder(it)
+        builder = AlertDialog.Builder(requireActivity())
 
-            fun snsButtonVisibility() {
-                if (binding.addBtnInstagram.isVisible) {
-                    binding.addBtnInstagram.visibility = View.INVISIBLE
-                    binding.addBtnGithub.visibility = View.INVISIBLE
-                    binding.addBtnDiscord.visibility = View.INVISIBLE
+        val listener = DialogInterface.OnClickListener { x, y ->
+            contact = ContactEntity(
+                binding.addEtName.text.toString(),
+                convertString(binding.addEtName.text.toString()),
+                binding.addEtPhone.text.toString(),
+                if (binding.addTbtnLike.isChecked) {
+                    1 // 즐겨찾기
                 } else {
-                    binding.addBtnInstagram.visibility = View.VISIBLE
-                    binding.addBtnGithub.visibility = View.VISIBLE
-                    binding.addBtnDiscord.visibility = View.VISIBLE
-                }
-                binding.addLoScroll.fullScroll(ScrollView.FOCUS_DOWN);
-            }
+                    0 // 일반저장
+                },
+                profileUri,
+                binding.addDpBirthday.toString(),
+                binding.addEtEmail.text.toString(),
+            )
+            Log.d("dataFFFFF", "contact $contact")
+            contactViewModel.addContact(contact)
+        }
 
-            binding.addIvProfile.setOnClickListener {
-                //클릭하면 사진 가져오긔
-                // Registers a photo picker activity launcher in single-select mode.
-                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-            }
+        builder.setView(binding.root)
+            .setPositiveButton("저장", listener)
+            .setNegativeButton("취소", null)
 
-            val filterAddEtEmail = InputFilter { source, start, end, dest, dstart, dend ->
-                val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z0-9\\@\\.]+$")
-                if (!ps.matcher(source).matches()) {
-                    ""
-                } else source
+        var addDialog = builder.create()
+        addDialog.setOnShowListener {
+            addDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+        }
+
+        fun snsButtonVisibility() {
+            if (binding.addBtnInstagram.isVisible) {
+                binding.addBtnInstagram.visibility = View.INVISIBLE
+                binding.addBtnGithub.visibility = View.INVISIBLE
+                binding.addBtnDiscord.visibility = View.INVISIBLE
+            } else {
+                binding.addBtnInstagram.visibility = View.VISIBLE
+                binding.addBtnGithub.visibility = View.VISIBLE
+                binding.addBtnDiscord.visibility = View.VISIBLE
             }
-            val phonePattern = Regex("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}\$")
+            binding.addLoScroll.fullScroll(ScrollView.FOCUS_DOWN);
+        }
+
+        val filterAddEtEmail = InputFilter { source, start, end, dest, dstart, dend ->
+            val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z0-9\\-\\_\\@\\.]+$")
+            if (!ps.matcher(source).matches()) {
+                ""
+            } else source
+        }
+
+        fun editCheck() {
+            val phonePattern = Regex("^[0-9]{9,11}\$")
             val emailPattern =
                 Regex("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)\$")
-
-
             binding.run {
-                addEtPhone.doAfterTextChanged {
-                    val phoneNumber = addEtPhone.text.toString().trim()
-                    if (phoneNumber.isEmpty()) {
-                        addEtPhoneWarning.text = "번호를 입력해 주세요"
-                        addEtPhoneWarning.setTextColor(Color.RED)
-                    } else {
-                        if (!phoneNumber.matches(phonePattern)) {
-                            addEtPhoneWarning.text = "입력 값을 확인해 주세요"
-                            addEtPhoneWarning.setTextColor(Color.RED)
-                        } else {
-                            addEtPhoneWarning.text = "입력 값 확인 완료"
-                            addEtPhoneWarning.setTextColor(Color.GREEN)
-                        }
-                    }
-                }
-                addEtEmail.filters = arrayOf(filterAddEtEmail)
-                addEtEmail.doAfterTextChanged {
-                    val emailWords = addEtEmail.text.toString().trim()
-                    if (emailWords.isEmpty()) {
-                        addEtEmailWarning.text = "이메일을 입력해 주세요"
-                        addEtEmailWarning.setTextColor(Color.RED)
-                    } else {
-                        if (!emailWords.matches(emailPattern)) {
-                            addEtEmailWarning.text = "입력 값을 확인해 주세요"
-                            addEtEmailWarning.setTextColor(Color.RED)
-                        } else {
-                            addEtEmailWarning.text = "입력 값 확인 완료"
-                            addEtEmailWarning.setTextColor(Color.GREEN)
-                        }
-                    }
-                }
-            }
+                val name = addEtName.text.toString().trim()
+                var nameWarning = addTvNameWarning
 
-            val datePicker: DatePicker = binding.addDpBirthday
-            val calendar: Calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            datePicker.init(year, month, day, null) // DatePicker 초기화
-            datePicker.maxDate = calendar.timeInMillis // 최대 날짜를 오늘로 설정
-            datePicker.updateDate(year, month, day)
+                val phone = addEtPhone.text.toString().trim()
+                var phoneWarning = addTvPhoneWarning
 
-            binding.addTbtnFoldbutton.setOnClickListener {
-                if (binding.addRvSnsList.isVisible) {
-                    binding.addRvSnsList.visibility = View.INVISIBLE
-                } else {
-                    binding.addRvSnsList.visibility = View.VISIBLE
-                }
-            }
+                val email = addEtEmail.text.toString().trim()
+                var emailWarning = addTvEmailWarning
 
-            val a = MyPageData()
-
-            snsAdapter = MyPageRecyclerViewAdapter(a, activity as MainActivity)
-            snsAdapter.submitList(listOf())
-
-            binding.addRvSnsList.adapter = snsAdapter
-
-            binding.addBtnSnsadd.setOnClickListener {
-                snsButtonVisibility()
-                binding.addBtnInstagram.apply { // add 대신 detail로 바꾸시면 되요
-                    setOnClickListener {
-                        snsList.add(
-                            MyPageUIModel.ListModel(
-                                snsAdapter.itemCount + 1,
-                                R.drawable.instagram_24,
-                                "",
-                                0
-                            )
-                        )
-                        snsAdapter.submitList(snsList)
-                        snsAdapter.notifyItemInserted(snsList.size-1)
-                        snsButtonVisibility()
-                    }
-                }
-                binding.addBtnGithub.apply {
-                    setOnClickListener {
-                        snsList.add(
-                            MyPageUIModel.ListModel(
-                                snsAdapter.itemCount + 1,
-                                R.drawable.github_24,
-                                "",
-                                1
-                            )
-                        )
-                        snsAdapter.submitList(snsList)
-                        snsAdapter.notifyItemInserted(snsList.size-1)
-                        snsButtonVisibility()
-                    }
-                }
-                binding.addBtnDiscord.apply {
-                    setOnClickListener {
-                        snsList.add(
-                            MyPageUIModel.ListModel(
-                                snsAdapter.itemCount + 1,
-                                R.drawable.discord_24,
-                                "",
-                                2
-                            )
-                        )
-                        snsAdapter.submitList(snsList)
-                        snsAdapter.notifyItemInserted(snsList.size-1)
-                        snsButtonVisibility()
-                    }
-                }
-            }
-
-            val listener = DialogInterface.OnClickListener { _, _ ->
-                if (binding.addEtName.text.equals("") ||
-                    binding.addEtPhone.text.equals("") ||
-                    binding.addEtEmail.text.equals("")
+                if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || !phone.matches(
+                        phonePattern
+                    ) || !email.matches(emailPattern)
                 ) {
-                    Toast.makeText(this.requireContext(), "미입력된 항목이 있습니다.", Toast.LENGTH_SHORT)
-
+                    if (name.isEmpty()) {
+                        nameWarning.apply { text = "이름을 입력해 주세요" }.setTextColor(Color.RED)
+                    } else {
+                        nameWarning.apply { text = "" }
+                    }
+                    if (phone.isEmpty()) {
+                        phoneWarning.apply { text = "번호를 입력해 주세요" }.setTextColor(Color.RED)
+                    } else if (!phone.matches(phonePattern)) {
+                        phoneWarning.apply { text = "번호는 9~11자 입니다." }.setTextColor(Color.MAGENTA)
+                    } else {
+                        phoneWarning.apply { text = "" }
+                    }
+                    if (email.isEmpty()) {
+                        emailWarning.apply { text = "이메일을 입력해 주세요" }.setTextColor(Color.RED)
+                    } else if (!email.matches(emailPattern)) {
+                        emailWarning.apply { text = "입력한 이메일을 확인해 주세요" }.setTextColor(Color.MAGENTA)
+                    } else {
+                        emailWarning.apply { text = "" }
+                    }
+                    addDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
                 } else {
-                    contact = ContactEntity(
-                        binding.addEtName.text.toString(),
-                        convertString(binding.addEtName.text.toString()),
-                        binding.addEtPhone.text.toString(),
-                        if (binding.addTbtnLike.isChecked) {
-                            1 // 즐겨찾기
-                        } else {
-                            0 // 일반저장
-                        },
-                        profileUri,
-                        binding.addDpBirthday.toString(),
-                        binding.addEtEmail.text.toString(),
-                    )
-                    contactViewModel.addContact(contact)
+                    nameWarning.apply { text = "" }
+                    phoneWarning.apply { text = "" }
+                    emailWarning.apply { text = "" }
+                    addDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
                 }
             }
+        }
 
-            builder.setView(binding.root)
-                .setPositiveButton("저장", listener)
-                .setNegativeButton("취소", null)
-            // Create the AlertDialog object and return it
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+        binding.addIvProfile.setOnClickListener {
+            //클릭하면 사진 가져오긔
+            // Registers a photo picker activity launcher in single-select mode.
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+
+        binding.run {
+            addEtName.doAfterTextChanged { editCheck() }
+            addEtPhone.doAfterTextChanged { editCheck() }
+            addEtEmail.filters = arrayOf(filterAddEtEmail)
+            addEtEmail.doAfterTextChanged { editCheck() }
+        }
+
+        val datePicker: DatePicker = binding.addDpBirthday
+        val calendar: Calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        datePicker.init(year, month, day, null) // DatePicker 초기화
+        datePicker.maxDate = calendar.timeInMillis // 최대 날짜를 오늘로 설정
+        datePicker.updateDate(year, month, day)
+
+        binding.addTbtnFoldbutton.setOnClickListener {
+            if (binding.addRvSnsList.isVisible) {
+                binding.addRvSnsList.visibility = View.INVISIBLE
+            } else {
+                binding.addRvSnsList.visibility = View.VISIBLE
+            }
+        }
+
+        val a = MyPageData()
+
+        snsAdapter = MyPageRecyclerViewAdapter(a, activity as MainActivity)
+        snsAdapter.submitList(listOf())
+
+        binding.addRvSnsList.adapter = snsAdapter
+
+        binding.addBtnSnsadd.setOnClickListener {
+            snsButtonVisibility()
+            binding.addBtnInstagram.apply {
+                setOnClickListener {
+                    snsList.add(
+                        MyPageUIModel.ListModel(
+                            snsAdapter.itemCount + 1,
+                            R.drawable.instagram_24,
+                            "",
+                            0
+                        )
+                    )
+                    snsAdapter.submitList(snsList)
+                    snsButtonVisibility()
+                }
+            }
+            binding.addBtnGithub.apply {
+                setOnClickListener {
+                    snsList.add(
+                        MyPageUIModel.ListModel(
+                            snsAdapter.itemCount + 1,
+                            R.drawable.github_24,
+                            "",
+                            1
+                        )
+                    )
+                    snsAdapter.submitList(snsList)
+                    snsButtonVisibility()
+                }
+            }
+            binding.addBtnDiscord.apply {
+                setOnClickListener {
+                    snsList.add(
+                        MyPageUIModel.ListModel(
+                            snsAdapter.itemCount + 1,
+                            R.drawable.discord_24,
+                            "",
+                            2
+                        )
+                    )
+                    snsAdapter.submitList(snsList)
+                    snsButtonVisibility()
+                }
+            }
+        }
+        return addDialog
     }
-
-
 }
