@@ -100,6 +100,15 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/add_tv_nameTitle" />
+
+                <TextView
+                    android:id="@+id/add_tv_nameWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/add_et_name"
+                    app:layout_constraintStart_toStartOf="@+id/add_et_name"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--    번호 입력    -->
@@ -141,7 +150,7 @@
                     android:layout_marginStart="120dp"
                     android:background="@drawable/add_edittext_shape"
                     android:gravity="center_horizontal"
-                    android:hint="예: 010-0000-0000"
+                    android:hint="예: 01012347777"
                     android:inputType="phone"
                     android:maxLength="30"
                     android:maxLines="1"
@@ -153,7 +162,7 @@
                     app:layout_constraintTop_toTopOf="@+id/add_tv_phoneTitle" />
 
                 <TextView
-                    android:id="@+id/add_et_phoneWarning"
+                    android:id="@+id/add_tv_phoneWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/add_et_phone"
@@ -212,7 +221,7 @@
                     app:layout_constraintTop_toTopOf="@+id/add_tv_emailTitle" />
 
                 <TextView
-                    android:id="@+id/add_et_emailWarning"
+                    android:id="@+id/add_tv_emailWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/add_et_email"
@@ -266,6 +275,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_tv_birthdayWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/add_dp_birthday"
+                    app:layout_constraintStart_toStartOf="@+id/add_dp_birthday"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
