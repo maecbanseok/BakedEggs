@@ -282,54 +282,6 @@ class AddDialogFragment : DialogFragment() {
                     )
                     snsAdapter.submitList(snsList)
                     snsButtonVisibility()
-                    binding.addBtnSnsadd.setOnClickListener {
-                        snsButtonVisibility()
-                        binding.addBtnInstagram.apply { // add 대신 detail로 바꾸시면 되요
-                            setOnClickListener {
-                                snsList.add(
-                                    MyPageUIModel.ListModel(
-                                        snsAdapter.itemCount + 1,
-                                        R.drawable.instagram_24,
-                                        "",
-                                        0
-                                    )
-                                )
-                                snsAdapter.submitList(snsList)
-                                snsAdapter.notifyItemInserted(snsList.size - 1)
-                                snsButtonVisibility()
-                            }
-                        }
-                        binding.addBtnGithub.apply {
-                            setOnClickListener {
-                                snsList.add(
-                                    MyPageUIModel.ListModel(
-                                        snsAdapter.itemCount + 1,
-                                        R.drawable.github_24,
-                                        "",
-                                        1
-                                    )
-                                )
-                                snsAdapter.submitList(snsList)
-                                snsAdapter.notifyItemInserted(snsList.size - 1)
-                                snsButtonVisibility()
-                            }
-                        }
-                        binding.addBtnDiscord.apply {
-                            setOnClickListener {
-                                snsList.add(
-                                    MyPageUIModel.ListModel(
-                                        snsAdapter.itemCount + 1,
-                                        R.drawable.discord_24,
-                                        "",
-                                        2
-                                    )
-                                )
-                                snsAdapter.submitList(snsList)
-                                snsAdapter.notifyItemInserted(snsList.size - 1)
-                                snsButtonVisibility()
-                            }
-                        }
-                    }
                 }
             }
         }
