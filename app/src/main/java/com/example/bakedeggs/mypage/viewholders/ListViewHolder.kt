@@ -1,12 +1,9 @@
 package com.example.bakedeggs.mypage.viewholders
 
-import androidx.core.widget.doAfterTextChanged
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.mypage.MyPageData
-import com.example.bakedeggs.mypage.MyPageDataObj
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
-import com.example.bakedeggs.mypage.SNSListTypeEnum
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
 class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHolder(binding), ListSticker, EditableListAddSticker{
@@ -17,6 +14,7 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
         binding.mypageIvListSave.setOnClickListener {
 
         }
+
     }
 
     override fun bind(
@@ -44,5 +42,11 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
         index: Int
     ) {
 
+    }
+
+    var idx=0
+
+    companion object{
+        val list=ArrayList<String>()
     }
 }

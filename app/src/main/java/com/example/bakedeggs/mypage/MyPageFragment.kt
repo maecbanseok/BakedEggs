@@ -1,6 +1,7 @@
 package com.example.bakedeggs.mypage
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,7 @@ class MyPageFragment : Fragment() {
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
 
-    private val viewModel: MyPageViewModel by viewModels<MyPageViewModel> {
+    private val viewModel: MyPageViewModel by activityViewModels<MyPageViewModel> {
         MyPageViewModelFactory()
     }
 
@@ -56,8 +57,10 @@ class MyPageFragment : Fragment() {
         val mainActivity: MainActivity = activity as MainActivity
         val adapter = MyPageRecyclerViewAdapter(MyPageDataObj.getDataSource(), mainActivity)
 
+        Log.d("마이페이지","init")
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("마이페이지","0")
                 contactViewModel.notNormal()
             }
         }

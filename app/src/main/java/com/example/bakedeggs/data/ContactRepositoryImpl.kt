@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.filter
 
 class ContactRepositoryImpl(private val contactDataSource: ContactDataSource):ContactRepository {
 
-    private val _contacts = MutableSharedFlow<ArrayList<ContactEntity>>()
+    private val _contacts = MutableSharedFlow<ArrayList<ContactEntity>>(replay = 1)
     private val _callLogs = MutableSharedFlow<ArrayList<CallLogEntity>>()
     private val contacts = _contacts.asSharedFlow()
     private val callLogs = _callLogs.asSharedFlow()

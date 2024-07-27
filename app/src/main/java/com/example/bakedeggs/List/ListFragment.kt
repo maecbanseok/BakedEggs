@@ -33,7 +33,6 @@ import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.data.EventBus
-import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.FragmentListBinding
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 import kotlinx.coroutines.CoroutineScope
@@ -195,7 +194,6 @@ class ListFragment : Fragment() {
         @JvmStatic
         fun newInstance() = ListFragment()
     }
-
 
 
 

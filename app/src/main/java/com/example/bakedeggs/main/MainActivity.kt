@@ -25,7 +25,6 @@ import com.example.bakedeggs.alarm.AlarmDataBase
 import com.example.bakedeggs.alarm.AlarmEntity
 import com.example.bakedeggs.alarm.ViewModel.AlarmViewModel
 import com.example.bakedeggs.alarm.ViewModel.AlarmViewModelFactory
-import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
 import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.databinding.ActivityMainBinding
@@ -57,8 +56,6 @@ class MainActivity : AppCompatActivity() {
         AlarmViewModelFactory(application)
     }
 
-    private lateinit var serviceLocator: ServiceLocator
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -68,8 +65,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        serviceLocator=ServiceLocator.getInstance(application)
-
         getPermission()
 
     }
@@ -108,6 +103,7 @@ class MainActivity : AppCompatActivity() {
 
             mainFbtnAdd.setOnClickListener{
                 AddDialogFragment().show(supportFragmentManager,"Add Contact")
+
             }
 
             mainFbtnAddalarm.setOnClickListener {
