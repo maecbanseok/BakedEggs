@@ -113,7 +113,6 @@ class AddDialogFragment : DialogFragment() {
             builder = AlertDialog.Builder(it)
 
             fun snsButtonVisibility() {
-                snsAdapter.notifyDataSetChanged()
                 if (binding.addBtnInstagram.isVisible) {
                     binding.addBtnInstagram.visibility = View.INVISIBLE
                     binding.addBtnGithub.visibility = View.INVISIBLE
@@ -212,6 +211,7 @@ class AddDialogFragment : DialogFragment() {
                             )
                         )
                         snsAdapter.submitList(snsList)
+                        snsAdapter.notifyItemInserted(snsList.size-1)
                         snsButtonVisibility()
                     }
                 }
@@ -226,6 +226,7 @@ class AddDialogFragment : DialogFragment() {
                             )
                         )
                         snsAdapter.submitList(snsList)
+                        snsAdapter.notifyItemInserted(snsList.size-1)
                         snsButtonVisibility()
                     }
                 }
@@ -240,6 +241,7 @@ class AddDialogFragment : DialogFragment() {
                             )
                         )
                         snsAdapter.submitList(snsList)
+                        snsAdapter.notifyItemInserted(snsList.size-1)
                         snsButtonVisibility()
                     }
                 }
@@ -266,7 +268,6 @@ class AddDialogFragment : DialogFragment() {
                         binding.addDpBirthday.toString(),
                         binding.addEtEmail.text.toString(),
                     )
-                    Log.d("dataFFFFF", "contact $contact")
                     contactViewModel.addContact(contact)
                 }
             }

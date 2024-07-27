@@ -69,7 +69,7 @@ class MyPageRecyclerViewAdapter(private val activity: MainActivity) : ListAdapte
             is TopBarViewHolder -> holder.bind(getItem(position), itemChange)
             is CardViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
-            is ListViewHolder -> holder.bind(getItem(position), itemChange)
+            is ListViewHolder ->  holder.bind(getItem(position), itemChange)
             is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange)
         }
     }
