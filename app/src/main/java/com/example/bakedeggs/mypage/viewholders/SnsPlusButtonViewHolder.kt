@@ -8,10 +8,18 @@ import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.mypage.MyPageDataObj
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.model.MyPageSNSListEnum
+import com.example.bakedeggs.mypage.data.model.MyPageSNSListModel
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBinding) : MyPageViewHolder(binding){
-    override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
+class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBinding) : MyPageViewHolder(binding), SnsPlusButtonSticker{
+    override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {}
+
+    override fun bind(
+        uiModel: MyPageUIModel,
+        itemChange: MyPageRecyclerViewAdapter.ItemChange?,
+        position: Int
+    ) {
         uiModel as MyPageUIModel.SnsPlusButtonModel
         binding.mypageIvSnsFunction.setOnClickListener {
             if(binding.mypageIvSnsInsta.isVisible) {
@@ -27,18 +35,15 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
             }
         }
         binding.mypageIvSnsInsta.setOnClickListener {
-            MyPageDataObj.addInsta("insta")
-            println("인스타 리스트: ${MyPageDataObj.getData().instagramIds}")
+            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.INSTAGRAM.viewType, snsId = "", position = position), position)
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsGithub.setOnClickListener {
-            MyPageDataObj.addGithub("github")
-            println("깃헙 리스트: ${MyPageDataObj.getData().githubIds}")
+            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.GITHUB.viewType, snsId = "", position = position), position)
             itemChange?.onChangeData()
         }
         binding.mypageIvSnsDiscord.setOnClickListener {
-            MyPageDataObj.addDiscord("discord")
-            println("디스코드 리스트: ${MyPageDataObj.getData().discordIds}")
+            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position), position)
             itemChange?.onChangeData()
         }
     }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginHorizontal="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/mypage_iv_favorite_list"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/mypage_baseline_star_24"
+        app:tint="@color/function"
+        android:layout_marginStart="8dp"
+        />
+
+    <TextView
+        android:id="@+id/mypage_tv_favorite_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="즐겨찾기"
+        app:layout_constraintStart_toEndOf="@id/mypage_iv_favorite_list"
+        app:layout_constraintTop_toTopOf="@id/mypage_iv_favorite_list"
+        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_favorite_list"
+        android:layout_marginHorizontal="16dp"
+        style="@style/listView_myCard_14"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

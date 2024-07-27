@@ -6,6 +6,8 @@ sealed class MyPageUIModel {
 
     abstract val id: Int?
 
+    data class EmptyModel(override val id: Int? = null) : MyPageUIModel()
+
     data class TopBarModel(
         override val id: Int = 0,
         val iconId: Int? = R.mipmap.ic_launcher_foreground,
@@ -24,6 +26,7 @@ sealed class MyPageUIModel {
         val iconId: Int? = null,
         val content: String? = null,
         val type: Int? = null,
+        val isEditable: Boolean = true,
     ): MyPageUIModel()
 
     data class SnsPlusButtonModel(
@@ -47,5 +50,11 @@ sealed class MyPageUIModel {
         val discordId: String? = null,
     ) : MyPageUIModel()
 
-    data class EmptyModel(override val id: Int? = null) : MyPageUIModel()
+    data class FavoriteListModel(
+        override val id: Int?
+    ): MyPageUIModel()
+
+    data class BlockListModel(
+        override val id: Int?
+    ): MyPageUIModel()
 }
