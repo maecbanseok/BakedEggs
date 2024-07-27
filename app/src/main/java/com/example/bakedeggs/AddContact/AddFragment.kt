@@ -133,15 +133,14 @@ class AddDialogFragment : DialogFragment() {
             }
 
             val filterAddEtEmail = InputFilter { source, start, end, dest, dstart, dend ->
-                val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z0-9\\@\\.]+$")
+                val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z0-9\\-\\_\\@\\.]+$")
                 if (!ps.matcher(source).matches()) {
                     ""
                 } else source
             }
-            val phonePattern = Regex("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}\$")
+            val phonePattern = Regex("^[0-9]{9,11}\$")
             val emailPattern =
                 Regex("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)\$")
-
 
             binding.run {
                 addEtPhone.doAfterTextChanged {
