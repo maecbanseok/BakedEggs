@@ -15,6 +15,8 @@
         android:src="@drawable/mypage_icon_insta"
         app:tint="@color/function"
         android:layout_marginStart="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
     <TextView
@@ -29,6 +31,8 @@
         app:layout_constraintEnd_toStartOf="@id/mypage_iv_uneditable_list_edit"
         android:layout_marginHorizontal="16dp"
         style="@style/listView_myCard_14"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
     <ImageView
@@ -41,6 +45,8 @@
         android:padding="8dp"
         android:src="@drawable/mypage_icon_delete"
         app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
     <ImageView
@@ -53,6 +59,8 @@
         android:padding="6dp"
         android:src="@drawable/mypage_baseline_edit_24"
         app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

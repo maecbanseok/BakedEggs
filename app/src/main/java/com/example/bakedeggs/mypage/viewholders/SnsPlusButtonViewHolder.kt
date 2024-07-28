@@ -48,20 +48,20 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
             MyPageDataObj.getDataSource().addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position), position)
             itemChange?.onChangeDataRange(position, count)
         }
-        binding.mypageIvSnsInsta.setOnFocusChangeListener { view: View, focus: Boolean ->
-            if(focus) {
-                binding.mypageIvSnsInsta.performClick()
-            }
-        }
-        binding.mypageIvSnsGithub.setOnFocusChangeListener { view: View, focus: Boolean ->
-            if(focus) {
-                binding.mypageIvSnsGithub.performClick()
-            }
-        }
-        binding.mypageIvSnsDiscord.setOnFocusChangeListener { view: View, focus: Boolean ->
-            if(focus) {
-                binding.mypageIvSnsDiscord.performClick()
-            }
-        }
+//        binding.mypageIvSnsInsta.setOnFocusChangeListener { view: View, focus: Boolean ->
+//            if(focus) {
+//                binding.mypageIvSnsInsta.performClick()
+//            }
+//        }
+//        binding.mypageIvSnsGithub.setOnFocusChangeListener { view: View, focus: Boolean ->
+//            if(focus) {
+//                binding.mypageIvSnsGithub.performClick()
+//            }
+//        }
+//        binding.mypageIvSnsDiscord.setOnFocusChangeListener { view: View, focus: Boolean ->
+//            if(focus) {
+//                binding.mypageIvSnsDiscord.performClick()
+//            }
+//        }
     }
 }

@@ -77,6 +77,11 @@ class MyPageFragment : Fragment() {
             listOf()
         )
 
+        binding.root.viewTreeObserver.addOnGlobalFocusChangeListener { old, new ->
+            println("프래그먼트에서 옵저버 $old, $new")
+            new?.performClick()
+        }
+
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {
 //                viewModel.setData()

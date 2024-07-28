@@ -16,9 +16,9 @@ class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) :
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
         activity: Activity,
     ) {
-        binding.root.setOnFocusChangeListener { _, focus ->
-            if(focus) binding.root.performClick()
-        }
+//        binding.root.setOnFocusChangeListener { _, focus ->
+//            if(focus) binding.root.performClick()
+//        }
         binding.root.setOnClickListener {
             MyPageAddCardFragment(itemChange!!).show((activity as MainActivity).supportFragmentManager, "Card Add Contact")
         }
