@@ -57,7 +57,7 @@ class DetailFragment : Fragment() {
 
         contactEntity = arguments?.getParcelable<ContactEntity>(param)!!
 
-        binding.detailTbtnLike.isChecked = if(contactEntity.tag==0) false else true
+        binding.detailTbtnLike.isChecked = if(contactEntity.tag==1) true else false
 
         fun snsButtonVisibility() {
 
@@ -183,7 +183,7 @@ class DetailFragment : Fragment() {
         val new =ContactEntity(binding.detailTvName.text.toString(),
             convertString(binding.detailTvName.text.toString()),
             binding.detailTvPhone.text.toString(),
-            if(binding.detailTbtnLike.isChecked) 1 else 0,
+            if(binding.detailTbtnLike.isChecked) 1 else contactEntity.tag,
             contactEntity.img,
             contactEntity.birth,
             contactEntity.email

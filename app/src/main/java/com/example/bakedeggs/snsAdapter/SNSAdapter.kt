@@ -1,5 +1,7 @@
 package com.example.bakedeggs.snsAdapter
 
+import android.content.Intent
+import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -22,6 +24,9 @@ class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<
         val delete = binding.mypageIvListDelete.apply {
             focusable= View.NOT_FOCUSABLE
         }
+
+        val root = binding.root
+
         var textWatcher:TextWatcher? =null
     }
 
@@ -53,6 +58,16 @@ class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<
             }
         }
         holder.id.addTextChangedListener(holder.textWatcher)
+
+        holder.root.setOnClickListener {
+            val link=when(snsList[position].first){
+                0 -> "https://www.instagram.com/"
+                1 -> "https://github.com/"
+                else -> "https://www.discord.com/users/"
+            }
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link+snsList[position].second))
+            holder.root.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

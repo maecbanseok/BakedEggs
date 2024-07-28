@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
+import com.example.bakedeggs.DetailFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
@@ -89,11 +90,14 @@ class MyPageFragment : Fragment() {
                 contactViewModel.modifyContact(entity, entity.copy(tag = 0))
             }
 
-            override fun onChangeFragment(index: Int) {
-//                val detailFragment: DetailFragment = DetailFragment()
-//                val bundle = Bundle()
-//                bundle.putInt("index", )
-//                detailFragment.arguments =
+            override fun onChangeFragment(index: Int, type:Int) {
+                val contactEntity = if(type==0) MyPageDataObj.getDataSource().getData().favoriteList!![index] else MyPageDataObj.getDataSource().getData().blackList!![index]
+                parentFragmentManager.beginTransaction().
+                replace(R.id.main_fragment_container, DetailFragment.newInstance(Bundle().apply {
+                    putParcelable("param",contactEntity)
+                })).
+                addToBackStack(null).
+                commit()
             }
         }
 
