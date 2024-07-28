@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import android.app.Activity
 import com.example.bakedeggs.databinding.MypageItemCardBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
@@ -15,7 +16,7 @@ class CardViewHolder (val binding: MypageItemCardBinding) : MyPageViewHolder(bin
     override fun bind(
         uiModel: MyPageUIModel,
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
-        activity: MainActivity
+        activity: Activity
     ) {
         val adapter =
             MyPageViewPagerAdapter(uiModel as MyPageUIModel.CardModel, itemChange, activity)

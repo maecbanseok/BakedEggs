@@ -106,10 +106,9 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
         println("얘맞지 ${this.favoriteList}")
         for (element in this.favoriteList ?: listOf()) {
             list.add(
-                MyPageUIModel.ListModel(
+                MyPageUIModel.FavoriteListModel(
                     id = idCount++,
-                    iconId = R.drawable.mypage_baseline_star_24,
-                    content = element.name
+                    name = element.name
                 )
             )
         }
@@ -135,10 +134,9 @@ fun MyPageDataModel.makeMyPageUIList(): List<MyPageUIModel> {
         )
         for (element in this.blackList ?: listOf()) {
             list.add(
-                MyPageUIModel.ListModel(
+                MyPageUIModel.BlockListModel(
                     id = idCount++,
-                    iconId = R.drawable.mypage_baseline_block_24,
-                    content = element.num
+                    name = element.name.ifEmpty { element.num }
                 )
             )
         }

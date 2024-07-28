@@ -9,8 +9,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.util.Log
+import android.view.Gravity
 
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 
 import android.widget.DatePicker
 import android.widget.ScrollView
@@ -19,6 +22,9 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.green
+import androidx.core.graphics.red
+import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
