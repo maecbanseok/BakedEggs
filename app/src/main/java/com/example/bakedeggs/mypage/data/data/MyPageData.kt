@@ -21,8 +21,8 @@ class MyPageData {
         setUIList()
     }
 
-    fun setSns(n:Int){
-        mySnsListFirst=n
+    fun setSns(n: Int) {
+        mySnsListFirst = n
     }
 
     fun setUIList() {
@@ -75,14 +75,19 @@ class MyPageData {
     }
 
     fun setLikeFirst() {
-        if(myPageData.favoriteList?.isNotEmpty() == true) {
-            myFavoriteListFirst = mySnsListFirst + (myPageData.snsIds?.size ?: 0) + if(myPageData.snsIds?.size  == 9) 0 else 1 + 1
+        if (myPageData.favoriteList?.isNotEmpty() == true) {
+            myFavoriteListFirst = mySnsListFirst + if (MyPageFlagObj.getFlag().isOpenSNS) {
+                (myPageData.snsIds?.size ?: 0)
+                + if (myPageData.snsIds?.size == 9) 0 else 1
+            } else {0} + 1
         }
     }
 
     fun setBlockFirst() {
-        if(myPageData.blackList?.isNotEmpty() == true) {
-            myBlockListFirst = myFavoriteListFirst + (myPageData.favoriteList?.size ?: 0) + 1
+        if (myPageData.blackList?.isNotEmpty() == true) {
+            myBlockListFirst = myFavoriteListFirst +
+                    if(MyPageFlagObj.getFlag().isOpenFavorite) (myPageData.favoriteList?.size ?: 0)
+                    else {0} + 1
         }
     }
 
