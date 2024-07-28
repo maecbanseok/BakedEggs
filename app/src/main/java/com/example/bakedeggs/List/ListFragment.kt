@@ -91,7 +91,12 @@ class ListFragment : Fragment() {
 
         with(binding) {
 
-
+            lifecycleScope.launch {
+                EventBus.events.collect {
+                    listIvProfile.setImageURI(it.second)
+                    listTvMyName.text = it.first
+                }
+            }
 
             listClProfileContainer.setOnClickListener {
                 (requireActivity() as MainActivity).binding.mainViewpager.setCurrentItem(1)
@@ -110,18 +115,6 @@ class ListFragment : Fragment() {
             listAdapter.listClick = object : ListAdapter.ListClick {
 
                 override fun onClick(view: View, position: Int) {
-                    // 컬렉터로 받기
-                    lifecycleScope.launch {
-                        EventBus.produceEvent(Bundle().apply {
-                            putInt("ContactDetail", position)
-                        })
-                    }
-                    //Intent
-//                    val intent = Intent(activity, DetailActivity::class.java).apply {
-//                        putExtra("contactNum", getData[position].num)
-//                    }
-//                    startActivity(intent)
-
                 }
 
 

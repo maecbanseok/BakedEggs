@@ -1,8 +1,9 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data
 
 import android.util.Log
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
-import kotlinx.coroutines.flow.collectLatest
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.data.MyPageDataObj
 import kotlinx.coroutines.flow.map
 
 suspend fun ContactViewModel.notNormal(adapter: MyPageRecyclerViewAdapter) {

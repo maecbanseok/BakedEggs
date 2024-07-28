@@ -1,11 +1,9 @@
-package com.example.bakedeggs.mypage.viewholders
+package com.example.bakedeggs.mypage.presentation.viewholders
 
 import android.app.Activity
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.bakedeggs.main.MainActivity
-import com.example.bakedeggs.mypage.MyPageData
+import com.example.bakedeggs.mypage.data.data.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 

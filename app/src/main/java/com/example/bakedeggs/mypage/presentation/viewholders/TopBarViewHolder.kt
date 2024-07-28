@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage.viewholders
+package com.example.bakedeggs.mypage.presentation.viewholders
 
 import android.app.Activity
 import android.net.Uri
@@ -9,7 +9,8 @@ import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import kotlin.random.Random
 
-class TopBarViewHolder(private val binding: MypageItemTopBarBinding) : MyPageViewHolder(binding), CardSticker {
+class TopBarViewHolder(private val binding: MypageItemTopBarBinding) : MyPageViewHolder(binding),
+    CardSticker {
     override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {}
 
     override fun bind(
@@ -26,6 +27,8 @@ class TopBarViewHolder(private val binding: MypageItemTopBarBinding) : MyPageVie
         )
 
         val uri: Uri = adList[Random.nextInt(adList.size)]
+        println("안녕하세요 $uri")
         binding.vvAds.setVideoURI(uri)
+        binding.vvAds.start()
     }
 }

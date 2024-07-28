@@ -1,14 +1,10 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data.data
 
 object MyPageFlagObj {
-    private lateinit var myPageFlag: MyPageFlag
-
-    fun initData() {
-        myPageFlag = MyPageFlag()
-    }
+    private var myPageFlag: MyPageFlag = MyPageFlag()
+    private var startFlag = false
 
     fun switchSnsOpen() {
-        if(!this::myPageFlag.isInitialized) initData()
         if(myPageFlag.isOpenSNS) {
             myPageFlag = MyPageFlag(
                 false,
@@ -25,7 +21,6 @@ object MyPageFlagObj {
     }
 
     fun switchFavoriteOpen() {
-        if(!this::myPageFlag.isInitialized) initData()
         if(myPageFlag.isOpenFavorite) {
             myPageFlag = MyPageFlag(
                 myPageFlag.isOpenSNS,
@@ -43,7 +38,6 @@ object MyPageFlagObj {
     }
 
     fun switchBlockOpen() {
-        if(!this::myPageFlag.isInitialized) initData()
         if(myPageFlag.isOpenBlock) {
             myPageFlag = MyPageFlag(
                 myPageFlag.isOpenSNS,
@@ -60,4 +54,10 @@ object MyPageFlagObj {
     }
 
     fun getFlag() = myPageFlag
+
+    fun getStartFlag() = startFlag
+
+    fun setStartFlag() {
+        startFlag = true
+    }
 }

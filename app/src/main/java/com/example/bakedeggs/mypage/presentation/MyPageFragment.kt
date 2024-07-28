@@ -1,6 +1,5 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.presentation
 
-import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
@@ -22,31 +21,27 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.example.bakedeggs.R
-import com.example.bakedeggs.data.ContactRepositoryImpl
+import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
 import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.databinding.FragmentMyPageBinding
 import com.example.bakedeggs.main.MainActivity
+import com.example.bakedeggs.mypage.data.data.MyPageData
+import com.example.bakedeggs.mypage.data.data.MyPageDataObj
+import com.example.bakedeggs.mypage.data.data.MyPageFlagObj
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.notNormal
 import kotlinx.coroutines.launch
 
 class MyPageFragment : Fragment() {
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
-
-    private val viewModel: MyPageViewModel by activityViewModels<MyPageViewModel> {
-        MyPageViewModelFactory()
-    }
-
     private val contactViewModel: ContactViewModel by activityViewModels {
         ContactViewModelFactory(application = requireActivity().application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MyPageFlagObj.initData()
-
-//        MyPageDataObj.initData()
-        viewModel.initData()
         arguments?.let {}
     }
 
@@ -85,39 +80,22 @@ class MyPageFragment : Fragment() {
 
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {
-//                viewModel.setData()
                 adapter.submitList(listOf())
                 adapter.submitList(MyPageDataObj.getDataSource().changeUIList())
-            }
-
-            override fun onChangeEditable(isEditable: Boolean) {
-
             }
 
             override fun onChangeDataRange(position: Int, itemCount: Int) {
                 onChangeData()
-//                adapter.notifyItemRangeChanged(position, itemCount)
+            }
+
+            override fun onChangeTag(entity: ContactEntity) {
+                contactViewModel.modifyContact(entity, entity.copy(tag = 0))
             }
         }
-
-//        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-//            override fun onChanged() {
-//                binding.recycler.scrollToPosition(MyPageDataObj.getData().snsIds?.size?.plus(
-//                    MyPageDataObj.getFirst()
-//                ) ?: 0)
-//            }
-//        })
 
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.itemAnimator = null
-        viewModel.liveData.observe(viewLifecycleOwner) {
-            println("값 변경됨!!!")
-            if (viewModel.getData() != null) {
-                adapter.submitList(listOf())
-                adapter.submitList(MyPageDataObj.getDataSource().changeUIList())
-            }
-        }
     }
 
     fun initPhoto(
