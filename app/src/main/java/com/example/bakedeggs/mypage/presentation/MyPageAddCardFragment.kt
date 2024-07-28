@@ -26,7 +26,6 @@ import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.presentation.viewholders.saveData
 import com.example.bakedeggs.mypage.presentation.viewholders.validationAddCard
 import com.example.bakedeggs.mypage.verifyEmail
-import com.example.bakedeggs.mypage.verifyNotEmpty
 import com.example.bakedeggs.mypage.verifyPhoneNumber
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -40,7 +39,6 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
         val dialogBinding = DialogAddCardBinding.inflate(layoutInflater)
 
         val cropImage = registerForActivityResult(CropImageContract()) { result ->
-            println("이거지거 1 $result")
             if (result.isSuccessful) {
                 // returned uri 사용
                 Glide.with(this)
@@ -100,45 +98,49 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(dialogBinding.root)
 
-        val listener = DialogInterface.OnClickListener { dialogP, which ->
-            val dialog = dialogP as AlertDialog
-            if (which == DialogInterface.BUTTON_POSITIVE) {
-                val name =
-                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_name).text.toString()
-                val num =
-                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_phone).text.toString()
-                val email =
-                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_email).text.toString()
-                //val profile = dialog.findViewById<ImageView>(R.id.mypage_iv_add_card_profile)
-                //TODO 이미지 추가
-                if (profileUri == null) profileUri =
-                    Uri.parse("android.resource://" + this@MyPageAddCardFragment.requireContext().packageName + "/" + R.drawable.mypage_base_photo_summer)
-                saveData(name, num, email, profileUri)
-                lifecycleScope.launch {
-                    EventBus.produceEvent(Pair(name, profileUri))
+        dialogBinding.mypageAddCardTvSave.setOnClickListener {
+            val name = dialogBinding.mypageEtAddCardName.text.toString()
+            val num = dialogBinding.mypageEtAddCardPhone.text.toString()
+            val email = dialogBinding.mypageEtAddCardEmail.text.toString()
+            if (profileUri == null) profileUri =
+                Uri.parse("android.resource://" + this@MyPageAddCardFragment.requireContext().packageName + "/" + R.drawable.mypage_base_photo_summer)
+            if (name.isNotEmpty() && num.isNotEmpty()) {
+                if(!num.verifyPhoneNumber()) {
+                    Toast.makeText(requireActivity(), "전화번호 형식이 잘못됐습니다.", 300).show()
+                } else if(!email.verifyEmail()) {
+                    Toast.makeText(requireActivity(), "이메일 형식이 잘못됐습니다..", 300).show()
+                } else {
+                    saveData(name, num, email, profileUri)
+                    lifecycleScope.launch {
+                        EventBus.produceEvent(Pair(name, profileUri))
+                    }
+                    itemChange.onChangeData()
+                    this.dismiss()
+                    Toast.makeText(requireActivity(), "환영합니다 ${name}님.", 300).show()
                 }
-                itemChange.onChangeData()
-
-
-//                if (verifyNotEmpty(name, num, )) {
-//                    if(!num.verifyPhoneNumber()) {
-//                        Snackbar.make(requireView(), "전화번호 형식이 잘못됐습니다.", 300).setAction("확인"){}.show()
-//                    } else if(!email.verifyEmail()) {
-//                        Snackbar.make(requireView(), "이메일 형식이 잘못됐습니다.", 300).setAction("확인"){}.show()
-//                    } else {
-//                        saveData(name, num, email, profileUri)
-//                        lifecycleScope.launch {
-//                            EventBus.produceEvent(Pair(name, profileUri))
-//                        }
-//                        itemChange.onChangeData()
-//                    }
-//                } else {
-//                    Snackbar.make(requireView(), "이름 또는 전화번호에 빈 값이 입력됐습니다.", 300).setAction("확인"){}.show()
-//                }
+            } else {
+                Toast.makeText(requireActivity(), "이름 또는 전화번호에 빈 값이 입력됐습니다.", 300).show()
             }
         }
-        builder.setPositiveButton("저장", listener)
-        builder.setNegativeButton("취소", null)
+
+        dialogBinding.mypageAddCardTvCancel.setOnClickListener {
+            this.dismiss()
+        }
+
+
+//        val listener = DialogInterface.OnClickListener { dialogP, which ->
+//            val dialog = dialogP as AlertDialog
+//            if (which == DialogInterface.BUTTON_POSITIVE) {
+//                val name =
+//                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_name).text.toString()
+//                val num =
+//                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_phone).text.toString()
+//                val email =
+//                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_email).text.toString()
+//                //val profile = dialog.findViewById<ImageView>(R.id.mypage_iv_add_card_profile)
+//
+//            }
+//        }
 
         return builder.create()
     }

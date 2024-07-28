@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
@@ -74,18 +75,14 @@ class MyPageFragment : Fragment() {
         )
 
         binding.root.viewTreeObserver.addOnGlobalFocusChangeListener { old, new ->
-            println("프래그먼트에서 옵저버 $old, $new")
             new?.performClick()
         }
+
 
         adapter.itemChange = object : MyPageRecyclerViewAdapter.ItemChange {
             override fun onChangeData() {
                 adapter.submitList(listOf())
                 adapter.submitList(MyPageDataObj.getDataSource().changeUIList())
-            }
-
-            override fun onChangeDataRange(position: Int, itemCount: Int) {
-                onChangeData()
             }
 
             override fun onChangeTag(entity: ContactEntity) {

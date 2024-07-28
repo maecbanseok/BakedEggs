@@ -2,7 +2,6 @@ package com.example.bakedeggs.mypage.presentation.viewholders
 
 import android.app.Activity
 import android.net.Uri
-import com.example.bakedeggs.databinding.ActivityDetailBinding
 import com.example.bakedeggs.databinding.MypageItemTopBarBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
@@ -27,7 +26,6 @@ class TopBarViewHolder(private val binding: MypageItemTopBarBinding) : MyPageVie
         )
 
         val uri: Uri = adList[Random.nextInt(adList.size)]
-        println("안녕하세요 $uri")
         binding.vvAds.setVideoURI(uri)
         binding.vvAds.start()
     }
