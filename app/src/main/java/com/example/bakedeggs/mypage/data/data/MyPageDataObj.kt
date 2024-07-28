@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data.data
 
 object MyPageDataObj {
     private var myPageData: MyPageData = MyPageData()

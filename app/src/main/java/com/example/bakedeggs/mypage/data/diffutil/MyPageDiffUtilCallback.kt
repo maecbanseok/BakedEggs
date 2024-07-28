@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage.diffutil
+package com.example.bakedeggs.mypage.data.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel

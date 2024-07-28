@@ -91,7 +91,12 @@ class ListFragment : Fragment() {
 
         with(binding) {
 
-
+            lifecycleScope.launch {
+                EventBus.events.collect {
+                    listIvProfile.setImageURI(it.second)
+                    listTvMyName.text = it.first
+                }
+            }
 
             listClProfileContainer.setOnClickListener {
                 (requireActivity() as MainActivity).binding.mainViewpager.setCurrentItem(1)
@@ -110,7 +115,6 @@ class ListFragment : Fragment() {
             listAdapter.listClick = object : ListAdapter.ListClick {
 
                 override fun onClick(view: View, position: Int) {
-
                 }
 
 

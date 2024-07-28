@@ -1,6 +1,7 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.presentation
 
 import com.example.bakedeggs.R
+import com.example.bakedeggs.mypage.data.data.MyPageFlagObj
 import com.example.bakedeggs.mypage.data.model.MyPageDataModel
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 

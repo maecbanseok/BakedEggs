@@ -1,28 +1,11 @@
 package com.example.bakedeggs.data.ViewModel
 
-import android.app.Application
-import android.telecom.Call
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bakedeggs.List.ListAdapter
-import com.example.bakedeggs.data.CallLogEntity
-import com.example.bakedeggs.data.ContactDataSource
 import com.example.bakedeggs.data.ContactEntity
-import com.example.bakedeggs.data.ContactRepository
 import com.example.bakedeggs.data.ContactRepositoryImpl
-import com.example.bakedeggs.mypage.MyPageDataObj
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
