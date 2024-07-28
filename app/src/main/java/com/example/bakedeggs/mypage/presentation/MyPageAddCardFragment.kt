@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.presentation
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -8,23 +8,30 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.example.bakedeggs.R
+import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.databinding.DialogAddCardBinding
-import com.example.bakedeggs.mypage.viewholders.saveData
-import com.example.bakedeggs.mypage.viewholders.validationAddCard
+import com.example.bakedeggs.mypage.data.data.MyPageDataObj
+import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.presentation.viewholders.saveData
+import com.example.bakedeggs.mypage.presentation.viewholders.validationAddCard
+import com.example.bakedeggs.mypage.verifyEmail
+import com.example.bakedeggs.mypage.verifyPhoneNumber
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
-class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.ItemChange) : DialogFragment() {
+class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.ItemChange) :
+    DialogFragment() {
     private var profileUri: Uri? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -32,7 +39,6 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
         val dialogBinding = DialogAddCardBinding.inflate(layoutInflater)
 
         val cropImage = registerForActivityResult(CropImageContract()) { result ->
-            println("이거지거 1 $result")
             if (result.isSuccessful) {
                 // returned uri 사용
                 Glide.with(this)
@@ -71,11 +77,15 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
                 }
             }
 
-        dialogBinding.mypageEtAddCardName.setText(MyPageDataObj.getDataSource().getData().name ?: "")
+        dialogBinding.mypageEtAddCardName.setText(
+            MyPageDataObj.getDataSource().getData().name ?: ""
+        )
         dialogBinding.mypageEtAddCardPhone.setText(
             MyPageDataObj.getDataSource().getData().phoneNum ?: ""
         )
-        dialogBinding.mypageEtAddCardEmail.setText(MyPageDataObj.getDataSource().getData().email ?: "")
+        dialogBinding.mypageEtAddCardEmail.setText(
+            MyPageDataObj.getDataSource().getData().email ?: ""
+        )
         dialogBinding.mypageIvAddCardProfile.setImageURI(
             MyPageDataObj.getDataSource().getData().photoId
         )
@@ -88,23 +98,49 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(dialogBinding.root)
 
-        val listener = DialogInterface.OnClickListener { dialogP, which ->
-            val dialog = dialogP as AlertDialog
-            if (which == DialogInterface.BUTTON_POSITIVE) {
-                val name = dialog.findViewById<EditText>(R.id.mypage_et_add_card_name).text.toString()
-                val num = dialog.findViewById<EditText>(R.id.mypage_et_add_card_phone).text.toString()
-                val email = dialog.findViewById<EditText>(R.id.mypage_et_add_card_email).text.toString()
-                //val profile = dialog.findViewById<ImageView>(R.id.mypage_iv_add_card_profile)
-//                val profileUri = Uri.parse("android.resource://" + this.requireContext().packageName + "/" + profile)
-                //TODO 이미지 추가
-                if (validationAddCard(name, num)) {
+        dialogBinding.mypageAddCardTvSave.setOnClickListener {
+            val name = dialogBinding.mypageEtAddCardName.text.toString()
+            val num = dialogBinding.mypageEtAddCardPhone.text.toString()
+            val email = dialogBinding.mypageEtAddCardEmail.text.toString()
+            if (profileUri == null) profileUri =
+                Uri.parse("android.resource://" + this@MyPageAddCardFragment.requireContext().packageName + "/" + R.drawable.mypage_base_photo_summer)
+            if (name.isNotEmpty() && num.isNotEmpty()) {
+                if(!num.verifyPhoneNumber()) {
+                    Toast.makeText(requireActivity(), "전화번호 형식이 잘못됐습니다.", 300).show()
+                } else if(!email.verifyEmail()) {
+                    Toast.makeText(requireActivity(), "이메일 형식이 잘못됐습니다..", 300).show()
+                } else {
                     saveData(name, num, email, profileUri)
+                    lifecycleScope.launch {
+                        EventBus.produceEvent(Pair(name, profileUri))
+                    }
                     itemChange.onChangeData()
+                    this.dismiss()
+                    Toast.makeText(requireActivity(), "환영합니다 ${name}님.", 300).show()
                 }
+            } else {
+                Toast.makeText(requireActivity(), "이름 또는 전화번호에 빈 값이 입력됐습니다.", 300).show()
             }
         }
-        builder.setPositiveButton("저장", listener)
-        builder.setNegativeButton("취소", null)
+
+        dialogBinding.mypageAddCardTvCancel.setOnClickListener {
+            this.dismiss()
+        }
+
+
+//        val listener = DialogInterface.OnClickListener { dialogP, which ->
+//            val dialog = dialogP as AlertDialog
+//            if (which == DialogInterface.BUTTON_POSITIVE) {
+//                val name =
+//                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_name).text.toString()
+//                val num =
+//                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_phone).text.toString()
+//                val email =
+//                    dialog.findViewById<EditText>(R.id.mypage_et_add_card_email).text.toString()
+//                //val profile = dialog.findViewById<ImageView>(R.id.mypage_iv_add_card_profile)
+//
+//            }
+//        }
 
         return builder.create()
     }

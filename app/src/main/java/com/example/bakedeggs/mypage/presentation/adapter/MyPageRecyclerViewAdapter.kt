@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
-import com.example.bakedeggs.data.ContactRepositoryImpl
+import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.MypageItemBlockListBinding
-import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.databinding.MypageItemCardBinding
 import com.example.bakedeggs.databinding.MypageItemEmptyBinding
 import com.example.bakedeggs.databinding.MypageItemFavoriteListBinding
@@ -15,17 +14,18 @@ import com.example.bakedeggs.databinding.MypageItemHeaderBinding
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.databinding.MypageItemSnsPlusButtonBinding
 import com.example.bakedeggs.databinding.MypageItemTopBarBinding
+import com.example.bakedeggs.mypage.data.data.MyPageData
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
-import com.example.bakedeggs.mypage.diffutil.MyPageDiffUtilCallback
-import com.example.bakedeggs.mypage.viewholders.BlockListViewHolder
-import com.example.bakedeggs.mypage.viewholders.CardViewHolder
-import com.example.bakedeggs.mypage.viewholders.EmptyViewHolder
-import com.example.bakedeggs.mypage.viewholders.FavoriteListViewHolder
-import com.example.bakedeggs.mypage.viewholders.HeaderViewHolder
-import com.example.bakedeggs.mypage.viewholders.ListViewHolder
-import com.example.bakedeggs.mypage.viewholders.MyPageViewHolder
-import com.example.bakedeggs.mypage.viewholders.SnsPlusButtonViewHolder
-import com.example.bakedeggs.mypage.viewholders.TopBarViewHolder
+import com.example.bakedeggs.mypage.data.diffutil.MyPageDiffUtilCallback
+import com.example.bakedeggs.mypage.presentation.viewholders.BlockListViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.CardViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.EmptyViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.FavoriteListViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.HeaderViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.ListViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.MyPageViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.SnsPlusButtonViewHolder
+import com.example.bakedeggs.mypage.presentation.viewholders.TopBarViewHolder
 
 enum class ItemViewType(val viewType: Int) {
     EMPTY(-1),
@@ -41,7 +41,6 @@ enum class ItemViewType(val viewType: Int) {
 class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activity: Activity) : ListAdapter<MyPageUIModel, MyPageViewHolder>(
     MyPageDiffUtilCallback()
 ) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageViewHolder {
         val binding: ViewBinding?
@@ -91,10 +90,10 @@ class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activ
             is TopBarViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is CardViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
-            is ListViewHolder -> holder.bind(data, getItem(position), itemChange, true, position, itemCount)
+            is ListViewHolder -> holder.bind(data, getItem(position), itemChange, activity)
             is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange, position, itemCount)
-            is FavoriteListViewHolder -> holder.bind(getItem(position), itemChange)
-            is BlockListViewHolder -> holder.bind(getItem(position), itemChange)
+            is FavoriteListViewHolder -> holder.bind(getItem(position), itemChange, position)
+            is BlockListViewHolder -> holder.bind(getItem(position), itemChange, position)
         }
     }
 
@@ -118,8 +117,7 @@ class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activ
 
     interface ItemChange {
         fun onChangeData()
-        fun onChangeEditable(isEditable: Boolean)
-        fun onChangeDataRange(position: Int, itemCount: Int)
+        fun onChangeTag(entity: ContactEntity)
     }
 
     var itemChange: ItemChange? = null

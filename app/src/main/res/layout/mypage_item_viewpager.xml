@@ -111,86 +111,6 @@
                     android:focusableInTouchMode="true"
                     />
 
-                <ImageView
-                    android:id="@+id/mypage_iv_icon_discord"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mypage_icon_discord"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginEnd="128dp"
-                    android:layout_marginBottom="12dp"
-                    app:tint="@color/function"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    />
-
-                <ImageView
-                    android:id="@+id/mypage_iv_icon_github"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mypage_icon_github"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_iv_icon_discord"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_iv_icon_discord"
-                    android:layout_marginBottom="8dp"
-                    app:tint="@color/function"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    />
-
-                <ImageView
-                    android:id="@+id/mypage_iv_icon_insta"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mypage_icon_insta"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_iv_icon_github"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_iv_icon_github"
-                    android:layout_marginBottom="8dp"
-                    app:tint="@color/function"
-                    />
-
-                <TextView
-                    android:id="@+id/mypage_tv_icon_insta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/mypage_iv_icon_insta"
-                    app:layout_constraintTop_toTopOf="@id/mypage_iv_icon_insta"
-                    app:layout_constraintBottom_toBottomOf="@id/mypage_iv_icon_insta"
-                    android:layout_marginStart="8dp"
-                    android:text="instagram ID"
-                    android:textSize="12sp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    />
-
-                <TextView
-                    android:id="@+id/mypage_tv_icon_github"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/mypage_iv_icon_github"
-                    app:layout_constraintTop_toTopOf="@id/mypage_iv_icon_github"
-                    app:layout_constraintBottom_toBottomOf="@id/mypage_iv_icon_github"
-                    android:layout_marginStart="8dp"
-                    android:text="github ID"
-                    android:textSize="12sp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    />
-
-                <TextView
-                    android:id="@+id/mypage_tv_icon_discord"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/mypage_iv_icon_discord"
-                    app:layout_constraintTop_toTopOf="@id/mypage_iv_icon_discord"
-                    app:layout_constraintBottom_toBottomOf="@id/mypage_iv_icon_discord"
-                    android:layout_marginStart="8dp"
-                    android:text="discord ID"
-                    android:textSize="12sp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -211,5 +131,86 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         />
+
+    <ImageView
+        android:id="@+id/mypage_iv_icon_discord"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/mypage_icon_discord"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="12dp"
+        app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <ImageView
+        android:id="@+id/mypage_iv_icon_github"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/mypage_icon_github"
+        app:layout_constraintEnd_toEndOf="@id/mypage_iv_icon_discord"
+        app:layout_constraintBottom_toTopOf="@id/mypage_iv_icon_discord"
+        android:layout_marginBottom="8dp"
+        app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <ImageView
+        android:id="@+id/mypage_iv_icon_insta"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/mypage_icon_insta"
+        app:layout_constraintEnd_toEndOf="@id/mypage_iv_icon_github"
+        app:layout_constraintBottom_toTopOf="@id/mypage_iv_icon_github"
+        android:layout_marginBottom="8dp"
+        app:tint="@color/function"
+        />
+
+    <TextView
+        android:id="@+id/mypage_tv_icon_insta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mypage_iv_icon_insta"
+        app:layout_constraintTop_toTopOf="@id/mypage_iv_icon_insta"
+        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_icon_insta"
+        android:padding="8dp"
+        android:text="instagram ID"
+        android:textSize="12sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <TextView
+        android:id="@+id/mypage_tv_icon_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mypage_iv_icon_github"
+        app:layout_constraintTop_toTopOf="@id/mypage_iv_icon_github"
+        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_icon_github"
+        android:padding="8dp"
+        android:text="github ID"
+        android:textSize="12sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <TextView
+        android:id="@+id/mypage_tv_icon_discord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mypage_iv_icon_discord"
+        app:layout_constraintTop_toTopOf="@id/mypage_iv_icon_discord"
+        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_icon_discord"
+        android:padding="8dp"
+        android:text="discord ID"
+        android:textSize="12sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

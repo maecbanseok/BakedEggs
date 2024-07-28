@@ -1,16 +1,15 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data.data
 
-import android.app.Application
 import android.net.Uri
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.mypage.data.model.MyPageDataModel
 import com.example.bakedeggs.mypage.data.model.MyPageSNSListModel
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
-import java.net.URI
+import com.example.bakedeggs.mypage.presentation.makeMyPageUIList
 
 class MyPageData {
     private var myPageData = MyPageDataModel()
-    private var mySnsListFirst = -1
+    private var mySnsListFirst = 3
     private var myFavoriteListFirst = -1
     private var myBlockListFirst = -1
 
@@ -20,6 +19,10 @@ class MyPageData {
 
     fun initData() {
         setUIList()
+    }
+
+    fun setSns(n: Int) {
+        mySnsListFirst = n
     }
 
     fun setUIList() {
@@ -45,7 +48,6 @@ class MyPageData {
     }
 
     fun addSns(data: MyPageSNSListModel?, position: Int) {
-        println(myPageData.snsIds)
         if (myPageData.snsIds.isNullOrEmpty()) {
             mySnsListFirst = position
         }
@@ -64,7 +66,6 @@ class MyPageData {
                 snsIds = list
             )
         }
-        println(myPageData.snsIds)
     }
 
     fun sortType() {
@@ -74,14 +75,19 @@ class MyPageData {
     }
 
     fun setLikeFirst() {
-        if(myPageData.favoriteList?.isNotEmpty() == true) {
-            myBlockListFirst = mySnsListFirst + (myPageData.snsIds?.size ?: 0)
+        if (myPageData.favoriteList?.isNotEmpty() == true) {
+            myFavoriteListFirst = mySnsListFirst + if (MyPageFlagObj.getFlag().isOpenSNS) {
+                (myPageData.snsIds?.size ?: 0)
+                + if (myPageData.snsIds?.size == 9) 0 else 1
+            } else {0} + 1
         }
     }
 
     fun setBlockFirst() {
-        if(myPageData.blackList?.isNotEmpty() == true) {
-            myFavoriteListFirst = myBlockListFirst + (myPageData.favoriteList?.size ?: 0)
+        if (myPageData.blackList?.isNotEmpty() == true) {
+            myBlockListFirst = myFavoriteListFirst +
+                    if(MyPageFlagObj.getFlag().isOpenFavorite) (myPageData.favoriteList?.size ?: 0)
+                    else {0} + 1
         }
     }
 
@@ -90,7 +96,6 @@ class MyPageData {
             favoriteList = list
         )
         setLikeFirst()
-        println("귀로 ${myPageData.favoriteList}")
     }
 
     fun setBlock(list: List<ContactEntity>) {
@@ -98,7 +103,6 @@ class MyPageData {
             blackList = list
         )
         setBlockFirst()
-        println("귀로블록 ${myPageData.blackList}")
     }
 
     fun setSnsId(position: Int, id: String) {
@@ -118,17 +122,6 @@ class MyPageData {
         myPageData = myPageData.copy(
             photoId = uri
         )
-    }
-
-    fun removeFavorite(position: Int) {
-        myPageData.favoriteList
-        myPageData = myPageData.copy(
-
-        )
-    }
-
-    fun removeBlock(position: Int) {
-
     }
 
     fun checkNull(): Boolean = myPageData.checkNull()

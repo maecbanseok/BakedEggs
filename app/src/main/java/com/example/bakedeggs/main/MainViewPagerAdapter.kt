@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.bakedeggs.List.ListFragment
-import com.example.bakedeggs.mypage.MyPageFragment
+import com.example.bakedeggs.mypage.presentation.MyPageFragment
 
 class MainViewPagerAdapter(fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
 
