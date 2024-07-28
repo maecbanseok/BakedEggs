@@ -244,6 +244,7 @@ class AddDialogFragment : DialogFragment() {
                     )
                     snsAdapter.submitList(snsList)
                     snsButtonVisibility()
+                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
             }
             binding.addBtnGithub.apply {
@@ -258,6 +259,7 @@ class AddDialogFragment : DialogFragment() {
                     )
                     snsAdapter.submitList(snsList)
                     snsButtonVisibility()
+                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
             }
             binding.addBtnDiscord.apply {
@@ -272,6 +274,7 @@ class AddDialogFragment : DialogFragment() {
                     )
                     snsAdapter.submitList(snsList)
                     snsButtonVisibility()
+                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
             }
         }

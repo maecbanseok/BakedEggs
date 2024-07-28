@@ -5,6 +5,7 @@ import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.R
@@ -101,6 +103,69 @@ class ListFragment : Fragment() {
                 (requireActivity() as MainActivity).binding.mainViewpager.setCurrentItem(1)
             }
 
+
+            //어댑터 초기화 및 설정
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    contactViewModel.search(listAdapter)
+                }
+            }
+            listRecyclerview.adapter=listAdapter
+            listRecyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
+            listAdapter.listClick = object : ListAdapter.ListClick {
+
+                override fun onClick(view: View, position: Int) {
+                }
+
+
+                override fun onLongClick(view: View, contactEntity: ContactEntity) {
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("삭제 혹은 차단하시겠습니까?")
+                        .setNeutralButton("취소") { dialog, which -> return@setNeutralButton}
+                        .setNegativeButton("차단") { dialog, which ->
+                            contactViewModel.modifyContact(contactEntity,contactEntity.copy(tag = 2))
+                        }
+                        .setPositiveButton("삭제") { dialog, which ->
+                            contactViewModel.removeContact(contactEntity)
+                        }
+                        .show()
+                }
+            }
+
+            //swipe
+            val swipeHandler = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                //드래그가 일어날 때 두 ViewHolder의 데이터를 교환하는 동작을 정의
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    //항목을 드래그하여 이동하는 기능 비활성화
+                    return false
+                }
+
+
+                //swipe가 일어나면 -> 전화앱(통화) 연결
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val personViewHolder = viewHolder as ListAdapter.ListHolder
+                    //swipe한 항목의 위치
+                    val position = viewHolder.adapterPosition
+                    //swipe한 항목의 연락처 정보
+                    val contact = listAdapter.getData[position]
+                    //액션과 함께 연락처의 전화번호를 설정
+                    val intent = Intent(Intent.ACTION_CALL).apply {
+                        data = Uri.parse("tel:${contact.num}")
+                    }
+                    startActivity(intent)
+
+                    listAdapter.notifyItemChanged(position)
+                }
+
+            }
+            //RecyclerView가 리스트뷰일 때만 스와이프 기능을 적용
+            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+
             listLlGridlist.setOnClickListener {
                 mainViewWhitebtn.callOnClick()
                 listMlGridlist.setTransitionListener(object : MotionLayout.TransitionListener {
@@ -121,8 +186,10 @@ class ListFragment : Fragment() {
                     ) {
                         isGrid = motionLayout!!.currentState == motionLayout!!.startState
                         listRecyclerview.layoutManager = if (isGrid) {
+                            itemTouchHelper.attachToRecyclerView(null)
                             GridLayoutManager(requireContext(), 2)
                         } else {
+                            itemTouchHelper.attachToRecyclerView(listRecyclerview)
                             LinearLayoutManager(requireContext())
                         }
                         return

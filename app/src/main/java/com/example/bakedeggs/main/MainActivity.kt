@@ -1,6 +1,5 @@
 package com.example.bakedeggs.main
 
-import android.Manifest
 import android.app.AlarmManager
 import android.content.Context
 import android.content.DialogInterface
@@ -10,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.telephony.SubscriptionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
@@ -19,7 +17,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
@@ -73,10 +70,10 @@ class MainActivity : AppCompatActivity() {
     fun getPermission(){
         val permissions = if(Build.VERSION.SDK_INT >=33) arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
             android.Manifest.permission.POST_NOTIFICATIONS,android.Manifest.permission.SEND_SMS,
-            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG, android.Manifest.permission.READ_PHONE_NUMBERS)
+            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
         else arrayOf(android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE,
             android.Manifest.permission.SEND_SMS,
-            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG, android.Manifest.permission.READ_PHONE_NUMBERS)
+            android.Manifest.permission.INTERNET, android.Manifest.permission.READ_CALL_LOG)
 
         var flag=false
         for(i in permissions){
@@ -89,8 +86,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initView(){
-
-        Log.d("내 번호", (getPhoneNumber(this@MainActivity)?:"널").toString())
 
         with(binding){
 
@@ -169,16 +164,6 @@ class MainActivity : AppCompatActivity() {
             }
             if(flag) initView()
             else println(grantResults.contentToString())
-        }
-    }
-
-    fun getPhoneNumber(context: Context):List<String>? {
-        val subscriptionManager = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED) {
-            if(subscriptionManager.activeSubscriptionInfoList.isEmpty()) Log.d("내 번호","없음")
-            return subscriptionManager.activeSubscriptionInfoList.map{it.number}
-        } else {
-            return null
         }
     }
 }
