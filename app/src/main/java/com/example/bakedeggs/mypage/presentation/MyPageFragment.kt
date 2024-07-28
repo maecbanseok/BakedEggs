@@ -88,6 +88,13 @@ class MyPageFragment : Fragment() {
             override fun onChangeTag(entity: ContactEntity) {
                 contactViewModel.modifyContact(entity, entity.copy(tag = 0))
             }
+
+            override fun onChangeFragment(index: Int) {
+//                val detailFragment: DetailFragment = DetailFragment()
+//                val bundle = Bundle()
+//                bundle.putInt("index", )
+//                detailFragment.arguments =
+            }
         }
 
         binding.recycler.adapter = adapter
