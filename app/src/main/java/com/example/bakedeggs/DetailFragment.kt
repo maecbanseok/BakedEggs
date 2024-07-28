@@ -11,8 +11,8 @@ import android.widget.ScrollView
 import androidx.core.view.isVisible
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.databinding.FragmentDetailBinding
-import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.data.MyPageData
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import kotlin.random.Random
 
