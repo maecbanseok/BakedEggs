@@ -118,6 +118,7 @@ class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activ
     interface ItemChange {
         fun onChangeData()
         fun onChangeTag(entity: ContactEntity)
+        fun onChangeFragment(index: Int)
     }
 
     var itemChange: ItemChange? = null

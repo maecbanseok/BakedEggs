@@ -46,25 +46,6 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
             data?.deleteSns(position = position)
             itemChange?.onChangeData()
         }
-//        binding.mypageIvListDelete.setOnFocusChangeListener { view: View, focus: Boolean ->
-//            if(focus) {
-//                binding.mypageIvListDelete.performClick()
-//            }
-//        }
-//        binding.mypageIvListDelete.viewTreeObserver.addOnGlobalFocusChangeListener { b1, b2 ->
-//            println("뷰트리 1 $b1 $b2")
-//        }
-//        ViewTreeObserver.OnWindowFocusChangeListener {
-//            data?.setSnsId(position = position, binding.mypageEtListSns.text.toString())
-//        }
-    }
-
-    fun bind(
-        uiModel: MyPageUIModel,
-        itemChange: MyPageRecyclerViewAdapter.ItemChange?,
-        index: Int
-    ) {
-
     }
 
     var idx=0
