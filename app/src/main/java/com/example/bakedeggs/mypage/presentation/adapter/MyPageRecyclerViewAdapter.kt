@@ -90,7 +90,7 @@ class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activ
             is TopBarViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is CardViewHolder -> holder.bind(getItem(position), itemChange, activity)
             is HeaderViewHolder -> holder.bind(getItem(position), itemChange)
-            is ListViewHolder -> holder.bind(data, getItem(position), itemChange, true, position, itemCount)
+            is ListViewHolder -> holder.bind(data, getItem(position), itemChange, activity)
             is SnsPlusButtonViewHolder -> holder.bind(getItem(position), itemChange, position, itemCount)
             is FavoriteListViewHolder -> holder.bind(getItem(position), itemChange, position)
             is BlockListViewHolder -> holder.bind(getItem(position), itemChange, position)
@@ -117,7 +117,6 @@ class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activ
 
     interface ItemChange {
         fun onChangeData()
-        fun onChangeDataRange(position: Int, itemCount: Int)
         fun onChangeTag(entity: ContactEntity)
     }
 

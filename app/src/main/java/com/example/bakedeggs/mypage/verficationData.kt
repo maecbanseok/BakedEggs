@@ -3,7 +3,8 @@ package com.example.bakedeggs.mypage
 fun String.verifyEmail(): Boolean {
     val emailPattern =
         Regex("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)\$")
-    return this.matches(emailPattern)
+    if(this.isNotEmpty()) return this.matches(emailPattern)
+    else return true
 }
 
 fun String.verifyPhoneNumber(): Boolean {
@@ -11,9 +12,9 @@ fun String.verifyPhoneNumber(): Boolean {
     return this.matches(phonePattern)
 }
 
-fun verifyNotEmpty(vararg str: String): Boolean{
-    for(s in str) {
-        if(s.isEmpty()) return false
-    }
-    return true
-}
+//fun verifyNotEmpty(vararg str: String): Boolean{
+//    for(s in str) {
+//        if(s.isEmpty()) return false
+//    }
+//    return true
+//}

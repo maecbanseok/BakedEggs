@@ -17,8 +17,8 @@ class FavoriteListViewHolder(private val binding: MypageItemFavoriteListBinding)
         uiModel as MyPageUIModel.FavoriteListModel
         binding.mypageTvFavoriteList.text = uiModel.name
         binding.mypageIvDeleteFavoriteList.setOnClickListener {
-            itemChange?.onChangeTag(MyPageDataObj.getDataSource().getData().favoriteList!![position - MyPageDataObj.getDataSource().getFavoriteFirst() - 1])
             println("qwd $position ${MyPageDataObj.getDataSource().getFavoriteFirst()}")
+            itemChange?.onChangeTag(MyPageDataObj.getDataSource().getData().favoriteList!![position - MyPageDataObj.getDataSource().getFavoriteFirst()])
         }
     }
 }

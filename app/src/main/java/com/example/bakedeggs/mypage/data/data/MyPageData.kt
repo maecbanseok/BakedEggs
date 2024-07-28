@@ -9,7 +9,7 @@ import com.example.bakedeggs.mypage.presentation.makeMyPageUIList
 
 class MyPageData {
     private var myPageData = MyPageDataModel()
-    private var mySnsListFirst = 2
+    private var mySnsListFirst = 3
     private var myFavoriteListFirst = -1
     private var myBlockListFirst = -1
 
@@ -44,7 +44,6 @@ class MyPageData {
     }
 
     fun addSns(data: MyPageSNSListModel?, position: Int) {
-        println(myPageData.snsIds)
         if (myPageData.snsIds.isNullOrEmpty()) {
             mySnsListFirst = position
         }
@@ -63,7 +62,6 @@ class MyPageData {
                 snsIds = list
             )
         }
-        println(myPageData.snsIds)
     }
 
     fun sortType() {
@@ -89,7 +87,6 @@ class MyPageData {
             favoriteList = list
         )
         setLikeFirst()
-        println("귀로 ${myPageData.favoriteList?.size}")
     }
 
     fun setBlock(list: List<ContactEntity>) {
@@ -97,7 +94,6 @@ class MyPageData {
             blackList = list
         )
         setBlockFirst()
-        println("귀로블록 ${myPageData.blackList}")
     }
 
     fun setSnsId(position: Int, id: String) {

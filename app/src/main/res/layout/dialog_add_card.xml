@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="전화번호"
+        android:inputType="phone"
         app:layout_constraintStart_toStartOf="@id/mypage_et_add_card_name"
         app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_name" />
 
@@ -78,6 +79,27 @@
         android:layout_marginTop="8dp"
         android:hint="이메일(선택)"
         app:layout_constraintStart_toStartOf="@id/mypage_et_add_card_name"
-        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_phone" />
+        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_phone"
+        />
+
+    <TextView
+        android:id="@+id/mypage_add_card_tv_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_email"
+        />
+
+    <TextView
+        android:id="@+id/mypage_add_card_tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="취소"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toStartOf="@id/mypage_add_card_tv_save"
+        app:layout_constraintTop_toBottomOf="@id/mypage_et_add_card_email"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
