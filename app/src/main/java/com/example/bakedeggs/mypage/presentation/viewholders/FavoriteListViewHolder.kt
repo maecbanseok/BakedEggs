@@ -20,5 +20,9 @@ class FavoriteListViewHolder(private val binding: MypageItemFavoriteListBinding)
             println("qwd $position ${MyPageDataObj.getDataSource().getFavoriteFirst()}")
             itemChange?.onChangeTag(MyPageDataObj.getDataSource().getData().favoriteList!![position - MyPageDataObj.getDataSource().getFavoriteFirst()])
         }
+        binding.mypageTvFavoriteList.setOnClickListener {
+            val index = position - MyPageDataObj.getDataSource().getFavoriteFirst()
+            itemChange?.onChangeFragment(index)
+        }
     }
 }
