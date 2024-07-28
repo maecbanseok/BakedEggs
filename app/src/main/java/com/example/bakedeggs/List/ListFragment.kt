@@ -44,7 +44,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
@@ -205,42 +204,6 @@ class ListFragment : Fragment() {
                     }
 
                 })
-            }
-
-
-            //어댑터 초기화 및 설정
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    contactViewModel.search(listAdapter)
-                }
-            }
-            listRecyclerview.adapter=listAdapter
-            listRecyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
-            listAdapter.listClick = object : ListAdapter.ListClick {
-
-                override fun onClick(view: View, position: Int) {
-                    //Intent
-//                    val intent = Intent(activity, DetailActivity::class.java).apply {
-//                        putExtra("contactNum", getData[position].num)
-//                    }
-//                    startActivity(intent)
-
-                }
-
-
-                override fun onLongClick(view: View, contactEntity: ContactEntity) {
-                    val builder = AlertDialog.Builder(requireContext())
-                    builder.setTitle("삭제 혹은 차단하시겠습니까?")
-                        .setNeutralButton("취소") { dialog, which -> return@setNeutralButton}
-                        .setNegativeButton("차단") { dialog, which ->
-                            contactViewModel.modifyContact(contactEntity,contactEntity.copy(tag = 2))
-                        }
-                        .setPositiveButton("삭제") { dialog, which ->
-                            contactViewModel.removeContact(contactEntity)
-                        }
-                        .show()
-                }
             }
 
             //androidx.appcompat.widget.SearchView -> 위젯 사용
