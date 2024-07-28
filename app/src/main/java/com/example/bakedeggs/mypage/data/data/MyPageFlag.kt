@@ -1,4 +1,4 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data.data
 
 data class MyPageFlag(
     val isOpenSNS: Boolean = true,

@@ -25,7 +25,6 @@ class DetailActivity : AppCompatActivity() {
             Uri.parse("android.resource://" + this.packageName + "/raw/ad5"),
         )
 
-
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.detailIvProfile.clipToOutline = true

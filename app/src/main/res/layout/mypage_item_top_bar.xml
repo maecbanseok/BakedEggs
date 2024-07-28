@@ -11,12 +11,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             />
 
     </androidx.cardview.widget.CardView>
@@ -31,6 +35,8 @@
         app:layout_constraintBottom_toBottomOf="@id/cdv_icon"
         android:layout_marginVertical="16dp"
         android:layout_marginStart="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
