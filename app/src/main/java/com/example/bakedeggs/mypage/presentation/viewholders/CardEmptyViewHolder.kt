@@ -1,24 +1,21 @@
-package com.example.bakedeggs.mypage.viewholders
+package com.example.bakedeggs.mypage.presentation.viewholders
 
 import android.app.Activity
 import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bakedeggs.databinding.MypageItemCardEmptyBinding
 import com.example.bakedeggs.main.MainActivity
-import com.example.bakedeggs.mypage.MyPageAddCardFragment
-import com.example.bakedeggs.mypage.MyPageDataObj
+import com.example.bakedeggs.mypage.presentation.MyPageAddCardFragment
+import com.example.bakedeggs.mypage.data.data.MyPageDataObj
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-class CardEmptyViewHolder(private val binding: MypageItemCardEmptyBinding) :
+class CardEmptyViewHolder(val binding: MypageItemCardEmptyBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
         activity: Activity,
     ) {
-//        binding.root.setOnFocusChangeListener { _, focus ->
-//            if(focus) binding.root.performClick()
-//        }
         binding.root.setOnClickListener {
             MyPageAddCardFragment(itemChange!!).show((activity as MainActivity).supportFragmentManager, "Card Add Contact")
         }

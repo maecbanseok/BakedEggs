@@ -1,16 +1,15 @@
-package com.example.bakedeggs.mypage
+package com.example.bakedeggs.mypage.data.data
 
-import android.app.Application
 import android.net.Uri
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.mypage.data.model.MyPageDataModel
 import com.example.bakedeggs.mypage.data.model.MyPageSNSListModel
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
-import java.net.URI
+import com.example.bakedeggs.mypage.presentation.makeMyPageUIList
 
 class MyPageData {
     private var myPageData = MyPageDataModel()
-    private var mySnsListFirst = -1
+    private var mySnsListFirst = 2
     private var myFavoriteListFirst = -1
     private var myBlockListFirst = -1
 
@@ -75,13 +74,13 @@ class MyPageData {
 
     fun setLikeFirst() {
         if(myPageData.favoriteList?.isNotEmpty() == true) {
-            myBlockListFirst = mySnsListFirst + (myPageData.snsIds?.size ?: 0)
+            myFavoriteListFirst = mySnsListFirst + (myPageData.snsIds?.size ?: 0) + if(myPageData.snsIds?.size  == 9) 0 else 1 + 1
         }
     }
 
     fun setBlockFirst() {
         if(myPageData.blackList?.isNotEmpty() == true) {
-            myFavoriteListFirst = myBlockListFirst + (myPageData.favoriteList?.size ?: 0)
+            myBlockListFirst = myFavoriteListFirst + (myPageData.favoriteList?.size ?: 0) + 1
         }
     }
 
@@ -90,7 +89,7 @@ class MyPageData {
             favoriteList = list
         )
         setLikeFirst()
-        println("귀로 ${myPageData.favoriteList}")
+        println("귀로 ${myPageData.favoriteList?.size}")
     }
 
     fun setBlock(list: List<ContactEntity>) {
@@ -118,17 +117,6 @@ class MyPageData {
         myPageData = myPageData.copy(
             photoId = uri
         )
-    }
-
-    fun removeFavorite(position: Int) {
-        myPageData.favoriteList
-        myPageData = myPageData.copy(
-
-        )
-    }
-
-    fun removeBlock(position: Int) {
-
     }
 
     fun checkNull(): Boolean = myPageData.checkNull()
