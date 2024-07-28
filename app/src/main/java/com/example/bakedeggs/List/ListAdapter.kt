@@ -1,5 +1,7 @@
 package com.example.bakedeggs.List
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.provider.MediaStore
@@ -7,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.DetailFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
+import com.example.bakedeggs.main.MainActivity
 
 class ListAdapter(var getData : ArrayList<ContactEntity>) :
     RecyclerView.Adapter<ListAdapter.ListHolder>() {
@@ -27,7 +31,8 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
     }
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
-        holder.itemView.setOnClickListener { listClick?.onClick(it, position) }
+
+        holder.itemView.setOnClickListener { listClick?.onClick(it, getData[position]) }
         holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, getData[position])
             true }
 
@@ -61,7 +66,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
     }
 
     interface ListClick {
-        fun onClick(view: View, position: Int)
+        fun onClick(view: View, contactEntity: ContactEntity)
         fun onLongClick(view: View, contactEntity: ContactEntity)
     }
 

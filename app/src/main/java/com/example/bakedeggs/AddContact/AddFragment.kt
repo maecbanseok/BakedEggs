@@ -115,6 +115,11 @@ class AddDialogFragment : DialogFragment() {
                 binding.addDpBirthday.toString(),
                 binding.addEtEmail.text.toString(),
             )
+            snsAdapter.snsList.forEach { when(it.first){
+                0 -> contact.sns.instagram+=it.second
+                1 -> contact.sns.github+=it.second
+                else -> contact.sns.discord+=it.second
+            } }
             Log.d("dataFFFFF", "contact $contact")
             contactViewModel.addContact(contact)
         }
@@ -227,12 +232,6 @@ class AddDialogFragment : DialogFragment() {
 
 
         snsAdapter = SNSAdapter(ArrayList())
-        snsAdapter.onClicks = object :SNSAdapter.onClick{
-            override fun onClick(position: Int) {
-                snsAdapter.snsList.removeAt(position)
-                snsAdapter.notifyDataSetChanged()
-            }
-        }
         binding.addRvSnsList.adapter=snsAdapter
 
 
@@ -240,21 +239,21 @@ class AddDialogFragment : DialogFragment() {
             snsButtonVisibility()
             binding.addBtnInstagram.apply {
                 setOnClickListener {
-                    snsAdapter.snsList+=Pair(0,"")
+                    snsAdapter.addSNS(Pair(0,""))
                     snsAdapter.notifyDataSetChanged()
                     snsButtonVisibility()
                 }
             }
             binding.addBtnGithub.apply {
                 setOnClickListener {
-                    snsAdapter.snsList+=Pair(1,"")
+                    snsAdapter.addSNS(Pair(1,""))
                     snsAdapter.notifyDataSetChanged()
                     snsButtonVisibility()
                 }
             }
             binding.addBtnDiscord.apply {
                 setOnClickListener {
-                    snsAdapter.snsList+=Pair(2,"")
+                    snsAdapter.addSNS(Pair(2,""))
                     snsAdapter.notifyDataSetChanged()
                     snsButtonVisibility()
                 }

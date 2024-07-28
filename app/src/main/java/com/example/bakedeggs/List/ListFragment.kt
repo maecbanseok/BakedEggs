@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.DetailFragment
 import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
 import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
@@ -62,7 +63,7 @@ class ListFragment : Fragment() {
     }
 
     var isGrid = true
-    private val listAdapter = ListAdapter(ArrayList())
+    private lateinit var listAdapter :ListAdapter
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -88,6 +89,7 @@ class ListFragment : Fragment() {
     fun initView() {
 
 
+        listAdapter=ListAdapter(ArrayList())
 
         with(binding) {
 
@@ -114,7 +116,13 @@ class ListFragment : Fragment() {
             listRecyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
             listAdapter.listClick = object : ListAdapter.ListClick {
 
-                override fun onClick(view: View, position: Int) {
+                override fun onClick(view: View, contactEntity: ContactEntity) {
+                    parentFragmentManager.beginTransaction().
+                            replace(R.id.main_fragment_container,DetailFragment.newInstance(Bundle().apply {
+                                putParcelable("param",contactEntity)
+                            })).
+                            addToBackStack(null).
+                            commit()
                 }
 
 

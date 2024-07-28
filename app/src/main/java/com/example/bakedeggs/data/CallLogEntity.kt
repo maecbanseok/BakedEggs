@@ -1,5 +1,6 @@
 package com.example.bakedeggs.data
 
+
 data class CallLogEntity(
     var name: String?,
     val type: String,

@@ -1,5 +1,7 @@
 package com.example.bakedeggs.snsAdapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +22,8 @@ class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<
         val delete = binding.mypageIvListDelete.apply {
             focusable= View.NOT_FOCUSABLE
         }
+        var textWatcher:TextWatcher? =null
     }
-
-    interface onClick{
-        fun onClick(position:Int)
-    }
-
-    var onClicks:onClick? =null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SNSHolder {
         return SNSHolder(MypageItemListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
@@ -39,17 +36,42 @@ class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<
             else -> R.drawable.mypage_icon_discord
         })
         holder.delete.setOnClickListener {
-            onClicks?.onClick(position)
+            removeSNS(position)
             Log.d("삭제",position.toString())
         }
+        holder.id.removeTextChangedListener(holder.textWatcher)
         holder.id.setText(snsList[position].second)
-        holder.id.addTextChangedListener {
-            snsList[position]=Pair(snsList[position].first,holder.id.text.toString())
+        holder.textWatcher= object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                snsList[position]=Pair(snsList[position].first,s.toString())
+            }
         }
+        holder.id.addTextChangedListener(holder.textWatcher)
     }
 
     override fun getItemCount(): Int {
         return snsList.size
     }
+
+    fun addSNS(sns:Pair<Int,String>){
+        snsList+=sns
+        notifyItemInserted(snsList.size-1)
+    }
+
+    fun removeSNS(position: Int){
+        if(position<snsList.size){
+            snsList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, snsList.size - position)
+        }
+    }
+
+
 
 }

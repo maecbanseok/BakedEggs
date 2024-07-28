@@ -84,12 +84,12 @@
 
             <!--    옆 화살표 누르면 리스트 나오고 수정가능하도록-->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/Detail_vv_ad"
                 app:layout_constraintEnd_toEndOf="@+id/Detail_vv_ad"
-                app:layout_constraintStart_toStartOf="@+id/Detail_vv_ad">
+                app:layout_constraintStart_toStartOf="@+id/Detail_vv_ad"
+                app:layout_constraintTop_toBottomOf="@+id/detail_iv_call">
 
                 <ImageView
                     android:layout_width="50dp"
@@ -171,6 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:background="#dedcee"
+                    android:layout_marginVertical="8dp"
                     android:padding="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -187,20 +188,21 @@
                 android:id="@+id/Detail_vv_ad"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginBottom="8dp"
                 android:padding="-30dp"
-                app:layout_constraintBottom_toTopOf="@+id/Detail_rv_callList"
                 app:layout_constraintEnd_toEndOf="@+id/Detail_rv_callList"
                 app:layout_constraintStart_toStartOf="@+id/Detail_rv_callList"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
                 app:srcCompat="@drawable/maketing" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Detail_rv_callList"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="#dedcee"
                 android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Detail_vv_ad" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

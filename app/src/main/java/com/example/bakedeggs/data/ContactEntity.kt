@@ -1,7 +1,10 @@
 package com.example.bakedeggs.data
 
 import android.net.Uri
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class ContactEntity(
     //필수 입력 사항
     val name: String,
@@ -14,4 +17,4 @@ data class ContactEntity(
     val birth: String?,
     val email: String?,
     val sns:SNS = SNS()
-)
+):Parcelable
