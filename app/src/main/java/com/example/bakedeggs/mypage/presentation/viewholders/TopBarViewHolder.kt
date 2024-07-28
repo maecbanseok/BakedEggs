@@ -4,7 +4,6 @@ import android.app.Activity
 import android.media.MediaPlayer
 import android.net.Uri
 import android.widget.MediaController
-import com.example.bakedeggs.databinding.ActivityDetailBinding
 import com.example.bakedeggs.databinding.MypageItemTopBarBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
