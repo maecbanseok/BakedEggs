@@ -2,6 +2,7 @@ package com.example.bakedeggs.mypage
 
 import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
@@ -117,7 +118,7 @@ class MyPageRecyclerViewAdapter(private val data: MyPageData?, private val activ
 
     interface ItemChange {
         fun onChangeData()
-        fun onChangeDataRange(position: Int, itemCount: Int)
+        fun onChangeDataRange(position: Int, itemCount: Int):Boolean
         fun onChangeTag(entity: ContactEntity)
     }
 

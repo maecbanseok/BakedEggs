@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.presentation.viewholders
 
+import android.util.Log
 import android.view.View
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemListBinding
@@ -33,7 +34,8 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
         }
         binding.mypageIvListDelete.setOnClickListener {
             data?.deleteSns(position = position)
-            itemChange?.onChangeDataRange(position, count)
+            itemChange?.onChangeData()
+
         }
 //        binding.mypageIvListDelete.setOnFocusChangeListener { view: View, focus: Boolean ->
 //            if(focus) {
