@@ -21,6 +21,8 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/mypage_icon_insta"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
         />
@@ -30,6 +32,8 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/mypage_icon_github"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
         />
@@ -39,6 +43,8 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/mypage_icon_discord"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
         />

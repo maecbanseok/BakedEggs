@@ -113,6 +113,7 @@ class AddDialogFragment : DialogFragment() {
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         return activity?.let {
             builder = AlertDialog.Builder(it)
 

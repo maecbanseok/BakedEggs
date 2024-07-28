@@ -23,6 +23,7 @@ class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel, priva
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val viewHolder: RecyclerView.ViewHolder
+
         if(viewType == 0) {
             val binding = MypageItemCardEmptyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             viewHolder = CardEmptyViewHolder(binding)
@@ -41,7 +42,7 @@ class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel, priva
     override fun getItemCount(): Int = 1
 
     override fun getItemViewType(position: Int): Int {
-        return if(MyPageDataObj.getDataSource()?.checkNull() == true) {
+        return if(MyPageDataObj.getDataSource().checkNull()) {
             CARD_EMPTY
         } else {
             CARD_NOT_EMPTY

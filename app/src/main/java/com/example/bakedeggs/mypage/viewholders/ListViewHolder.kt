@@ -1,6 +1,7 @@
 package com.example.bakedeggs.mypage.viewholders
 
 import android.view.View
+import android.view.ViewTreeObserver
 import com.example.bakedeggs.R
 import com.example.bakedeggs.databinding.MypageItemListBinding
 import com.example.bakedeggs.mypage.MyPageData
@@ -15,7 +16,8 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
         uiModel: MyPageUIModel,
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
         isEditable: Boolean,
-        position: Int
+        position: Int,
+        count: Int
     ) {
         uiModel as MyPageUIModel.ListModel
         binding.mypageIvListSns.setImageResource(uiModel.iconId ?: R.drawable.mypage_base_photo_summer)
@@ -25,13 +27,25 @@ class ListViewHolder (private val binding: MypageItemListBinding) : MyPageViewHo
 
             } else {
                 data?.setSnsId(position = position, binding.mypageEtListSns.text.toString())
+                println("포커스 잃음ㅎ")
                 itemChange?.onChangeData()
             }
         }
         binding.mypageIvListDelete.setOnClickListener {
             data?.deleteSns(position = position)
-            itemChange?.onChangeData()
+            itemChange?.onChangeDataRange(position, count)
         }
+        binding.mypageIvListDelete.setOnFocusChangeListener { view: View, focus: Boolean ->
+            if(focus) {
+                binding.mypageIvListDelete.performClick()
+            }
+        }
+//        binding.mypageIvListDelete.viewTreeObserver.addOnGlobalFocusChangeListener { b1, b2 ->
+//            println("뷰트리 1 $b1 $b2")
+//        }
+//        ViewTreeObserver.OnWindowFocusChangeListener {
+//            data?.setSnsId(position = position, binding.mypageEtListSns.text.toString())
+//        }
     }
 
     override fun bind(

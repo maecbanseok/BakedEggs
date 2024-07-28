@@ -35,6 +35,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mypage_cv_camera"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="16dp"

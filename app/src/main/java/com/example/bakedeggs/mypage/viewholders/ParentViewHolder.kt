@@ -17,7 +17,7 @@ interface CardSticker {
 }
 
 interface ListSticker {
-    fun bind(data: MyPageData?, uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, isEditable: Boolean, position: Int)
+    fun bind(data: MyPageData?, uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, isEditable: Boolean, position: Int, count: Int)
 }
 
 interface EditableListAddSticker {
@@ -25,5 +25,9 @@ interface EditableListAddSticker {
 }
 
 interface SnsPlusButtonSticker {
-    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, position: Int)
+    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, position: Int, count: Int)
+}
+
+interface EmptyCardViewHolder {
+    fun bind()
 }

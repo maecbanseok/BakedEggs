@@ -4,8 +4,9 @@ import com.example.bakedeggs.databinding.MypageItemBlockListBinding
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 
-class BlockListViewHolder(binding: MypageItemBlockListBinding): MyPageViewHolder(binding) {
+class BlockListViewHolder(private val binding: MypageItemBlockListBinding): MyPageViewHolder(binding) {
     override fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?) {
-        TODO("Not yet implemented")
+        uiModel as MyPageUIModel.BlockListModel
+        binding.mypageTvBlockList.text = uiModel.name
     }
 }
