@@ -36,7 +36,7 @@ fun contactList(context: Context):ArrayList<ContactEntity>{
         val starredidx=cursor.getColumnIndex(projection[4])
 
         val name=cursor.getString(nameidx)
-        val number=cursor.getString(numberidx)
+        val number=cursor.getString(numberidx).replace("-","")
         val photoUri=cursor.getString(photoidx)?.toUri()
         val starred = cursor.getInt(starredidx)
 

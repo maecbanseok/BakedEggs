@@ -13,12 +13,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.bakedeggs.data.CallLogAdapter
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.SNS
+import com.example.bakedeggs.data.ViewModel.ContactViewModel
+import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
+import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentDetailBinding
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import com.example.bakedeggs.snsAdapter.SNSAdapter
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 private val param = "param"
@@ -27,6 +36,12 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var snsAdapter: SNSAdapter
+    private lateinit var callAdapter: CallLogAdapter
+    private lateinit var contactEntity: ContactEntity
+
+    private val contactViewModel: ContactViewModel by activityViewModels {
+        ContactViewModelFactory(requireActivity().application)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +54,9 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val contactEntity = arguments?.getParcelable<ContactEntity>(param)
+        contactEntity = arguments?.getParcelable<ContactEntity>(param)!!
+
+        binding.detailTbtnLike.isChecked = if(contactEntity.tag==0) false else true
 
         fun snsButtonVisibility() {
 
@@ -97,16 +114,20 @@ class DetailFragment : Fragment() {
             startActivity(intent)
         }
 
-        contactEntity?.sns.let {
-            Log.d("sns",it!!.instagram.toString())
-            Log.d("sns",it!!.github.toString())
-            Log.d("sns",it!!.discord.toString())
+        callAdapter = CallLogAdapter(ArrayList())
+        binding.DetailRvCallList.adapter =callAdapter
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("콜로그","실행")
+                contactViewModel.getCallLog(callAdapter,contactEntity.num)
+            }
         }
+
+
 
         snsAdapter = SNSAdapter(convertSNS(contactEntity?.sns?:SNS()))
 
         binding.DetailRvSmsList.adapter = snsAdapter
-
 
         binding.detailBtnSnsadd.setOnClickListener {
             snsButtonVisibility()
@@ -141,13 +162,11 @@ class DetailFragment : Fragment() {
                 arguments=bundle
             }
         }
-
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        contactViewModel.modifyContact(contactEntity,makeContact(snsAdapter.snsList,contactEntity))
         _binding = null
     }
 
@@ -157,6 +176,23 @@ class DetailFragment : Fragment() {
         sns.github.forEach { result+=Pair(1,it) }
         sns.discord.forEach { result+=Pair(2,it) }
         return result
+    }
+
+    fun makeContact(sns:ArrayList<Pair<Int,String>>,contactEntity: ContactEntity):ContactEntity{
+        val new =ContactEntity(binding.detailTvName.text.toString(),
+            convertString(binding.detailTvName.text.toString()),
+            binding.detailTvPhone.text.toString(),
+            if(binding.detailTbtnLike.isChecked) 1 else 0,
+            contactEntity.img,
+            contactEntity.birth,
+            contactEntity.email
+        )
+        sns.forEach { when(it.first){
+            0 -> new.sns.instagram+=it.second
+            1 -> new.sns.github+=it.second
+            else -> new.sns.discord+=it.second
+        } }
+        return new
     }
 
 }
