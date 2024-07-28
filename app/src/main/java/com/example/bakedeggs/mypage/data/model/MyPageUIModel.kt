@@ -1,10 +1,14 @@
 package com.example.bakedeggs.mypage.data.model
 
+import android.net.Uri
 import com.example.bakedeggs.R
+import java.net.URI
 
 sealed class MyPageUIModel {
 
     abstract val id: Int?
+
+    data class EmptyModel(override val id: Int? = null) : MyPageUIModel()
 
     data class TopBarModel(
         override val id: Int = 0,
@@ -24,6 +28,7 @@ sealed class MyPageUIModel {
         val iconId: Int? = null,
         val content: String? = null,
         val type: Int? = null,
+        val isEditable: Boolean = true,
     ): MyPageUIModel()
 
     data class SnsPlusButtonModel(
@@ -32,7 +37,7 @@ sealed class MyPageUIModel {
 
     data class CardModel(
         override val id: Int = 1,
-        val photoId: Int? = null,
+        val photoId: Uri? = null,
         val name: String? = null,
         val phoneNum: String? = null,
         val email: String? = null,
@@ -47,5 +52,13 @@ sealed class MyPageUIModel {
         val discordId: String? = null,
     ) : MyPageUIModel()
 
-    data class EmptyModel(override val id: Int? = null) : MyPageUIModel()
+    data class FavoriteListModel(
+        override val id: Int? = null,
+        val name: String? = null,
+    ): MyPageUIModel()
+
+    data class BlockListModel(
+        override val id: Int? = null,
+        val name: String? = null,
+    ): MyPageUIModel()
 }

@@ -14,6 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:flipType="horizontal"
         app:flipFrom="right"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
 
         <androidx.cardview.widget.CardView
@@ -24,6 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
 
             <ImageView
@@ -33,7 +37,10 @@
                 android:background="@drawable/mypage_shape_profile_background"
                 android:clipToOutline="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mypage_card_image_profile" />
+                android:src="@drawable/mypage_card_image_profile"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                />
 
         </androidx.cardview.widget.CardView>
 
@@ -45,6 +52,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
 
             <ImageView
@@ -54,12 +63,18 @@
                 android:background="@drawable/mypage_shape_profile_background"
                 android:clipToOutline="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mypage_card_image_profile" />
+                android:src="@drawable/mypage_card_image_profile"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#B3FFFFFF">
+                android:background="#B3FFFFFF"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                >
 
                 <TextView
                     android:id="@+id/mypage_tv_card_name"
@@ -68,9 +83,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_margin="20dp"
-                    android:text="이름"
                     android:textSize="20sp"
                     android:fontFamily="@font/pretendard_bold"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <TextView
@@ -79,8 +95,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/mypage_tv_card_name"
                     app:layout_constraintTop_toBottomOf="@id/mypage_tv_card_name"
-                    android:text="전화번호"
                     android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <TextView
@@ -89,8 +106,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/mypage_tv_card_phone_num"
                     app:layout_constraintTop_toBottomOf="@id/mypage_tv_card_phone_num"
-                    android:text="이메일"
                     android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <ImageView
@@ -103,6 +121,8 @@
                     android:layout_marginEnd="128dp"
                     android:layout_marginBottom="12dp"
                     app:tint="@color/function"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <ImageView
@@ -114,6 +134,8 @@
                     app:layout_constraintBottom_toTopOf="@id/mypage_iv_icon_discord"
                     android:layout_marginBottom="8dp"
                     app:tint="@color/function"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <ImageView
@@ -137,6 +159,8 @@
                     android:layout_marginStart="8dp"
                     android:text="instagram ID"
                     android:textSize="12sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <TextView
@@ -149,6 +173,8 @@
                     android:layout_marginStart="8dp"
                     android:text="github ID"
                     android:textSize="12sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
                 <TextView
@@ -161,6 +187,8 @@
                     android:layout_marginStart="8dp"
                     android:text="discord ID"
                     android:textSize="12sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -180,6 +208,8 @@
         android:src="@drawable/mypage_baseline_edit_24"
         app:tint="@color/function"
         android:translationZ="5dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

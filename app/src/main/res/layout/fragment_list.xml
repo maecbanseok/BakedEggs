@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".List.ListFragment">
+
     <FrameLayout
         android:id="@+id/list_framelayout"
         android:layout_width="match_parent"
@@ -79,37 +80,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_framelayout" />
 
-    <ImageView
-        android:id="@+id/list_iv_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/list_image_1"
-        android:background="@drawable/list_shp"
-        android:clipToOutline="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_cl_profile_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_searchView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/list_searchView">
 
-    <TextView
-        android:id="@+id/list_tv_myName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text=""
-        style="@style/listView_myCard_name_16"
-        app:layout_constraintStart_toEndOf="@+id/list_iv_profile"
-        app:layout_constraintTop_toTopOf="@+id/list_iv_profile" />
+        <ImageView
+            android:id="@+id/list_iv_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/list_shp"
+            android:clipToOutline="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/list_image_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/list_tv_myCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/list_card"
-        style="@style/listView_myCard_14"
-        app:layout_constraintStart_toStartOf="@+id/list_tv_myName"
-        app:layout_constraintTop_toBottomOf="@+id/list_tv_myName" />
+        <TextView
+            android:id="@+id/list_tv_myName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text=""
+            style="@style/listView_myCard_name_16"
+            app:layout_constraintStart_toEndOf="@+id/list_iv_profile"
+            app:layout_constraintTop_toTopOf="@+id/list_iv_profile" />
+
+        <TextView
+            android:id="@+id/list_tv_myCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_card"
+            style="@style/listView_myCard_14"
+            app:layout_constraintStart_toStartOf="@+id/list_tv_myName"
+            app:layout_constraintTop_toBottomOf="@+id/list_tv_myName" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -119,7 +131,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_iv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/list_cl_profile_container"
         app:layout_goneMarginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

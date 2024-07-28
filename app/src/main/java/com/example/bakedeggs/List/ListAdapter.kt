@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
-import com.example.bakedeggs.data.ServiceLocator
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
 
 class ListAdapter(var getData : ArrayList<ContactEntity>) :
@@ -28,7 +28,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
         holder.itemView.setOnClickListener { listClick?.onClick(it, position) }
-        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, position)
+        holder.itemView.setOnLongClickListener { listClick?.onLongClick(it, getData[position])
             true }
 
         holder.name.text = getData[position].name
@@ -47,7 +47,12 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
                 MediaStore.Images.Media.getBitmap(holder.binding.root.context.contentResolver, it)
             }
         }
-        holder.img.setImageBitmap(img)
+        if(img==null) holder.img.setImageResource(R.drawable.list_image_1)
+        else holder.img.setImageBitmap(img)
+
+
+        if(getData[position].tag==0) holder.binding.listIvStar.visibility=View.INVISIBLE
+        else holder.binding.listIvStar.visibility=View.VISIBLE
     }
 
     override fun getItemCount(): Int {
@@ -56,7 +61,7 @@ class ListAdapter(var getData : ArrayList<ContactEntity>) :
 
     interface ListClick {
         fun onClick(view: View, position: Int)
-        fun onLongClick(view: View, position: Int)
+        fun onLongClick(view: View, contactEntity: ContactEntity)
     }
 
     var listClick: ListClick? = null

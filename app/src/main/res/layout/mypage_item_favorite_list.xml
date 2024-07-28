@@ -5,49 +5,47 @@
     android:layout_marginHorizontal="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    >
+    android:focusableInTouchMode="true">
 
     <ImageView
-        android:id="@+id/mypage_iv_list_sns"
+        android:id="@+id/mypage_iv_favorite_list"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/mypage_icon_insta"
+        android:src="@drawable/mypage_baseline_star_24"
         app:tint="@color/function"
         android:layout_marginStart="8dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         />
 
-    <EditText
-        android:id="@+id/mypage_et_list_sns"
-        style="@style/listView_myCard_14"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/mypage_tv_favorite_list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:text="SNS 아이디"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        app:layout_constraintStart_toEndOf="@id/mypage_iv_list_sns"
-        app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
-        app:layout_constraintEnd_toStartOf="@id/mypage_iv_list_delete"
+        android:text="즐겨찾기"
+        app:layout_constraintStart_toEndOf="@id/mypage_iv_favorite_list"
+        app:layout_constraintTop_toTopOf="@id/mypage_iv_favorite_list"
+        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_favorite_list"
+        android:layout_marginHorizontal="16dp"
+        style="@style/listView_myCard_14"
         android:focusable="true"
         android:focusableInTouchMode="true"
         />
 
     <ImageView
-        android:id="@+id/mypage_iv_list_delete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/mypage_iv_delete_favorite_list"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/mypage_iv_list_sns"
-        app:layout_constraintBottom_toBottomOf="@id/mypage_iv_list_sns"
-        android:padding="8dp"
-        android:src="@drawable/mypage_icon_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/mypage_baseline_cancel_24"
         app:tint="@color/function"
+        android:layout_marginStart="8dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         />

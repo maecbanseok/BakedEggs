@@ -43,7 +43,7 @@ android {
 dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation ("androidx.activity:activity-ktx:1.7.0")
+    implementation ("androidx.activity:activity-ktx:1.7.1")
     implementation("com.vanniktech:android-image-cropper:4.5.0")
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")

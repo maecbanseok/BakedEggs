@@ -9,13 +9,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.bakedeggs.AddContact.AddDialogFragment
 import com.example.bakedeggs.R
@@ -24,19 +27,20 @@ import com.example.bakedeggs.alarm.AlarmDataBase
 import com.example.bakedeggs.alarm.AlarmEntity
 import com.example.bakedeggs.alarm.ViewModel.AlarmViewModel
 import com.example.bakedeggs.alarm.ViewModel.AlarmViewModelFactory
-import com.example.bakedeggs.data.ServiceLocator
+import com.example.bakedeggs.data.ViewModel.ContactViewModel
+import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.databinding.ActivityMainBinding
 import com.example.bakedeggs.databinding.DialogAlarmBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
+
+    private val contactViewModel: ContactViewModel by viewModels {
+        ContactViewModelFactory(application)
+    }
 
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -50,8 +54,6 @@ class MainActivity : AppCompatActivity() {
         AlarmViewModelFactory(application)
     }
 
-    private lateinit var serviceLocator: ServiceLocator
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -61,10 +63,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        serviceLocator=ServiceLocator.getInstance(application)
-
         getPermission()
-
     }
 
     fun getPermission(){
@@ -101,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 
             mainFbtnAdd.setOnClickListener{
                 AddDialogFragment().show(supportFragmentManager,"Add Contact")
+
             }
 
             mainFbtnAddalarm.setOnClickListener {
