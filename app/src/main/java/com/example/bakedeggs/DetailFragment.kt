@@ -2,6 +2,7 @@ package com.example.bakedeggs
 
 import android.content.Intent
 import android.graphics.ImageDecoder
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.ScrollView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -83,7 +85,20 @@ class DetailFragment : Fragment() {
 
         binding.detailIvProfile.clipToOutline = true
         var uri: Uri = adList.get(Random.nextInt(adList.size))
+        val mediaController = MediaController(activity)
+        mediaController.setAnchorView(binding.DetailVvAd)
+        binding.DetailVvAd.setMediaController(mediaController)
         binding.DetailVvAd.setVideoURI(uri)
+        val completeListener = MediaPlayer.OnCompletionListener {
+            uri = adList[Random.nextInt(adList.size)]
+            binding.DetailVvAd.setVideoURI(uri)
+            binding.DetailVvAd.start()
+        }
+        binding.DetailVvAd.setOnCompletionListener(completeListener)
+        binding.DetailVvAd.start()
+        binding.DetailVvAd.setOnPreparedListener {
+            it.setVolume(0f,0f)
+        }
 
 
         val img=contactEntity?.img?.let {
