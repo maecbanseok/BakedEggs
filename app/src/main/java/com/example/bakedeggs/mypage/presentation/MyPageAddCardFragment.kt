@@ -23,6 +23,7 @@ import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.databinding.DialogAddCardBinding
 import com.example.bakedeggs.mypage.data.data.MyPageDataObj
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.data.MyPageData
 import com.example.bakedeggs.mypage.presentation.viewholders.saveData
 import com.example.bakedeggs.mypage.presentation.viewholders.validationAddCard
 import com.example.bakedeggs.mypage.verifyEmail
@@ -102,13 +103,15 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
             val name = dialogBinding.mypageEtAddCardName.text.toString()
             val num = dialogBinding.mypageEtAddCardPhone.text.toString()
             val email = dialogBinding.mypageEtAddCardEmail.text.toString()
-            if (profileUri == null) profileUri =
-                Uri.parse("android.resource://" + this@MyPageAddCardFragment.requireContext().packageName + "/" + R.drawable.mypage_base_photo_summer)
+            if (profileUri == null) profileUri = (MyPageDataObj.getDataSource().getData().photoId
+                ?: Uri.parse("android.resource://" + this@MyPageAddCardFragment.requireContext().packageName + "/" + R.drawable.mypage_base_photo_summer))
+
+
             if (name.isNotEmpty() && num.isNotEmpty()) {
-                if(!num.verifyPhoneNumber()) {
-                    Toast.makeText(requireActivity(), "전화번호 형식이 잘못됐습니다.", 300).show()
-                } else if(!email.verifyEmail()) {
-                    Toast.makeText(requireActivity(), "이메일 형식이 잘못됐습니다..", 300).show()
+                if (!num.verifyPhoneNumber()) {
+                    Toast.makeText(requireActivity(), "전화번호 형식이 잘못됐습니다.", Toast.LENGTH_SHORT).show()
+                } else if (!email.verifyEmail()) {
+                    Toast.makeText(requireActivity(), "이메일 형식이 잘못됐습니다..", Toast.LENGTH_SHORT).show()
                 } else {
                     saveData(name, num, email, profileUri)
                     lifecycleScope.launch {
@@ -116,10 +119,11 @@ class MyPageAddCardFragment(private val itemChange: MyPageRecyclerViewAdapter.It
                     }
                     itemChange.onChangeData()
                     this.dismiss()
-                    Toast.makeText(requireActivity(), "환영합니다 ${name}님.", 300).show()
+                    Toast.makeText(requireActivity(), "환영합니다 ${name}님.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(requireActivity(), "이름 또는 전화번호에 빈 값이 입력됐습니다.", 300).show()
+                Toast.makeText(requireActivity(), "이름 또는 전화번호에 빈 값이 입력됐습니다.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
