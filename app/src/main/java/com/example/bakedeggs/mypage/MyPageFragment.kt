@@ -78,6 +78,8 @@ class MyPageFragment : Fragment() {
             override fun onChangeEditable(isEditable: Boolean) {
 
             }
+
+
         }
 
 //        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
