@@ -39,5 +39,8 @@ class TopBarViewHolder(private val binding: MypageItemTopBarBinding) : MyPageVie
         }
         binding.vvAds.setOnCompletionListener(completeListener)
         binding.vvAds.start()
+        binding.vvAds.setOnPreparedListener {
+            it.setVolume(0f,0f)
+        }
     }
 }

@@ -19,6 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ToggleButton
+                android:id="@+id/detail_tbtn_like"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/add_like_selector"
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/detail_iv_profile"
                 android:layout_width="150dp"
@@ -31,7 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/detail_tv_name"
                 android:layout_width="74dp"
                 android:layout_height="39dp"
@@ -48,6 +58,7 @@
                 android:id="@+id/detail_tv_Phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_marginTop="8dp"
                 android:background="#dedcee"
                 android:ems="10"
@@ -84,12 +95,12 @@
 
             <!--    옆 화살표 누르면 리스트 나오고 수정가능하도록-->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/Detail_vv_ad"
                 app:layout_constraintEnd_toEndOf="@+id/Detail_vv_ad"
-                app:layout_constraintStart_toStartOf="@+id/Detail_vv_ad">
+                app:layout_constraintStart_toStartOf="@+id/Detail_vv_ad"
+                app:layout_constraintTop_toBottomOf="@+id/detail_iv_call">
 
                 <ImageView
                     android:layout_width="50dp"
@@ -169,14 +180,18 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/Detail_rv_smsList"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="8dp"
                     android:background="#dedcee"
+                    android:minHeight="70dp"
                     android:padding="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_tv_snsTitle">
+                    app:layout_constraintTop_toBottomOf="@+id/detail_tv_snsTitle"
+                    app:layout_constraintVertical_bias="0.25">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -187,20 +202,23 @@
                 android:id="@+id/Detail_vv_ad"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginBottom="8dp"
                 android:padding="-30dp"
-                app:layout_constraintBottom_toTopOf="@+id/Detail_rv_callList"
                 app:layout_constraintEnd_toEndOf="@+id/Detail_rv_callList"
                 app:layout_constraintStart_toStartOf="@+id/Detail_rv_callList"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
                 app:srcCompat="@drawable/maketing" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Detail_rv_callList"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="8dp"
                 android:background="#dedcee"
                 android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Detail_vv_ad" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

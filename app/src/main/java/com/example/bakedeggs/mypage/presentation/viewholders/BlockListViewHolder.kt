@@ -20,5 +20,9 @@ class BlockListViewHolder(private val binding: MypageItemBlockListBinding): MyPa
             println("qwd $position ${MyPageDataObj.getDataSource().getBlockFirst()}")
             itemChange?.onChangeTag(MyPageDataObj.getDataSource().getData().blackList!![position - MyPageDataObj.getDataSource().getBlockFirst()])
         }
+        binding.mypageTvBlockList.setOnClickListener{
+            val index = position - MyPageDataObj.getDataSource().getBlockFirst()
+            itemChange?.onChangeFragment(index,1)
+        }
     }
 }

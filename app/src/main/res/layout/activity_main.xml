@@ -58,6 +58,10 @@
         android:layout_height="64dp"
         app:tabTextColor="@color/white"
         android:backgroundTint="@color/function"
+        app:tabIndicatorColor="@color/cardBackground"
+        app:tabIndicatorHeight="12dp"
+        app:tabIndicatorGravity="top"
+        app:tabIndicatorFullWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">

@@ -22,7 +22,7 @@ class FavoriteListViewHolder(private val binding: MypageItemFavoriteListBinding)
         }
         binding.mypageTvFavoriteList.setOnClickListener {
             val index = position - MyPageDataObj.getDataSource().getFavoriteFirst()
-            itemChange?.onChangeFragment(index)
+            itemChange?.onChangeFragment(index,0)
         }
     }
 }

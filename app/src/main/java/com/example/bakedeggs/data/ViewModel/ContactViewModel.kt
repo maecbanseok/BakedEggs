@@ -1,9 +1,12 @@
 package com.example.bakedeggs.data.ViewModel
 
+import android.provider.CallLog
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bakedeggs.List.ListAdapter
+import com.example.bakedeggs.data.CallLogAdapter
+import com.example.bakedeggs.data.CallLogEntity
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
 import kotlinx.coroutines.flow.map
@@ -29,6 +32,16 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
                     listAdapter.getData=it as ArrayList<ContactEntity>
                     listAdapter.notifyDataSetChanged()
                     Log.d("마이페이지 비교","ㅇ")
+        }
+    }
+
+    suspend fun getCallLog(callAdapter:CallLogAdapter,num:String){
+        callLogs.map{
+            callLogs -> callLogs.filter { it.number == num }
+        }.collect{
+            callAdapter.callLogs = it as ArrayList<CallLogEntity>
+            callAdapter.notifyDataSetChanged()
+            Log.d("콜로그",it.size.toString())
         }
     }
 

@@ -1,5 +1,9 @@
 package com.example.bakedeggs.snsAdapter
 
+import android.content.Intent
+import android.net.Uri
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +24,11 @@ class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<
         val delete = binding.mypageIvListDelete.apply {
             focusable= View.NOT_FOCUSABLE
         }
-    }
 
-    interface onClick{
-        fun onClick(position:Int)
-    }
+        val root = binding.root
 
-    var onClicks:onClick? =null
+        var textWatcher:TextWatcher? =null
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SNSHolder {
         return SNSHolder(MypageItemListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
@@ -39,17 +41,52 @@ class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<
             else -> R.drawable.mypage_icon_discord
         })
         holder.delete.setOnClickListener {
-            onClicks?.onClick(position)
+            removeSNS(position)
             Log.d("삭제",position.toString())
         }
+        holder.id.removeTextChangedListener(holder.textWatcher)
         holder.id.setText(snsList[position].second)
-        holder.id.addTextChangedListener {
-            snsList[position]=Pair(snsList[position].first,holder.id.text.toString())
+        holder.textWatcher= object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                snsList[position]=Pair(snsList[position].first,s.toString())
+            }
+        }
+        holder.id.addTextChangedListener(holder.textWatcher)
+
+        holder.root.setOnClickListener {
+            val link=when(snsList[position].first){
+                0 -> "https://www.instagram.com/"
+                1 -> "https://github.com/"
+                else -> "https://www.discord.com/users/"
+            }
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link+snsList[position].second))
+            holder.root.context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
         return snsList.size
     }
+
+    fun addSNS(sns:Pair<Int,String>){
+        snsList+=sns
+        notifyItemInserted(snsList.size-1)
+    }
+
+    fun removeSNS(position: Int){
+        if(position<snsList.size){
+            snsList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, snsList.size - position)
+        }
+    }
+
+
 
 }
