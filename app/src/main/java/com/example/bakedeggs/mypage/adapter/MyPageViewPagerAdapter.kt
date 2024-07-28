@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -18,7 +19,7 @@ import com.example.bakedeggs.mypage.viewholders.ViewPagerViewHolder
 const val CARD_EMPTY = 0
 const val CARD_NOT_EMPTY = 1
 
-class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel, private val itemChange: MyPageRecyclerViewAdapter.ItemChange?, private val activity: MainActivity) : ListAdapter<MyPageViewPagerUIModel, RecyclerView.ViewHolder>(
+class MyPageViewPagerAdapter(private val uiModel: MyPageUIModel.CardModel, private val itemChange: MyPageRecyclerViewAdapter.ItemChange?, private val activity: Activity) : ListAdapter<MyPageViewPagerUIModel, RecyclerView.ViewHolder>(
     MyPageViewPagerDiffUtilCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

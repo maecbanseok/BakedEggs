@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import android.app.Activity
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -13,7 +14,7 @@ abstract class MyPageViewHolder(binding: ViewBinding): RecyclerView.ViewHolder(b
 }
 
 interface CardSticker {
-    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: MainActivity)
+    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, activity: Activity)
 }
 
 interface ListSticker {
@@ -26,6 +27,10 @@ interface EditableListAddSticker {
 
 interface SnsPlusButtonSticker {
     fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, position: Int, count: Int)
+}
+
+interface RemoveListSticker {
+    fun bind(uiModel: MyPageUIModel, itemChange: MyPageRecyclerViewAdapter.ItemChange?, position: Int,)
 }
 
 interface EmptyCardViewHolder {

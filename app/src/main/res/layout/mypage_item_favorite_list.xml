@@ -36,4 +36,18 @@
         android:focusableInTouchMode="true"
         />
 
+    <ImageView
+        android:id="@+id/mypage_iv_delete_favorite_list"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/mypage_baseline_cancel_24"
+        app:tint="@color/function"
+        android:layout_marginStart="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

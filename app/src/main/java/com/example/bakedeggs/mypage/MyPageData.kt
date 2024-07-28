@@ -10,7 +10,9 @@ import java.net.URI
 
 class MyPageData {
     private var myPageData = MyPageDataModel()
-    private var mySnsListFirst = 0
+    private var mySnsListFirst = -1
+    private var myFavoriteListFirst = -1
+    private var myBlockListFirst = -1
 
     init {
         initData()
@@ -28,6 +30,8 @@ class MyPageData {
 
     fun changeUIList(): List<MyPageUIModel> {
         setUIList()
+        setLikeFirst()
+        setBlockFirst()
         return getUIList()
     }
 
@@ -69,10 +73,23 @@ class MyPageData {
         ))
     }
 
+    fun setLikeFirst() {
+        if(myPageData.favoriteList?.isNotEmpty() == true) {
+            myBlockListFirst = mySnsListFirst + (myPageData.snsIds?.size ?: 0)
+        }
+    }
+
+    fun setBlockFirst() {
+        if(myPageData.blackList?.isNotEmpty() == true) {
+            myFavoriteListFirst = myBlockListFirst + (myPageData.favoriteList?.size ?: 0)
+        }
+    }
+
     fun setLike(list: List<ContactEntity>) {
         myPageData = myPageData.copy(
             favoriteList = list
         )
+        setLikeFirst()
         println("귀로 ${myPageData.favoriteList}")
     }
 
@@ -80,6 +97,7 @@ class MyPageData {
         myPageData = myPageData.copy(
             blackList = list
         )
+        setBlockFirst()
         println("귀로블록 ${myPageData.blackList}")
     }
 
@@ -102,6 +120,17 @@ class MyPageData {
         )
     }
 
+    fun removeFavorite(position: Int) {
+        myPageData.favoriteList
+        myPageData = myPageData.copy(
+
+        )
+    }
+
+    fun removeBlock(position: Int) {
+
+    }
+
     fun checkNull(): Boolean = myPageData.checkNull()
 
     fun getData() = myPageData
@@ -109,4 +138,9 @@ class MyPageData {
     fun getFirst() = mySnsListFirst
 
     fun getSnsList() = myPageData.snsIds
+
+    fun getFavoriteFirst() = myFavoriteListFirst
+
+    fun getBlockFirst() = myBlockListFirst
+
 }
