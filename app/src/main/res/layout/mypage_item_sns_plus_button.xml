@@ -5,6 +5,8 @@
     android:layout_height="40dp"
     android:gravity="center_vertical"
     android:layout_marginStart="24dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     >
 
     <ImageView
@@ -14,6 +16,8 @@
         android:src="@drawable/mypage_icon_minus"
         android:layout_marginEnd="16dp"
         app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
     <ImageView
@@ -23,6 +27,8 @@
         android:src="@drawable/mypage_icon_insta"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
     <ImageView
@@ -32,6 +38,8 @@
         android:src="@drawable/mypage_icon_github"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
     <ImageView
@@ -41,6 +49,8 @@
         android:src="@drawable/mypage_icon_discord"
         android:layout_marginStart="16dp"
         app:tint="@color/function"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         />
 
 </LinearLayout>

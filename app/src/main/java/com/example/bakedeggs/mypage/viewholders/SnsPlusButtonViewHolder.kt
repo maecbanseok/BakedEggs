@@ -1,5 +1,6 @@
 package com.example.bakedeggs.mypage.viewholders
 
+import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.core.view.isVisible
@@ -18,7 +19,8 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
     override fun bind(
         uiModel: MyPageUIModel,
         itemChange: MyPageRecyclerViewAdapter.ItemChange?,
-        position: Int
+        position: Int,
+        count: Int
     ) {
         uiModel as MyPageUIModel.SnsPlusButtonModel
         binding.mypageIvSnsFunction.setOnClickListener {
@@ -35,16 +37,31 @@ class SnsPlusButtonViewHolder (private val binding: MypageItemSnsPlusButtonBindi
             }
         }
         binding.mypageIvSnsInsta.setOnClickListener {
-            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.INSTAGRAM.viewType, snsId = "", position = position), position)
-            itemChange?.onChangeData()
+            MyPageDataObj.getDataSource().addSns(MyPageSNSListModel(type = MyPageSNSListEnum.INSTAGRAM.viewType, snsId = "", position = position), position)
+            itemChange?.onChangeDataRange(position, count)
         }
         binding.mypageIvSnsGithub.setOnClickListener {
-            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.GITHUB.viewType, snsId = "", position = position), position)
-            itemChange?.onChangeData()
+            MyPageDataObj.getDataSource().addSns(MyPageSNSListModel(type = MyPageSNSListEnum.GITHUB.viewType, snsId = "", position = position), position)
+            itemChange?.onChangeDataRange(position, count)
         }
         binding.mypageIvSnsDiscord.setOnClickListener {
-            MyPageDataObj.getDataSource()?.addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position), position)
-            itemChange?.onChangeData()
+            MyPageDataObj.getDataSource().addSns(MyPageSNSListModel(type = MyPageSNSListEnum.DISCORD.viewType, snsId = "", position = position), position)
+            itemChange?.onChangeDataRange(position, count)
         }
+//        binding.mypageIvSnsInsta.setOnFocusChangeListener { view: View, focus: Boolean ->
+//            if(focus) {
+//                binding.mypageIvSnsInsta.performClick()
+//            }
+//        }
+//        binding.mypageIvSnsGithub.setOnFocusChangeListener { view: View, focus: Boolean ->
+//            if(focus) {
+//                binding.mypageIvSnsGithub.performClick()
+//            }
+//        }
+//        binding.mypageIvSnsDiscord.setOnFocusChangeListener { view: View, focus: Boolean ->
+//            if(focus) {
+//                binding.mypageIvSnsDiscord.performClick()
+//            }
+//        }
     }
 }

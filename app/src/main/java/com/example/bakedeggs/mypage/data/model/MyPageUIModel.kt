@@ -1,6 +1,8 @@
 package com.example.bakedeggs.mypage.data.model
 
+import android.net.Uri
 import com.example.bakedeggs.R
+import java.net.URI
 
 sealed class MyPageUIModel {
 
@@ -35,7 +37,7 @@ sealed class MyPageUIModel {
 
     data class CardModel(
         override val id: Int = 1,
-        val photoId: Int? = null,
+        val photoId: Uri? = null,
         val name: String? = null,
         val phoneNum: String? = null,
         val email: String? = null,
@@ -51,10 +53,12 @@ sealed class MyPageUIModel {
     ) : MyPageUIModel()
 
     data class FavoriteListModel(
-        override val id: Int?
+        override val id: Int? = null,
+        val name: String? = null,
     ): MyPageUIModel()
 
     data class BlockListModel(
-        override val id: Int?
+        override val id: Int? = null,
+        val name: String? = null,
     ): MyPageUIModel()
 }
