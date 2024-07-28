@@ -21,6 +21,10 @@ class MyPageData {
         setUIList()
     }
 
+    fun setSns(n:Int){
+        mySnsListFirst=n
+    }
+
     fun setUIList() {
         myPageData = myPageData.copy(uiModelList = myPageData.makeMyPageUIList())
     }
@@ -63,7 +67,6 @@ class MyPageData {
                 snsIds = list
             )
         }
-        println(myPageData.snsIds)
     }
 
     fun sortType() {

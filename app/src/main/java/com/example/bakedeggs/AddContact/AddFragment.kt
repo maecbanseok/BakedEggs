@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 
 import android.widget.DatePicker
+import android.widget.ListAdapter
 import android.widget.ScrollView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,16 +37,16 @@ import com.example.bakedeggs.databinding.FragmentAddBinding
 import com.example.bakedeggs.main.MainActivity
 import com.example.bakedeggs.mypage.data.data.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
+import com.example.bakedeggs.mypage.data.data.MyPageDataObj
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
+import com.example.bakedeggs.snsAdapter.SNSAdapter
 import java.util.Calendar
 import java.util.regex.Pattern
 
 class AddDialogFragment : DialogFragment() {
 
     private lateinit var contact: ContactEntity
-    private lateinit var snsAdapter: MyPageRecyclerViewAdapter
-    private val snsList: MutableList<MyPageUIModel> = mutableListOf()
-
+    private lateinit var snsAdapter: SNSAdapter
     private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
     private lateinit var builder: AlertDialog.Builder
     private var profileUri: Uri? = null
@@ -53,6 +54,7 @@ class AddDialogFragment : DialogFragment() {
     private val contactViewModel: ContactViewModel by activityViewModels {
         ContactViewModelFactory(requireActivity().application)
     }
+
 
     //이미지 자르기
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
@@ -223,58 +225,38 @@ class AddDialogFragment : DialogFragment() {
             }
         }
 
-        val a = MyPageData()
 
-        snsAdapter = MyPageRecyclerViewAdapter(a, activity as MainActivity)
-        snsAdapter.submitList(listOf())
+        snsAdapter = SNSAdapter(ArrayList())
+        snsAdapter.onClicks = object :SNSAdapter.onClick{
+            override fun onClick(position: Int) {
+                snsAdapter.snsList.removeAt(position)
+                snsAdapter.notifyDataSetChanged()
+            }
+        }
+        binding.addRvSnsList.adapter=snsAdapter
 
-        binding.addRvSnsList.adapter = snsAdapter
 
         binding.addBtnSnsadd.setOnClickListener {
             snsButtonVisibility()
             binding.addBtnInstagram.apply {
                 setOnClickListener {
-                    snsList.add(
-                        MyPageUIModel.ListModel(
-                            snsAdapter.itemCount + 1,
-                            R.drawable.instagram_24,
-                            "",
-                            0
-                        )
-                    )
-                    snsAdapter.submitList(snsList)
+                    snsAdapter.snsList+=Pair(0,"")
+                    snsAdapter.notifyDataSetChanged()
                     snsButtonVisibility()
-                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
             }
             binding.addBtnGithub.apply {
                 setOnClickListener {
-                    snsList.add(
-                        MyPageUIModel.ListModel(
-                            snsAdapter.itemCount + 1,
-                            R.drawable.github_24,
-                            "",
-                            1
-                        )
-                    )
-                    snsAdapter.submitList(snsList)
+                    snsAdapter.snsList+=Pair(1,"")
+                    snsAdapter.notifyDataSetChanged()
                     snsButtonVisibility()
-                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
             }
             binding.addBtnDiscord.apply {
                 setOnClickListener {
-                    snsList.add(
-                        MyPageUIModel.ListModel(
-                            snsAdapter.itemCount + 1,
-                            R.drawable.discord_24,
-                            "",
-                            2
-                        )
-                    )
-                    snsAdapter.submitList(snsList)
+                    snsAdapter.snsList+=Pair(2,"")
+                    snsAdapter.notifyDataSetChanged()
                     snsButtonVisibility()
-                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
             }
         }
