@@ -110,17 +110,6 @@ class ListFragment : Fragment() {
             listAdapter.listClick = object : ListAdapter.ListClick {
 
                 override fun onClick(view: View, position: Int) {
-                    // 컬렉터로 받기
-                    lifecycleScope.launch {
-                        EventBus.produceEvent(Bundle().apply {
-                            putInt("ContactDetail", position)
-                        })
-                    }
-                    //Intent
-//                    val intent = Intent(activity, DetailActivity::class.java).apply {
-//                        putExtra("contactNum", getData[position].num)
-//                    }
-//                    startActivity(intent)
 
                 }
 
