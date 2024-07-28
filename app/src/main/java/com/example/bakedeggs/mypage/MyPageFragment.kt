@@ -43,7 +43,6 @@ class MyPageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MyPageFlagObj.initData()
 
 //        MyPageDataObj.initData()
         viewModel.initData()

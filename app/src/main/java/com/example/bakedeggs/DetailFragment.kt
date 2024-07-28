@@ -3,29 +3,38 @@ package com.example.bakedeggs
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ScrollView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import com.example.bakedeggs.databinding.ActivityDetailBinding
+import com.example.bakedeggs.data.ContactEntity
+import com.example.bakedeggs.databinding.FragmentDetailBinding
+import com.example.bakedeggs.mypage.MyPageData
 import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
 import com.example.bakedeggs.mypage.data.model.MyPageUIModel
 import kotlin.random.Random
 
-class DetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBinding
+class DetailFragment : Fragment() {
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
     private lateinit var snsAdapter: MyPageRecyclerViewAdapter
     private val snsList: MutableList<MyPageUIModel> = mutableListOf()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+    private val dummy = ContactEntity("나는가짜","ㄴㄴㄱㅉ","01065408611",0,null,null,null)
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDetailBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         fun snsButtonVisibility() {
-            snsAdapter.notifyDataSetChanged()
+
             if (binding.detailBtnInstagram.isVisible) {
                 binding.detailBtnInstagram.visibility = View.INVISIBLE
                 binding.detailBtnGithub.visibility = View.INVISIBLE
@@ -39,15 +48,15 @@ class DetailActivity : AppCompatActivity() {
         }
 
         val adList = listOf<Uri>(
-            Uri.parse("android.resource://" + this.packageName + "/raw/ad1"),
-            Uri.parse("android.resource://" + this.packageName + "/raw/ad2"),
-            Uri.parse("android.resource://" + this.packageName + "/raw/ad3"),
-            Uri.parse("android.resource://" + this.packageName + "/raw/ad4"),
-            Uri.parse("android.resource://" + this.packageName + "/raw/ad5"),
+            Uri.parse("android.resource://" + requireActivity().packageName + "/raw/ad1"),
+            Uri.parse("android.resource://" +  requireActivity().packageName + "/raw/ad2"),
+            Uri.parse("android.resource://" +  requireActivity().packageName + "/raw/ad3"),
+            Uri.parse("android.resource://" +  requireActivity().packageName + "/raw/ad4"),
+            Uri.parse("android.resource://" +  requireActivity().packageName + "/raw/ad5"),
         )
 
-        binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+
         binding.detailIvProfile.clipToOutline = true
         var uri: Uri = adList.get(Random.nextInt(adList.size))
         binding.DetailVvAd.setVideoURI(uri)
@@ -64,7 +73,7 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        snsAdapter = MyPageRecyclerViewAdapter(activity as DetailActivity)
+        snsAdapter = MyPageRecyclerViewAdapter(MyPageData(),requireActivity())
         snsAdapter.submitList(listOf())
 
         binding.DetailRvSmsList.adapter = snsAdapter
@@ -81,7 +90,8 @@ class DetailActivity : AppCompatActivity() {
                         )
                     )
                     snsAdapter.submitList(snsList)
-                    susButtonVisibility()
+                    snsButtonVisibility()
+                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
 
             }
@@ -96,7 +106,8 @@ class DetailActivity : AppCompatActivity() {
                         )
                     )
                     snsAdapter.submitList(snsList)
-                    susButtonVisibility()
+                    snsButtonVisibility()
+                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
 
             }
@@ -111,21 +122,26 @@ class DetailActivity : AppCompatActivity() {
                         )
                     )
                     snsAdapter.submitList(snsList)
-                    susButtonVisibility()
+                    snsButtonVisibility()
+                    snsAdapter.notifyItemInserted(snsList.size-1)
                 }
 
             }
 
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            DetailFragment()
+
 
     }
 
-    private fun susButtonVisibility() {
-        TODO("Not yet implemented")
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
-    override fun onStart() {
-        super.onStart()
-        binding.DetailVvAd.start()
-    }
 }

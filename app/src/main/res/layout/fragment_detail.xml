@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:padding="24dp"
-    tools:context=".DetailActivity">
+    tools:context=".DetailFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/detail_lo_scroll"
