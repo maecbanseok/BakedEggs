@@ -35,6 +35,7 @@ import com.example.bakedeggs.data.ContactRepositoryImpl
 import com.example.bakedeggs.data.EventBus
 import com.example.bakedeggs.databinding.FragmentListBinding
 import com.example.bakedeggs.databinding.ListRecyclerviewBinding
+import com.example.bakedeggs.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -87,6 +88,11 @@ class ListFragment : Fragment() {
 
 
         with(binding) {
+
+            listClProfileContainer.setOnClickListener {
+                (requireActivity() as MainActivity).binding.mainViewpager.setCurrentItem(1)
+            }
+
             listLlGridlist.setOnClickListener {
                 mainViewWhitebtn.callOnClick()
                 listMlGridlist.setTransitionListener(object : MotionLayout.TransitionListener {
