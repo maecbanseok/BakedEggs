@@ -1,11 +1,19 @@
 package com.example.bakedeggs.data
 
+import android.Manifest
+import android.app.Application
 import android.content.Context
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.provider.BlockedNumberContract
 import android.provider.BlockedNumberContract.BlockedNumbers
 import android.provider.CallLog
 import android.provider.ContactsContract
+import android.telephony.SubscriptionInfo
+import android.telephony.SubscriptionManager
+import android.telephony.TelephonyManager
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import java.text.SimpleDateFormat
 import java.util.Date
