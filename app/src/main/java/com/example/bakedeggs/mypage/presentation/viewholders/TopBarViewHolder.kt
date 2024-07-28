@@ -27,7 +27,6 @@ class TopBarViewHolder(private val binding: MypageItemTopBarBinding) : MyPageVie
         )
 
         val uri: Uri = adList[Random.nextInt(adList.size)]
-        println("안녕하세요 $uri")
         binding.vvAds.setVideoURI(uri)
         binding.vvAds.start()
     }

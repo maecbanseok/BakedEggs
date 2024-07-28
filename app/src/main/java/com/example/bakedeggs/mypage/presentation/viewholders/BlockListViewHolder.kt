@@ -18,8 +18,7 @@ class BlockListViewHolder(private val binding: MypageItemBlockListBinding): MyPa
         binding.mypageTvBlockList.text = uiModel.name
         binding.mypageIvDeleteBlockList.setOnClickListener {
             println("qwd $position ${MyPageDataObj.getDataSource().getBlockFirst()}")
-            itemChange?.onChangeTag(MyPageDataObj.getDataSource().getData().blackList!![position - MyPageDataObj.getDataSource().getBlockFirst() - 1])
-
+            itemChange?.onChangeTag(MyPageDataObj.getDataSource().getData().blackList!![position - MyPageDataObj.getDataSource().getBlockFirst()])
         }
     }
 }

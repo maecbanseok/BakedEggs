@@ -9,7 +9,7 @@ import com.example.bakedeggs.mypage.presentation.makeMyPageUIList
 
 class MyPageData {
     private var myPageData = MyPageDataModel()
-    private var mySnsListFirst = 2
+    private var mySnsListFirst = 3
     private var myFavoriteListFirst = -1
     private var myBlockListFirst = -1
 
@@ -21,8 +21,8 @@ class MyPageData {
         setUIList()
     }
 
-    fun setSns(n:Int){
-        mySnsListFirst=n
+    fun setSns(n: Int) {
+        mySnsListFirst = n
     }
 
     fun setUIList() {
@@ -48,7 +48,6 @@ class MyPageData {
     }
 
     fun addSns(data: MyPageSNSListModel?, position: Int) {
-        println(myPageData.snsIds)
         if (myPageData.snsIds.isNullOrEmpty()) {
             mySnsListFirst = position
         }
@@ -76,14 +75,19 @@ class MyPageData {
     }
 
     fun setLikeFirst() {
-        if(myPageData.favoriteList?.isNotEmpty() == true) {
-            myFavoriteListFirst = mySnsListFirst + (myPageData.snsIds?.size ?: 0) + if(myPageData.snsIds?.size  == 9) 0 else 1 + 1
+        if (myPageData.favoriteList?.isNotEmpty() == true) {
+            myFavoriteListFirst = mySnsListFirst + if (MyPageFlagObj.getFlag().isOpenSNS) {
+                (myPageData.snsIds?.size ?: 0)
+                + if (myPageData.snsIds?.size == 9) 0 else 1
+            } else {0} + 1
         }
     }
 
     fun setBlockFirst() {
-        if(myPageData.blackList?.isNotEmpty() == true) {
-            myBlockListFirst = myFavoriteListFirst + (myPageData.favoriteList?.size ?: 0) + 1
+        if (myPageData.blackList?.isNotEmpty() == true) {
+            myBlockListFirst = myFavoriteListFirst +
+                    if(MyPageFlagObj.getFlag().isOpenFavorite) (myPageData.favoriteList?.size ?: 0)
+                    else {0} + 1
         }
     }
 
@@ -92,7 +96,6 @@ class MyPageData {
             favoriteList = list
         )
         setLikeFirst()
-        println("귀로 ${myPageData.favoriteList?.size}")
     }
 
     fun setBlock(list: List<ContactEntity>) {
@@ -100,7 +103,6 @@ class MyPageData {
             blackList = list
         )
         setBlockFirst()
-        println("귀로블록 ${myPageData.blackList}")
     }
 
     fun setSnsId(position: Int, id: String) {
