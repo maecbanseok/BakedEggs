@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.View
 
 import android.widget.DatePicker
-import android.widget.ListAdapter
 import android.widget.ScrollView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,18 +27,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
-import com.example.bakedeggs.R
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
 import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentAddBinding
-import com.example.bakedeggs.main.MainActivity
-import com.example.bakedeggs.mypage.data.data.MyPageData
-import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
-import com.example.bakedeggs.mypage.data.data.MyPageDataObj
-import com.example.bakedeggs.mypage.data.model.MyPageUIModel
-import com.example.bakedeggs.snsAdapter.SNSAdapter
+import com.example.bakedeggs.data.Adapter.SNSAdapter
 import java.util.Calendar
 import java.util.regex.Pattern
 

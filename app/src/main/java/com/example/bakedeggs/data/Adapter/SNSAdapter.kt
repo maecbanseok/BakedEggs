@@ -1,4 +1,4 @@
-package com.example.bakedeggs.snsAdapter
+package com.example.bakedeggs.data.Adapter
 
 import android.content.Intent
 import android.net.Uri
@@ -8,11 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bakedeggs.List.ListAdapter
 import com.example.bakedeggs.R
-import com.example.bakedeggs.data.SNS
 import com.example.bakedeggs.databinding.MypageItemListBinding
 
 class SNSAdapter(val snsList:ArrayList<Pair<Int,String>>): RecyclerView.Adapter<SNSAdapter.SNSHolder>() {

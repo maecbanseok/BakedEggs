@@ -1,8 +1,9 @@
-package com.example.bakedeggs.data
+package com.example.bakedeggs.data.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bakedeggs.data.CallLogEntity
 import com.example.bakedeggs.databinding.DetailItemCallLogBinding
 
 class CallLogAdapter(var callLogs : ArrayList<CallLogEntity>): RecyclerView.Adapter<CallLogAdapter.CallHolder>() {

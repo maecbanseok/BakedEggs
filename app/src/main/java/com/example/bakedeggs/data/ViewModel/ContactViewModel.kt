@@ -1,11 +1,10 @@
 package com.example.bakedeggs.data.ViewModel
 
-import android.provider.CallLog
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bakedeggs.List.ListAdapter
-import com.example.bakedeggs.data.CallLogAdapter
+import com.example.bakedeggs.data.Adapter.CallLogAdapter
 import com.example.bakedeggs.data.CallLogEntity
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.ContactRepositoryImpl
@@ -35,7 +34,7 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
         }
     }
 
-    suspend fun getCallLog(callAdapter:CallLogAdapter,num:String){
+    suspend fun getCallLog(callAdapter: CallLogAdapter, num:String){
         callLogs.map{
             callLogs -> callLogs.filter { it.number == num }
         }.collect{

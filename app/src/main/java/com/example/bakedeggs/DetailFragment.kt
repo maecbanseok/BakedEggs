@@ -19,17 +19,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.bakedeggs.data.CallLogAdapter
+import com.example.bakedeggs.data.Adapter.CallLogAdapter
 import com.example.bakedeggs.data.ContactEntity
 import com.example.bakedeggs.data.SNS
 import com.example.bakedeggs.data.ViewModel.ContactViewModel
 import com.example.bakedeggs.data.ViewModel.ContactViewModelFactory
 import com.example.bakedeggs.data.convertString
 import com.example.bakedeggs.databinding.FragmentDetailBinding
-import com.example.bakedeggs.mypage.MyPageRecyclerViewAdapter
-import com.example.bakedeggs.mypage.data.data.MyPageData
-import com.example.bakedeggs.mypage.data.model.MyPageUIModel
-import com.example.bakedeggs.snsAdapter.SNSAdapter
+import com.example.bakedeggs.data.Adapter.SNSAdapter
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
